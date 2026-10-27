@@ -28,7 +28,7 @@ export default function Home({user,settings,onStart,onSettings,onHistory,onOpen,
   </header>
   {error&&<p className="notice notice-error" role="alert">{error}</p>}
   <div className="home-grid">
-   <section className="start-panel" aria-labelledby="start-title">
+   <section className="start-panel spot rv" aria-labelledby="start-title">
     <div className="start-copy">
      <span className="idx">{active?'(In progress)':'(Next session)'}</span>
      <h2 id="start-title">{active?<>Pick up your <em>{roleLabel(active.role).toLowerCase()}</em> interview.</>:<>Start a mock <em>interview.</em></>}</h2>
@@ -37,14 +37,14 @@ export default function Home({user,settings,onStart,onSettings,onHistory,onOpen,
     </div>
     <div className="start-art"><Sphere size="medium" idleWaveform/></div>
    </section>
-   <section className="card readiness" aria-labelledby="readiness-title">
+   <section className="card readiness spot rv rv-d1" aria-labelledby="readiness-title">
     <div className="card-head"><h2 id="readiness-title">System check</h2><button className="link-button" onClick={onSettings}>Settings</button></div>
-    <ul>{checks.map(check=><li key={check.label}><span className={`dot dot-${ready?check.state:'idle'}`}/><div><span className="mono">{check.label}</span><b>{ready?check.value:'Checking…'}</b><small>{check.hint}</small></div></li>)}</ul>
+    <ul>{checks.map((check,i)=><li key={check.label} style={{animationDelay:`${200+i*90}ms`}} className="check-item"><span className={`dot dot-${ready?check.state:'idle'}`}/><div><span className="mono">{check.label}</span><b>{ready?check.value:'Checking…'}</b><small>{check.hint}</small></div></li>)}</ul>
    </section>
   </div>
-  <section className="section" aria-labelledby="recent-title">
+  <section className="section rv rv-d2" aria-labelledby="recent-title">
    <div className="section-head"><h2 id="recent-title">Recent interviews</h2>{!!rows?.length&&<button className="link-button" onClick={onHistory}>View all <ArrowUpRight size={14}/></button>}</div>
-   {rows===null?<p className="muted" role="status">Loading…</p>:rows.length?<ul className="session-list">{rows.slice(0,4).map(row=><li key={row.id} className="session-row">
+   {rows===null?<ul className="session-list" aria-busy="true" aria-label="Loading interviews">{[0,1,2].map(i=><li key={i} className="session-row skeleton-row"><span className="skeleton" style={{width:'38%'}}/><span className="skeleton" style={{width:90}}/><span className="skeleton" style={{width:110}}/><span className="skeleton" style={{width:120}}/></li>)}</ul>:rows.length?<ul className="session-list">{rows.slice(0,4).map((row,i)=><li key={row.id} className="session-row spot stagger" style={{animationDelay:`${i*70}ms`}}>
     <div className="session-main"><b>{roleLabel(row.role)}</b><span className="muted">{row.experience} · {providerLabel(row.provider)}</span></div>
     <span className={`status-pill ${row.stage==='COMPLETED'?'status-done':'status-live'}`}>{row.stage==='COMPLETED'?'Completed':row.paused?'Paused':stageLabel(row.stage)}</span>
     <span className="mono muted session-date">{shortDate(row.created)}</span>

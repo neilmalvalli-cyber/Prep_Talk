@@ -12,9 +12,9 @@ export default function History({onOpen,onReport,onStart}:{onOpen:(s:Session)=>v
  return <main className="page">
   <header className="page-head"><div><span className="idx">(Interviews)</span><h1>Your <em>interviews.</em></h1></div><p className="lede">Resume a session or open its report. Saved interviews stay on this server until they expire or you delete them.</p></header>
   {error&&<p className="notice notice-error" role="alert">{error}</p>}
-  {loading?<p className="muted" role="status">Loading interviews…</p>:rows.length?<section className="card table-card">
+  {loading?<section className="card table-card"><ul className="session-list" aria-busy="true" aria-label="Loading interviews">{[0,1,2].map(i=><li key={i} className="session-row skeleton-row"><span className="skeleton" style={{width:'38%'}}/><span className="skeleton" style={{width:90}}/><span className="skeleton" style={{width:110}}/><span className="skeleton" style={{width:120}}/></li>)}</ul></section>:rows.length?<section className="card table-card">
    <div className="table-head" aria-hidden="true"><span>Interview</span><span>Status</span><span>Started</span><span>Expires</span><span/></div>
-   <ul className="session-list">{rows.map(row=><li className="session-row history-row" key={row.id}>
+   <ul className="session-list">{rows.map((row,i)=><li className="session-row history-row spot stagger" style={{animationDelay:`${Math.min(i,10)*50}ms`}} key={row.id}>
     <div className="session-main"><h2>{roleLabel(row.role)}</h2><span className="muted">{row.experience} · {providerLabel(row.provider)}</span></div>
     <span className={`status-pill ${row.stage==='COMPLETED'?'status-done':'status-live'}`}>{row.stage==='COMPLETED'?'Completed':row.paused?`Paused · ${stageLabel(row.stage)}`:stageLabel(row.stage)}</span>
     <span className="mono muted">{shortDate(row.created)}</span>

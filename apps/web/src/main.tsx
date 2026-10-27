@@ -4,4 +4,6 @@ import {ThemeProvider} from './Theme'
 import App from './App'
 import './fonts.css'
 import './app.css'
+import {initMotion} from './motion'
+initMotion()
 createRoot(document.getElementById('root')!).render(<React.StrictMode><ThemeProvider><App/></ThemeProvider></React.StrictMode>)

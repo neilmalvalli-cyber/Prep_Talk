@@ -28,13 +28,13 @@ export default function Setup({settings,onSettings,onStart}:{settings:AppSetting
   <header className="page-head"><div><span className="idx">(New interview)</span><h1>Set up your <em>interview.</em></h1></div><p className="lede">Choose the role and the experience you want to talk about. Nothing is sent to your AI provider until you start.</p></header>
   {error&&<div role="alert" className="notice notice-error">{error}</div>}
   <div className="setup-grid"><div className="setup-main">
-   <section className="card setup-section" aria-labelledby="resume-title">
+   <section className="card setup-section rv" aria-labelledby="resume-title">
     <div className="section-label"><span className="idx">(01)</span><h2 id="resume-title">Your resume</h2></div>
     <label className={`dropzone ${busy?'is-busy':''}`}><input type="file" accept=".pdf,.txt" disabled={busy} onChange={e=>{const file=e.target.files?.[0];if(file){setFileName(file.name);extract(file)}}}/><FileUp size={20}/><span><b>{fileName||'Upload a resume'}</b><small>PDF or TXT · up to 10 MiB and 20 pages · read on this machine</small></span><span className="btn btn-line btn-sm" aria-hidden="true">Choose file</span></label>
     <div className="or-rule"><span>or paste text</span></div>
     <label className="field">Resume text<textarea className="textarea-lg" value={text} maxLength={50000} onChange={e=>{setText(e.target.value);setConfirmed(false)}} placeholder="Paste projects and responsibilities. Image-only PDFs need pasted text."/></label>
     <button className="btn btn-line" disabled={busy||!text.trim()} onClick={()=>extract(text)}>{busy?'Extracting locally…':'Review pasted text'}</button>
-    {resume&&<div className="resume-review">
+    {resume&&<div className="resume-review reveal-in">
      {resume.redaction_note&&<p className="hint">{resume.redaction_note}</p>}
      <label className="field">Selected context to share<textarea className="textarea-lg" value={context} maxLength={50000} onChange={e=>{setContext(e.target.value);setConfirmed(false)}}/><small>Remove unrelated personal information, confidential details and anything you do not want to discuss.</small></label>
      <div className="claims">
@@ -55,9 +55,9 @@ export default function Setup({settings,onSettings,onStart}:{settings:AppSetting
      <label className="check"><input type="checkbox" checked={confirmed} onChange={e=>setConfirmed(e.target.checked)}/><span>I have reviewed these details and the resume text to be shared.</span></label>
     </div>}
    </section>
-   <section className="card setup-section" aria-labelledby="role-title">
+   <section className="card setup-section rv" aria-labelledby="role-title">
     <div className="section-label"><span className="idx">(02)</span><h2 id="role-title">Role and format</h2></div>
-    <div className="role-cards" role="group" aria-label="Role">{roles.map(r=><button className="role-card" key={r.role_id} aria-pressed={role===r.role_id} onClick={()=>setRole(r.role_id)}><b>{r.title}</b><small>{r.levels[experience]?.competencies.join(', ').replaceAll('_',' ')}</small><span className="role-check"><Check size={13}/></span></button>)}</div>
+    <div className="role-cards" role="group" aria-label="Role">{roles.map(r=><button className="role-card spot" key={r.role_id} aria-pressed={role===r.role_id} onClick={()=>setRole(r.role_id)}><b>{r.title}</b><small>{r.levels[experience]?.competencies.join(', ').replaceAll('_',' ')}</small><span className="role-check"><Check size={13}/></span></button>)}</div>
     <div className="segment-row">
      <div className="segment-field"><span className="field-label" id="level-label">Experience level</span><div className="segmented" role="group" aria-labelledby="level-label">{levels.map(([value,label])=><button key={value} aria-pressed={experience===value} onClick={()=>setExperience(value)}>{label}</button>)}</div></div>
      <div className="segment-field"><span className="field-label" id="duration-label">Duration</span><div className="segmented" role="group" aria-labelledby="duration-label">{durations.map(n=><button key={n} aria-pressed={duration===n} onClick={()=>setDuration(n)}>{n} min</button>)}</div></div>
@@ -66,7 +66,7 @@ export default function Setup({settings,onSettings,onStart}:{settings:AppSetting
     {level&&<div className="objectives"><h3>What this round covers</h3><p>{level.expectations}</p><ul>{level.question_objectives.map(objective=><li key={objective}>{objective}</li>)}</ul></div>}
     <details className="subtle-details"><summary>Add a job description (optional)</summary><label className="field">Job description<textarea className="textarea-md" maxLength={12000} value={job} onChange={e=>setJob(e.target.value)} placeholder="Paste the posting to steer questions toward it."/></label></details>
    </section>
-   <section className="card setup-section" aria-labelledby="privacy-title">
+   <section className="card setup-section rv" aria-labelledby="privacy-title">
     <div className="section-label"><span className="idx">(03)</span><h2 id="privacy-title">Privacy and retention</h2></div>
     <ul className="data-flow">
      <li><b>Stays on this machine</b><span>Raw microphone audio, resume extraction and speech processing. Recording is off unless you turn it on.</span></li>
@@ -81,8 +81,8 @@ export default function Setup({settings,onSettings,onStart}:{settings:AppSetting
     <label className="check"><input type="checkbox" checked={consent} onChange={e=>setConsent(e.target.checked)}/><span>I consent to my selected resume text and transcript being processed by {providerName}{settings.provider==='codex'?' through the signed-in subscription account':' on the selected provider and routes'}, and to an end-of-interview practice rating using my saved answers and submitted code.</span></label>
    </section>
   </div>
-  <aside className="setup-aside"><LiquidGlass className="summary-glass"><div className="summary">
-   <div className="summary-head"><Sphere size="small"/><div><span className="idx">(Session)</span><h2>{profile?.title||'Interview'}</h2><p className="muted">{levels.find(([v])=>v===experience)?.[1]} · {duration} min · {language==='python'?'Python':'C++'}</p></div></div>
+  <aside className="setup-aside rv rv-d1"><LiquidGlass className="summary-glass"><div className="summary">
+   <div className="summary-head"><Sphere size="small" idleWaveform/><div><span className="idx">(Session)</span><h2>{profile?.title||'Interview'}</h2><p className="muted">{levels.find(([v])=>v===experience)?.[1]} · {duration} min · {language==='python'?'Python':'C++'}</p></div></div>
    <dl className="summary-list">
     <div><dt>Provider</dt><dd>{providerShort}</dd></div>
     <div><dt>Interview model</dt><dd translate="no">{config.live_model||'Not selected'}</dd></div>

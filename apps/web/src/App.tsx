@@ -1,5 +1,5 @@
 import {useEffect,useLayoutEffect,useRef,useState} from 'react'
-import {ChevronDown,LogOut,Menu,ShieldCheck,UserRound,Mic,FileText,LineChart} from 'lucide-react'
+import {ArrowLeft,ChevronDown,LogOut,Menu,ShieldCheck,UserRound,Mic,FileText,LineChart} from 'lucide-react'
 import {api,clearApiToken,errorMessage,type AppSettings,type Session} from './api'
 import {authClient} from './auth'
 import {ThemeToggle} from './Theme'
@@ -11,6 +11,7 @@ import Interview from './Interview'
 import Review from './Review'
 import History from './History'
 import Settings from './Settings'
+import {transition} from './motion'
 
 type Screen='home'|'setup'|'interview'|'settings'|'history'|'report'
 
@@ -55,21 +56,21 @@ export default function App(){
  function focusContent(){const heading=document.querySelector<HTMLElement>('main h1');if(heading){heading.tabIndex=-1;heading.focus({preventScroll:true})}}
  useEffect(()=>{if(!checked)return;const view=`${screen}:${authenticated}`;const previous=previousView.current;previousView.current=view;if(previous===null||previous===view)return;focusContent()},[screen,authenticated,checked])
 
- const go=(value:Screen)=>{setScreen(value);setError('');setMessage('');window.scrollTo(0,0)}
+ const go=(value:Screen)=>transition(()=>{setScreen(value);setError('');setMessage('');window.scrollTo(0,0)})
 
  async function submitAuth(e:React.FormEvent){e.preventDefault();if(authBusy)return;setAuthBusy(true);setError('');try{const result=authMode==='sign-up'?await authClient.signUp.email({name,email,password,username}):await authClient.signIn.email({email,password});if(result.error)throw new Error(result.error.message);setPassword('');setScreen('home')}catch(e){setError(errorMessage(e))}finally{setAuthBusy(false)}}
  async function saveProfile(e:React.FormEvent){e.preventDefault();if(profileBusy)return;setProfileBusy(true);setError('');try{const result=await authClient.updateUser({name:profileName,username:profileUsername,image:profileImage||null});if(result.error)throw new Error(result.error.message);await auth.refetch();setMessage('Profile saved.')}catch(e){setError(errorMessage(e))}finally{setProfileBusy(false)}}
  async function signOut(){if(signOutBusy)return;clearApiToken();setSignOutBusy(true);setError('');try{const result=await authClient.signOut();if(result.error)throw new Error(result.error.message);setName('');setUsername('');setEmail('');setPassword('');setProfileName('');setProfileUsername('');setProfileImage('');setSession(null);setAuthMode('sign-in');setScreen('home');setMessage('You are signed out.')}catch(e){setError(errorMessage(e))}finally{setSignOutBusy(false)}}
 
- function open(s:Session){setSession(s);go('interview')}
- function review(s:Session){setSession(s);go('report')}
+ function open(s:Session){transition(()=>{setSession(s);setScreen('interview');setError('');setMessage('');window.scrollTo(0,0)})}
+ function review(s:Session){transition(()=>{setSession(s);setScreen('report');setError('');setMessage('');window.scrollTo(0,0)})}
 
  if(!checked)return <main className="auth-screen auth-checking"><p role="status" className="mono">Checking your account…</p></main>
 
  if(!authenticated)return <main className="auth-screen">
   <section className="auth-form-side">
-   <div className="auth-top"><Logo/><ThemeToggle/></div>
-   <form className="auth-form" onSubmit={submitAuth}>
+   <div className="auth-top"><Logo onClick={()=>{location.href='/'}}/><div className="auth-top-r"><a className="link-button" href="/"><ArrowLeft size={14}/>Back to home</a><ThemeToggle/></div></div>
+   <form className="auth-form" key={authMode} onSubmit={submitAuth}>
     <span className="idx">{authMode==='sign-up'?'(New account)':'(Welcome back)'}</span>
     <h1>{authMode==='sign-up'?<>Create your <em>account.</em></>:<>Sign in to <em>practise.</em></>}</h1>
     <p className="lede">{authMode==='sign-up'?'Your interviews, transcripts and reports stay with your account on this server.':'Pick up where you left off: saved interviews, reports and settings.'}</p>
@@ -79,13 +80,13 @@ export default function App(){
     <label className="field">Password<input name="password" type="password" value={password} onChange={e=>setPassword(e.target.value)} autoComplete={authMode==='sign-up'?'new-password':'current-password'} minLength={8} required/>{authMode==='sign-up'&&<small>At least 8 characters</small>}</label>
     {error&&<p className="form-error" role="alert">{error}</p>}
     <button className="btn btn-dark btn-block" disabled={authBusy}>{authBusy?(authMode==='sign-up'?'Creating account…':'Signing in…'):(authMode==='sign-up'?'Create account':'Sign in')}</button>
-    <p className="auth-switch">{authMode==='sign-up'?'Already have an account?':'New to PrepTalk?'} <button type="button" className="link-button" onClick={()=>{setAuthMode(authMode==='sign-up'?'sign-in':'sign-up');setError('');setMessage('')}}>{authMode==='sign-up'?'Sign in':'Create an account'}</button></p>
+    <p className="auth-switch">{authMode==='sign-up'?'Already have an account?':'New to PrepTalk?'} <button type="button" className="link-button" onClick={()=>transition(()=>{setAuthMode(authMode==='sign-up'?'sign-in':'sign-up');setError('');setMessage('')})}>{authMode==='sign-up'?'Sign in':'Create an account'}</button></p>
    </form>
    <p className="auth-foot"><ShieldCheck size={14}/> Microphone audio is processed on your local speech server.</p>
   </section>
   <section className="auth-art" aria-hidden="true">
    <div className="auth-art-inner">
-    <Sphere size="large" idleWaveform/>
+    <div className="float"><Sphere size="large" idleWaveform/></div>
     <h2>Rehearse out loud.<br/><em>Walk in ready.</em></h2>
     <ul>
      <li><FileText size={15}/><span>Questions built from your resume and target role</span></li>

@@ -6,6 +6,7 @@ import Logo from './Logo'
 import {ThemeScope} from './Theme'
 import {Mic,MicOff,Check,Pause,Play,Square,RotateCcw,Send,Volume2,Pencil,SkipForward,ArrowRight,FileText} from 'lucide-react'
 import {useVoice,type VoiceState} from './useVoice'
+import Words from './Words'
 import {clock,providerLabel,roleLabel,stageLabel,stageOrder} from './format'
 const LocalEditor=lazy(()=>import('./editor'))
 
@@ -119,7 +120,7 @@ export default function Interview({initial,onExit,onReport}:{initial:Session;onE
    <div className="room-top-l"><Logo onClick={leave}/><span className="divider"/><span className="pill">{roleLabel(session.role)}</span><span className="pill pill-quiet">{session.experience}</span><span className="pill pill-quiet">{providerLabel(session.snapshot.provider)}</span></div>
    <div className="room-top-r"><span className="timer mono" aria-label={`Elapsed ${Math.floor(elapsed/60)} of ${session.duration_minutes} minutes`}><span className={`rec ${session.paused?'rec-paused':''}`}/>{clock(elapsed)}<span className="muted"> / {session.duration_minutes}:00</span></span><button className="btn btn-line btn-sm" onClick={()=>action(session.paused?'resume':'pause')} disabled={busy}>{session.paused?<><Play size={14}/>Resume interview</>:<><Pause size={14}/>Pause interview</>}</button><button className="btn btn-danger btn-sm" onClick={()=>action('end')} disabled={busy}><Square size={12}/>End interview</button></div>
   </header>
-  <ol className="stage-rail" aria-label="Interview stages">{stageOrder.map((stage,i)=><li key={stage} className={i<stageIndex||session.stage==='COMPLETED'?'done':i===stageIndex?'current':''} aria-current={i===stageIndex?'step':undefined}><span className="mono">{String(i+1).padStart(2,'0')}</span>{stageLabel(stage)}</li>)}</ol>
+  <ol className="stage-rail" aria-label="Interview stages" style={{'--progress':Math.max(0,stageIndex)} as React.CSSProperties}>{stageOrder.map((stage,i)=><li key={stage} className={i<stageIndex||session.stage==='COMPLETED'?'done':i===stageIndex?'current':''} aria-current={i===stageIndex?'step':undefined}><span className="mono">{String(i+1).padStart(2,'0')}</span>{stageLabel(stage)}</li>)}</ol>
   <div className="room-notices">
    {error&&error!==session.last_error?.message&&<div className="notice notice-error" role="alert"><span>{error}</span><button className="link-button" onClick={()=>{setError('');refresh()}}>Reload state</button></div>}
    {session.last_error&&<div className="notice notice-error" role="status"><span>{session.last_error.message} Your saved answer is still here; resume to continue.</span></div>}
@@ -129,16 +130,16 @@ export default function Interview({initial,onExit,onReport}:{initial:Session;onE
   <div className="room-body">
    <section className="stage" aria-label="Interview">
     {workspace&&<div className="segmented stage-tabs" role="group" aria-label="Workspace"><button aria-pressed={!showWorkspace} onClick={()=>setTab('conversation')}>Conversation</button><button aria-pressed={showWorkspace} onClick={()=>setTab(workspace)}>{workspaceLabel[workspace]}</button></div>}
-    {!showWorkspace?<div className="stage-center">
-     <Sphere size="large" state={state} level={voice.level} playbackLevel={voice.playbackLevel}/>
-     <span className={`live-status status-${state}`} role="status" aria-live="polite">{labels[state]}</span>
+    {!showWorkspace?<div className="stage-center view-swap">
+     <Sphere size="large" state={state} level={voice.level} playbackLevel={voice.playbackLevel} idleWaveform={!['paused','error','completed'].includes(state)}/>
+     <span key={state} className={`live-status status-${state}`} role="status" aria-live="polite">{labels[state]}</span>
      <h1 className="sr-only">Your interview · {stageLabel(session.stage)}</h1>
-     <p className={`question ${generating?'is-generating':''}`} aria-live="polite">{questionText}{generating&&<span className="caret" aria-hidden="true"/>}</p>
+     <p className={`question ${generating?'is-generating':''}`} aria-live="polite"><Words text={questionText} id={current?.id}/>{generating&&<span className="caret" aria-hidden="true"/>}</p>
      {current?.delivery==='incomplete'&&<p className="hint">Response incomplete. {session.paused?'Resume the interview before retrying. ':''}<button className="link-button" disabled={session.paused} onClick={()=>action('retry')}>Retry</button></p>}
      {controls}
-    </div>:<div className="workspace">
-     <div className="interviewer-strip"><Sphere size="tiny" state={state} level={voice.level} playbackLevel={voice.playbackLevel}/><div><span className={`live-status status-${state}`}>{labels[state]}</span><p>{current?.text||'Preparing your first question…'}</p></div>{controls}</div>
-     {synthetic&&tab==='exercise'&&<section className="panel">
+    </div>:<div className="workspace view-swap">
+     <div className="interviewer-strip"><Sphere size="tiny" state={state} level={voice.level} playbackLevel={voice.playbackLevel} idleWaveform={!['paused','error','completed'].includes(state)}/><div><span key={state} className={`live-status status-${state}`}>{labels[state]}</span><p><Words text={current?.text||'Preparing your first question…'} id={current?.id}/></p></div>{controls}</div>
+     {synthetic&&tab==='exercise'&&<section className="panel panel-in">
       <span className="idx">(Exercise)</span><h2 data-stage-heading tabIndex={-1}>{session.scenario?.title}</h2>
       <p className="hint">A synthetic role exercise. These facts do not describe your own past project.</p>
       <div className="facts">{session.scenario?.initial_facts.map(f=><p key={f.fact_id}>{f.text}</p>)}</div>
@@ -153,7 +154,7 @@ export default function Interview({initial,onExit,onReport}:{initial:Session;onE
       </div>
       {session.stage==='COACHED_RETRY'&&<div className="objective-row"><label className="field">Practice objective you choose<input value={objective} onChange={e=>setObjective(e.target.value)}/></label><button className="btn btn-line btn-sm" onClick={()=>action('practice_objective',{text:objective})} disabled={!objective.trim()}>Set objective</button><button className="btn btn-line btn-sm" onClick={()=>action('hint')} disabled={busy||session.paused||!session.practice_objective?.trim()}>Request a hint</button></div>}
      </section>}
-     {session.stage==='CODING'&&tab==='coding'&&<section className="panel coding-panel">
+     {session.stage==='CODING'&&tab==='coding'&&<section className="panel coding-panel panel-in">
       <div className="panel-head"><div><span className="idx">(Coding)</span><h2 data-stage-heading tabIndex={-1}>{session.coding_problem?.title}</h2></div><div className="segmented" role="group" aria-label="Language">{(['python','cpp'] as const).map(value=><button key={value} aria-pressed={language===value} onClick={()=>setLanguage(value)}>{value==='python'?'Python 3.11':'C++20'}</button>)}</div></div>
       <div className="problem">
        <p>{session.coding_problem?.statement}</p>
@@ -165,7 +166,7 @@ export default function Interview({initial,onExit,onReport}:{initial:Session;onE
       <div className="code-actions"><span className="hint">Code runs on your separate, isolated runner.</span><button className="btn btn-line" onClick={()=>run('run')} disabled={busy}>Run examples</button><button className="btn btn-light" onClick={()=>run('submit')} disabled={busy}>Submit code</button></div>
       {submission&&<>{['queued','running'].includes(submission.status)&&<button className="btn btn-line btn-sm" onClick={cancelRun} disabled={busy}>Cancel execution</button>}<ExecutionResult submission={submission}/></>}
      </section>}
-     {['REVIEW','COACHED_RETRY'].includes(session.stage)&&tab==='reference'&&<section className="panel">
+     {['REVIEW','COACHED_RETRY'].includes(session.stage)&&tab==='reference'&&<section className="panel panel-in">
       <span className="idx">(Reflection)</span><h2 data-stage-heading tabIndex={-1}>Exercise reference</h2>
       <p className="hint">Compare your reasoning with the authored reference, then choose what you want to practise next. No automated rating is made here.</p>
       {review.map((text,i)=><pre className="code-out" key={i}>{text}</pre>)}

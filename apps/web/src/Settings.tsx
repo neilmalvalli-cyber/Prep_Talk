@@ -126,13 +126,13 @@ export default function Settings({ settings, onSave, onError, onMessage }: Setti
   return <main className="page settings-page">
     <header className="page-head"><div><span className="idx">(Settings)</span><h1>Provider and <em>models.</em></h1></div><p className="lede">Choices here apply to interviews you start from now on. Interviews already in progress keep their original settings.</p></header>
     <div className="settings-grid">
-      <section className="card setup-section" aria-labelledby="provider-settings-heading">
+      <section className="card setup-section rv" aria-labelledby="provider-settings-heading">
         <div className="section-label"><span className="idx">(01)</span><h2 id="provider-settings-heading">AI provider</h2></div>
         <div className="segmented segmented-lg" role="group" aria-label="Provider">{(['groq', 'openrouter', 'codex'] as Provider[]).map(value => <button key={value} type="button" aria-pressed={provider === value} onClick={() => selectProvider(value)}>{value === 'codex' ? 'OpenAI' : value === 'groq' ? 'Groq' : 'OpenRouter'}</button>)}</div>
         <div className="status-row"><span className={`dot dot-${loadingReadiness ? 'idle' : statusState}`}/><div><b>{statusText}</b><small>{provider === 'codex' ? 'Checks whether the OpenAI connection on the API host is signed in. Interview text is sent to OpenAI using that subscription.' : providerReady?.status === 'missing' ? 'Add the provider key to the server .env file, then restart the API.' : 'Credentials stay on the server and are never shown here.'}</small></div><button className="btn btn-line btn-sm" type="button" onClick={test} disabled={testing || loadingCatalog || saving || loadingReadiness || providerReady?.status !== 'configured'}>{testing ? <><LoaderCircle size={14} className="spin"/> Testing…</> : provider === 'codex' ? 'Check sign-in' : 'Test connection'}</button></div>
         {loadError && <div className="notice notice-error" role="alert"><TriangleAlert size={15}/><span>{loadError}</span><button className="link-button" type="button" onClick={() => { setLoadError(''); setLoadingCatalog(true); api.models(provider).then(value => setModels(value.models)).catch(error => setLoadError(errorMessage(error))).finally(() => setLoadingCatalog(false)) }}><RefreshCw size={14}/> Retry</button></div>}
       </section>
-      <section className="card setup-section" aria-labelledby="models-heading">
+      <section className="card setup-section rv rv-d1" aria-labelledby="models-heading">
         <div className="section-label"><span className="idx">(02)</span><h2 id="models-heading">Models</h2></div>
         {loadingCatalog ? <p className="muted" role="status"><LoaderCircle size={15} className="spin"/> Loading available models…</p> : <>
           <div className="field-pair">

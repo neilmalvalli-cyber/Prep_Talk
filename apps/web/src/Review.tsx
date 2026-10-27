@@ -2,6 +2,7 @@ import {useEffect, useRef, useState, type ReactNode} from 'react'
 import {ArrowLeft, ArrowRight, LoaderCircle, Pencil, RefreshCw, Square, Volume2} from 'lucide-react'
 import {api, errorMessage, type Report as ReportData, type Session, type Turn} from './api'
 import {roleLabel} from './format'
+import {useCountUp} from './motion'
 import {useVoice} from './useVoice'
 
 const number = new Intl.NumberFormat(undefined, {maximumFractionDigits: 1})
@@ -10,12 +11,16 @@ const stageNames: Record<string, string> = {RESUME_ROLE_DIALOGUE: 'Experience & 
 const readable = (value: string) => stageNames[value] || value.replaceAll('_', ' ').toLowerCase()
 const verdicts = {correct: 'Correct', partial: 'Partly correct', incorrect: 'Incorrect', not_assessable: 'Not scored'}
 
+function Count({value}: {value: number}) {
+ return <>{Math.round(useCountUp(value, 1100))}</>
+}
+
 function ScoreRing({score, stale}: {score: number | null | undefined; stale: boolean}) {
  const radius = 88, circumference = 2 * Math.PI * radius
- const value = score == null ? 0 : Math.max(0, Math.min(100, score))
+ const value = useCountUp(score == null ? 0 : Math.max(0, Math.min(100, score)), 1600)
  return <div className={`ring${stale ? ' ring-stale' : ''}`}>
   <svg viewBox="0 0 208 208" aria-hidden="true"><circle cx="104" cy="104" r={radius} className="ring-track"/><circle cx="104" cy="104" r={radius} className="ring-value" strokeDasharray={circumference} strokeDashoffset={circumference * (1 - value / 100)}/></svg>
-  <div className="ring-text">{score != null ? <><span className="ring-num">{number.format(score)}</span><span className="mono">{stale ? 'PREVIOUS SCORE' : 'PRACTICE SCORE'}</span></> : <span className="ring-empty">—</span>}</div>
+  <div className="ring-text">{score != null ? <><span className="ring-num">{Math.round(value)}</span><span className="mono">{stale ? 'PREVIOUS SCORE' : 'PRACTICE SCORE'}</span></> : <span className="ring-empty">—</span>}</div>
  </div>
 }
 
@@ -184,19 +189,19 @@ export default function Review({session: initial, onBack}: {session: Session; on
   {error && <div className="notice notice-error" role="alert"><span>{error}</span><button className="link-button" type="button" onClick={load} disabled={loading}>Retry loading report</button></div>}
   {!report ? <section className="card" aria-busy={loading}><h2>Practice review</h2><p className="muted" role="status">{loading ? 'Loading your saved report…' : 'Your report could not be loaded. Retry above.'}</p></section> : <>
    <div className="report-overview">
-    <section className={`card score-card${stale ? ' is-stale' : ''}`} aria-labelledby="practice-score-title" aria-busy={practiceBusy}>
+    <section className={`card score-card spot rv${stale ? ' is-stale' : ''}`} aria-labelledby="practice-score-title" aria-busy={practiceBusy}>
      <div className="card-head"><h2 id="practice-score-title"><span className="idx">(01)</span> {stale ? 'Previous practice score' : 'Practice score'}</h2>{review && !stale && <span className={`badge ${score != null && score >= 70 ? 'badge-good' : score != null && score >= 40 ? 'badge-warn' : ''}`}>{score == null ? 'Not scored' : score >= 70 ? 'Strong' : score >= 40 ? 'Developing' : 'Needs work'}</span>}</div>
      <ScoreRing score={score} stale={stale}/>
      {score != null && <meter className="sr-only" min={0} max={100} value={score} aria-label={stale ? 'Previous practice score, needs updating' : 'Provisional practice score'} aria-valuetext={`${number.format(score)} out of 100${stale ? ', from an earlier answer version' : ''}`}/>}
      {score == null && <p className="ring-caption">{review ? 'Not assessable yet' : hasAnswers && practiceBusy ? 'Reviewing answers…' : hasAnswers ? 'Not scored yet' : 'Not assessable'}</p>}
      <div className="stat-tiles">
-      <div><b>{review ? number.format(review.assessed_answers) : '—'}</b><span>Answers assessed</span></div>
-      <div><b>{number.format(questionsAsked)}</b><span>Questions asked</span></div>
-      <div><b>{number.format(report.coding_outcomes.length)}</b><span>Coding attempts</span></div>
-      <div><b>{number.format(minutes)}<small> min</small></b><span>Session length</span></div>
+      <div><b>{review ? <Count value={review.assessed_answers}/> : '—'}</b><span>Answers assessed</span></div>
+      <div><b><Count value={questionsAsked}/></b><span>Questions asked</span></div>
+      <div><b><Count value={report.coding_outcomes.length}/></b><span>Coding attempts</span></div>
+      <div><b><Count value={minutes}/><small> min</small></b><span>Session length</span></div>
      </div>
     </section>
-    <section className="card summary-card" aria-labelledby="summary-title">
+    <section className="card summary-card spot rv rv-d1" aria-labelledby="summary-title">
      <div className="card-head"><h2 id="summary-title"><span className="idx">(02)</span> Your review</h2>{review && <span className="mono muted">{review.model}</span>}</div>
      {stale && <p className="notice notice-warn" role="status">Your answers changed. Update the review before relying on this score.</p>}
      <div className="summary-text">{summary.split(/\n\s*\n/).filter(Boolean).map((paragraph, index) => <p key={index}>{paragraph}</p>)}</div>
@@ -217,7 +222,7 @@ export default function Review({session: initial, onBack}: {session: Session; on
      <p className="fine-print">Provisional learning feedback · not a hiring assessment</p>
     </section>
    </div>
-   {(nextFocus?.improvement || report.next_practice_action) && <aside className="next-focus"><div><span className="idx">{stale ? '(Previous focus)' : '(Next session)'}</span><p>{nextFocus?.improvement || report.next_practice_action}</p></div>{nextFocus && <a className="btn btn-line-light btn-sm" href={`#review-feedback-${nextFocus.utterance_id}`}>See the answer <ArrowRight size={14}/></a>}</aside>}
+   {(nextFocus?.improvement || report.next_practice_action) && <aside className="next-focus rv"><div><span className="idx">{stale ? '(Previous focus)' : '(Next session)'}</span><p>{nextFocus?.improvement || report.next_practice_action}</p></div>{nextFocus && <a className="btn btn-line-light btn-sm" href={`#review-feedback-${nextFocus.utterance_id}`}>See the answer <ArrowRight size={14}/></a>}</aside>}
    <nav className="report-jumps" aria-label="Report sections"><a href="#review-feedback">Answer feedback</a><a href="#review-coding">Coding</a><a href="#review-transcript" onClick={() => revealSection('review-transcript')}>Transcript</a><a href="#review-records" onClick={() => revealSection('review-records')}>Sources</a></nav>
    <section className="section" id="review-feedback" aria-labelledby="feedback-title">
     <div className="section-head"><h2 id="feedback-title">Answer feedback</h2>{review && <span className="mono muted">{number.format(answers.length)} reviewed</span>}</div>
@@ -227,7 +232,7 @@ export default function Review({session: initial, onBack}: {session: Session; on
      const turn = session.turns.find(item => item.id === answer.utterance_id)
      const question = questionFor(turn, session.turns)
      const reviewedText = turn?.versions?.find(version => version.version === answer.source_version)?.text || (turn?.version === answer.source_version ? turn.text : null)
-     return <article className="card feedback" id={`review-feedback-${answer.utterance_id}`} key={answer.utterance_id}>
+     return <article className="card feedback spot rv" id={`review-feedback-${answer.utterance_id}`} key={answer.utterance_id}>
       <header className="feedback-head"><span className="idx">({String(index + 1).padStart(2, '0')})</span><span className="mono muted">{turn ? readable(turn.stage) : 'Recorded answer'}</span><span className={`verdict verdict-${answer.verdict}`}><i/>{verdicts[answer.verdict]}</span><span className="feedback-score">{answer.score === null ? '—' : <>{number.format(answer.score)}<small>/4</small></>}</span></header>
       <div className="exchange">
        <div className="exchange-q"><span className="mono">Interviewer</span><p>{question?.text || 'Question unavailable in the saved transcript.'}</p></div>
@@ -242,9 +247,9 @@ export default function Review({session: initial, onBack}: {session: Session; on
    <section className="section" id="review-coding" aria-labelledby="coding-title">
     <div className="section-head"><h2 id="coding-title">Coding</h2><span className="mono muted">{number.format(report.coding_outcomes.length)} {report.coding_outcomes.length === 1 ? 'attempt' : 'attempts'}</span></div>
     {!report.coding_outcomes.length && <p className="empty-line">No code execution was recorded. Skipped or unavailable execution is not scored as a failure.</p>}
-    <div className="feedback-list">{report.coding_outcomes.map(job => <article className="card code-attempt" key={job.id}><header className="feedback-head"><b>{job.language === 'cpp' ? 'C++' : 'Python'}</b><span className="mono muted">{readable(job.mode)}</span><span className={`status-pill ${/fail|error|unavailable|timeout/.test(job.status) ? 'status-bad' : ['passed', 'complete', 'completed'].includes(job.status) ? 'status-done' : ''}`}>{readable(job.status)}</span>{job.execution?.result?.public_summary && <span className="mono feedback-score-sm">{number.format(job.execution.result.public_summary.passed)} / {number.format(job.execution.result.public_summary.total)} public checks</span>}</header>{job.detail && <p>{job.detail}</p>}<details className="subtle-details"><summary>Code and execution record</summary><p className="hint">Execution records cover only the tests actually run. Any AI code feedback is static reasoning unless a recorded result supports it.</p><pre className="code-out"><code>{job.source}</code></pre>{job.execution && <pre className="code-out">{JSON.stringify(job.execution, null, 2)}</pre>}</details></article>)}</div>
+    <div className="feedback-list">{report.coding_outcomes.map(job => <article className="card code-attempt rv" key={job.id}><header className="feedback-head"><b>{job.language === 'cpp' ? 'C++' : 'Python'}</b><span className="mono muted">{readable(job.mode)}</span><span className={`status-pill ${/fail|error|unavailable|timeout/.test(job.status) ? 'status-bad' : ['passed', 'complete', 'completed'].includes(job.status) ? 'status-done' : ''}`}>{readable(job.status)}</span>{job.execution?.result?.public_summary && <span className="mono feedback-score-sm">{number.format(job.execution.result.public_summary.passed)} / {number.format(job.execution.result.public_summary.total)} public checks</span>}</header>{job.detail && <p>{job.detail}</p>}<details className="subtle-details"><summary>Code and execution record</summary><p className="hint">Execution records cover only the tests actually run. Any AI code feedback is static reasoning unless a recorded result supports it.</p><pre className="code-out"><code>{job.source}</code></pre>{job.execution && <pre className="code-out">{JSON.stringify(job.execution, null, 2)}</pre>}</details></article>)}</div>
    </section>
-   <section className="section" aria-labelledby="transcript-title"><div className="section-head"><h2 id="transcript-title">Conversation</h2><span className="mono muted">{number.format(session.turns.length)} messages</span></div><details className="card disclosure" id="review-transcript"><summary>Read or edit the transcript</summary>
+   <section className="section" aria-labelledby="transcript-title"><div className="section-head"><h2 id="transcript-title">Conversation</h2><span className="mono muted">{number.format(session.turns.length)} messages</span></div><details className="card disclosure rv" id="review-transcript"><summary>Read or edit the transcript</summary>
     {!session.turns.length && <p className="empty-line">No conversation was recorded.</p>}
     <div className="transcript-review">{session.turns.map(turn => <article className={`turn turn-${turn.role === 'assistant' ? 'ai' : 'you'}`} id={`review-answer-${turn.id}`} key={turn.id}><header><span className="mono">{turn.role === 'assistant' ? 'Interviewer' : 'You'}</span><small className="mono muted">{date.format(new Date(turn.created * 1000))}</small></header>
      {editingAnswerId === turn.id ? <form className="answer-editor" onSubmit={saveAnswerEdit}><label htmlFor={`answer-edit-${turn.id}`}>Edit your answer</label><textarea id={`answer-edit-${turn.id}`} name="answer" autoComplete="off" ref={answerInput} maxLength={12000} value={editingText} onChange={event => setEditingText(event.target.value)} disabled={editBusy} aria-invalid={!!editError} aria-describedby={editError ? 'answer-edit-error' : undefined}/>{editError && <p id="answer-edit-error" role="alert" className="form-error">{editError}</p>}<div><button className="btn btn-dark btn-sm" type="submit" disabled={editBusy}>{editBusy ? 'Saving…' : 'Save answer'}</button><button className="btn btn-ghost btn-sm" type="button" disabled={editBusy} onClick={() => {if (discardChanges()) {setEditingAnswerId(null); setEditingText('')}}}>Cancel</button></div></form> : <><p>{turn.text}</p><div className="exchange-tools"><EditedMessage turn={turn}/><span className="spacer"/>{turn.role === 'user' && <button className="icon-button" type="button" aria-label="Edit answer" title="Edit answer" onClick={() => editAnswer(turn)} disabled={editBusy}><Pencil size={14} aria-hidden="true"/></button>}</div></>}
@@ -252,7 +257,7 @@ export default function Review({session: initial, onBack}: {session: Session; on
      {turn.speech_delivery && <details className="subtle-details"><summary>Audio delivery</summary><p className="hint">{turn.speech_delivery.status === 'estimated_complete' ? 'Playback was estimated complete; hearing is not verified.' : `Delivery ${readable(turn.speech_delivery.status)}. Generated text may not have been spoken.`}</p></details>}
     </article>)}</div>
    </details></section>
-   <section className="section" aria-labelledby="records-title"><div className="section-head"><h2 id="records-title">Sources and method</h2></div><details className="card disclosure" id="review-records"><summary>How this report was produced</summary>
+   <section className="section" aria-labelledby="records-title"><div className="section-head"><h2 id="records-title">Sources and method</h2></div><details className="card disclosure rv" id="review-records"><summary>How this report was produced</summary>
     <RecordGroup title="Review method and models"><p>{report.calibration_limitation}</p>{review && <><p className="hint">Generated {date.format(new Date(review.generated_at * 1000))} · session revision {review.source_revision}</p><ul>{review.limitations.map((item, index) => <li key={index}>{item}</li>)}</ul></>}<dl className="summary-list"><div><dt>Interview provider</dt><dd>{report.snapshot.provider === 'codex' ? 'OpenAI' : report.snapshot.provider}</dd></div><div><dt>Interview model</dt><dd translate="no">{report.snapshot.config.live_model}</dd></div><div><dt>Review model</dt><dd translate="no">{report.snapshot.config.assessment_model}</dd></div></dl></RecordGroup>
     <RecordGroup title="Topics and resume sources"><h3>Topics practised</h3><p>{report.topics_tested.length ? report.topics_tested.map(readable).join(' · ') : 'No completed answers recorded.'}</p>{report.claims.map((claim, index) => <article key={index}><h3>{claim.project || 'Confirmed experience'}</h3><p>{claim.contribution}</p><p className="hint">Source offset {claim.offset}{claim.page ? ` · page ${claim.page}` : ''}</p><blockquote>{claim.source_bullet}</blockquote><p>Measurement evidence: {claim.measurement || 'Not supplied; no achievement inferred.'}</p></article>)}</RecordGroup>
     <RecordGroup title="Observations and coverage">
