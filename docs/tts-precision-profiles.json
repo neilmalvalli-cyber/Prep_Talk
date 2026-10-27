@@ -1,0 +1,134 @@
+{
+  "scope": "Real local CPU Kokoro and CUDA Whisper, synthetic text only; no human listening review or integrated latency claim.",
+  "voice": "af_heart",
+  "speed": 1.0,
+  "provider": "CPUExecutionProvider",
+  "logical_cpus": 12,
+  "application_default_changed": false,
+  "profiles": [
+    {
+      "model": "kokoro-v1.0.onnx",
+      "bytes": 325532387,
+      "sha256": "7d5df8ecf7d4b1878015a32686053fd0eebe2bc377234608764cc0ef3636a6c5",
+      "warmup_seconds": 5.654824928000004,
+      "timing_samples": [
+        {
+          "sample": 1,
+          "synthesis_seconds": 1.4408827040000034,
+          "audio_seconds": 4.074666666666666
+        },
+        {
+          "sample": 2,
+          "synthesis_seconds": 1.3259566440000015,
+          "audio_seconds": 4.074666666666666
+        },
+        {
+          "sample": 3,
+          "synthesis_seconds": 1.2927021639999978,
+          "audio_seconds": 4.074666666666666
+        }
+      ],
+      "round_trips": [
+        {
+          "source": "How did you handle a successful write followed by failed invalidation?",
+          "transcript": "How did you handle a successful, right followed by failed invalidation?",
+          "synthesis_seconds": 1.4094873250000006,
+          "audio_seconds": 4.074666666666666
+        },
+        {
+          "source": "The reader and the invalidation use different cache keys.",
+          "transcript": "The reader and the invalidation use different cache keys.",
+          "synthesis_seconds": 1.1004903060000046,
+          "audio_seconds": 3.1786666666666665
+        },
+        {
+          "source": "Did you compare the median latency or the ninety fifth percentile?",
+          "transcript": "Did you compare the median latency or the 95th percentile?",
+          "synthesis_seconds": 1.20452667,
+          "audio_seconds": 3.7973333333333334
+        },
+        {
+          "source": "The expiry was sixty seconds, not sixty milliseconds.",
+          "transcript": "The expiry was 60 seconds, not 60 milliseconds.",
+          "synthesis_seconds": 1.0407646200000045,
+          "audio_seconds": 3.3493333333333335
+        },
+        {
+          "source": "The read came from a replica while the cache was bypassed.",
+          "transcript": "The read came from a replica while the cache was bypassed.",
+          "synthesis_seconds": 0.9900072550000019,
+          "audio_seconds": 3.1786666666666665
+        },
+        {
+          "source": "How did you discard an older response after a newer request completed?",
+          "transcript": "How did you discard an older response after a newer request completed?",
+          "synthesis_seconds": 1.299142124999996,
+          "audio_seconds": 4.074666666666666
+        }
+      ],
+      "median_synthesis_seconds": 1.3259566440000015
+    },
+    {
+      "model": "kokoro-v1.0.int8.onnx",
+      "bytes": 92361271,
+      "sha256": "6e742170d309016e5891a994e1ce1559c702a2ccd0075e67ef7157974f6406cb",
+      "warmup_seconds": 2.1200238050000024,
+      "timing_samples": [
+        {
+          "sample": 1,
+          "synthesis_seconds": 4.715317601999999,
+          "audio_seconds": 4.074666666666666
+        },
+        {
+          "sample": 2,
+          "synthesis_seconds": 4.930688076999999,
+          "audio_seconds": 4.074666666666666
+        },
+        {
+          "sample": 3,
+          "synthesis_seconds": 5.42883620100001,
+          "audio_seconds": 4.074666666666666
+        }
+      ],
+      "round_trips": [
+        {
+          "source": "How did you handle a successful write followed by failed invalidation?",
+          "transcript": "How did you handle a successful? Write followed by failed invalidation.",
+          "synthesis_seconds": 4.845093098999996,
+          "audio_seconds": 4.074666666666666
+        },
+        {
+          "source": "The reader and the invalidation use different cache keys.",
+          "transcript": "The reader and the invalidation use different cache keys.",
+          "synthesis_seconds": 3.8103370750000067,
+          "audio_seconds": 3.2
+        },
+        {
+          "source": "Did you compare the median latency or the ninety fifth percentile?",
+          "transcript": "Did you compare the median latency or the 95th percentile?",
+          "synthesis_seconds": 4.499693944000001,
+          "audio_seconds": 3.7333333333333334
+        },
+        {
+          "source": "The expiry was sixty seconds, not sixty milliseconds.",
+          "transcript": "The expiry was 60 seconds, not 60 milliseconds.",
+          "synthesis_seconds": 4.128311517,
+          "audio_seconds": 3.3493333333333335
+        },
+        {
+          "source": "The read came from a replica while the cache was bypassed.",
+          "transcript": "The read came from a replica while the cache was bypassed.",
+          "synthesis_seconds": 5.604750241999994,
+          "audio_seconds": 3.136
+        },
+        {
+          "source": "How did you discard an older response after a newer request completed?",
+          "transcript": "How did you discard an older response after a newer request completed?",
+          "synthesis_seconds": 4.877337670000003,
+          "audio_seconds": 4.096
+        }
+      ],
+      "median_synthesis_seconds": 4.930688076999999
+    }
+  ]
+}

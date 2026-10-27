@@ -1,0 +1,18 @@
+[project]
+name = "interviewer-local-voice"
+version = "0.1.0"
+description = "Local Pipecat SmallWebRTC speech integration for the interviewer API"
+requires-python = ">=3.11,<3.12"
+dependencies = [
+  "pipecat-ai[webrtc]>=1.4,<2.0",
+  "faster-whisper>=1.1.0,<2.0",
+  "onnxruntime>=1.20.0",
+  "kokoro-onnx>=0.4.9,<1.0",
+  "numpy>=1.26",
+  "scipy>=1.13",
+  "nvidia-cublas-cu12; sys_platform == 'linux'",
+  "nvidia-cudnn-cu12>=9,<10; sys_platform == 'linux'",
+]
+
+[tool.setuptools]
+packages = []

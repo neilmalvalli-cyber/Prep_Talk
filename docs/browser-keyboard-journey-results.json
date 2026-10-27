@@ -1,0 +1,49 @@
+{
+  "provider": "synthetic browser harness",
+  "runner": "unconfigured; no candidate execution",
+  "checks": [
+    "sample_escape_restores_trigger",
+    "skip_navigation",
+    "keyboard_setup_claims_dialogue_pause_resume",
+    "keyboard_evidence_hypothesis_conclusion",
+    "stage_heading_focus",
+    "monaco_named_keyboard_edit_tab_exit",
+    "language_starters",
+    "unconfigured_runner_safe_failure",
+    "keyboard_review_objective_coaching_fresh_completion",
+    "new_exercise_reasoning_drafts_clear",
+    "task_workspace_compact_by_default",
+    "report_evidence_link_moves_focus",
+    "report_correction_and_dispute_native_dialogs",
+    "keyboard_history_delete_native_confirmation"
+  ],
+  "mobile": {
+    "viewport": 360,
+    "document": 360
+  },
+  "desktop": {
+    "viewport": 1440,
+    "document": 1440
+  },
+  "native_dialogs": [
+    {
+      "type": "confirm",
+      "message": "This sends synthetic test prompts to Groq using the current unsaved choices. The provider may charge for these requests.\n\nInterview model openai/gpt-oss-20b: Pricing unknown\nInterview route (not selected): Pricing unknown\nAssessment model openai/gpt-oss-120b: Pricing unknown\nAssessment route (not selected): Pricing unknown\n\nContinue?"
+    },
+    {
+      "type": "prompt",
+      "message": "Correct this statement. The original remains preserved and dependent observations become stale."
+    },
+    {
+      "type": "prompt",
+      "message": "Explain the missing context or disputed inference. A challenge does not automatically establish the preferred conclusion."
+    },
+    {
+      "type": "confirm",
+      "message": "Delete this interview, transcript, recordings, code, reports and derived local data? Provider retention remains separate."
+    }
+  ],
+  "errors": [],
+  "microphone_calls": [],
+  "scope": "Chrome keyboard input for web controls, Monaco and links. Browser-native prompt/confirm responses use Playwright dialog automation. No screen-reader, physical microphone, real provider or dedicated-host claim."
+}

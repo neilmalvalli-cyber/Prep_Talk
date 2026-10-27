@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "scenario_id": "cache_price_v1",
+  "title": "A product page shows an outdated price",
+  "synthetic": true,
+  "family": "cache_price",
+  "attempt": "baseline",
+  "version": "1.0.0",
+  "initial_facts": [
+    {"fact_id":"initial_write","text":"The product update succeeds, and the primary database stores the new price."},
+    {"fact_id":"initial_response","text":"One API response still returns the previous price."}
+  ],
+  "public_evidence": [
+    {"card_id":"primary_read","text":"The primary database contains the new price for this product.","source":"Synthetic primary read for request R-104","requires":[]},
+    {"card_id":"request_trace","text":"Request R-104 was served from a cache hit.","source":"Synthetic trace for request R-104","requires":[]},
+    {"card_id":"key_trace","text":"The reader looks up product:42:v7. The write invalidation deletes product:42.","source":"Synthetic reader and invalidation key trace","requires":[]},
+    {"card_id":"aggregate_dashboard","text":"The aggregate cache hit rate is within its usual range. This panel does not identify the key or value used by request R-104.","source":"Synthetic aggregate dashboard, five-minute window","requires":[]}
+  ],
+  "reveal_rules": {"mode":"explicit_request_or_candidate_confirmed_diagnostic","one_card_per_request":true,"never_infer_or_fabricate_cards":true,"diagnostic_request_penalty":false},
+  "accepted_alternatives": ["Request the primary value and exact request trace before choosing a cause.", "Retain multiple hypotheses and state what observation would distinguish them.", "Conclude key mismatch only after comparing the request-specific lookup and invalidation keys."],
+  "private_reference_id": "cache_price_v1_private",
+  "criteria": ["problem_framing_v1","diagnostic_selection_v1","evidence_interpretation_v1","revision_uncertainty_v1","decision_verification_v1"]
+}

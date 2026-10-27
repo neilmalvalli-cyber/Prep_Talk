@@ -1,0 +1,17 @@
+{
+  "keyboard_landing_example_escape": true,
+  "dialog_focus_trapped": true,
+  "keyboard_owner_signin": true,
+  "keyboard_settings_and_setup": true,
+  "reduced_motion_sphere_static": true,
+  "mobile_overflow": {
+    "viewport": 360,
+    "document": 360
+  },
+  "injected_visibility_pauses_sphere_and_pseudo_element": true,
+  "visible_restores_sphere": true,
+  "microphone_calls": [],
+  "cloud_test_calls": [],
+  "errors": [],
+  "scope": "Focused Chrome keyboard/reduced-motion checks; full screen-reader and complete keyboard interview audit remain separate."
+}

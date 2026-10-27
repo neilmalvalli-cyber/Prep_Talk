@@ -1,0 +1,84 @@
+{
+  "real_provider": true,
+  "synthetic_resume_and_answers": true,
+  "physical_microphone": false,
+  "runner_execution": false,
+  "cases": [
+    {
+      "role": "backend",
+      "answer_variant": "ttl",
+      "confirmed_resume": "Built a search product with an API and browser interface. I implemented result caching and client-side state updates.",
+      "answer": "I used a TTL only. Cached results could remain stale until expiry.",
+      "opening_question": "Can you walk me through tracing one specific request from when a user submits a search query through your API to where it's persisted?",
+      "followup": "Can you elaborate on the persistence step? After the search query reaches your API and gets cached, what happens to the actual data storage — which database or system stores the results, and how is that different from the cache layer?",
+      "followup_timing": {
+        "clock": "server_unix_seconds",
+        "request_started": 1792516745.7778103,
+        "request_kind": "cloud",
+        "first_usable_content": 1792516773.787665
+      },
+      "distinct_browser_text_updates": 30,
+      "incremental_text_observed": true
+    },
+    {
+      "role": "backend",
+      "answer_variant": "invalidation",
+      "confirmed_resume": "Built a search product with an API and browser interface. I implemented result caching and client-side state updates.",
+      "answer": "I explicitly invalidated the cached results after a successful write.",
+      "opening_question": "Can you walk me through tracing one request from input to persistence in your search product? Specifically, how does a user query enter the system and get stored?",
+      "followup": "Could you elaborate on how a user query flows into your search product? For example, what happens when a user submits a search request — do you receive it via HTTP, database queries, or another mechanism?",
+      "followup_timing": {
+        "clock": "server_unix_seconds",
+        "request_started": 1792516790.3080647,
+        "request_kind": "cloud",
+        "first_usable_content": 1792516801.5834427
+      },
+      "distinct_browser_text_updates": 27,
+      "incremental_text_observed": true
+    },
+    {
+      "role": "frontend",
+      "answer_variant": "ttl",
+      "confirmed_resume": "Built a search product with an API and browser interface. I implemented result caching and client-side state updates.",
+      "answer": "I used a TTL only. Cached results could remain stale until expiry.",
+      "opening_question": "Can you walk me through your process for tracing state from a user action to the final rendered result in your search product? Specifically, how did you implement result caching and ensure client-side state updates were properly synchronized?",
+      "followup": "That's helpful context. You mentioned using TTL-only caching where cached results could become stale until they expire. Could you clarify what mechanisms you had in place to detect when cached data might be outdated and trigger refreshes before displaying potentially stale results?",
+      "followup_timing": {
+        "clock": "server_unix_seconds",
+        "request_started": 1792516821.858043,
+        "request_kind": "cloud",
+        "first_usable_content": 1792516830.4184105
+      },
+      "distinct_browser_text_updates": 57,
+      "incremental_text_observed": true
+    },
+    {
+      "role": "frontend",
+      "answer_variant": "invalidation",
+      "confirmed_resume": "Built a search product with an API and browser interface. I implemented result caching and client-side state updates.",
+      "answer": "I explicitly invalidated the cached results after a successful write.",
+      "opening_question": "Can you walk me through your approach to tracing state from a user action to the final rendered result in your search product? Specifically, how do you handle result caching and client-side state updates during this process?",
+      "followup": "That's helpful context about cache invalidation. Could you elaborate on how you track the state transitions between the API call, caching layer, and UI rendering? For example, what triggers the invalidation and how does the system know which cached entries are stale?",
+      "followup_timing": {
+        "clock": "server_unix_seconds",
+        "request_started": 1792516848.725739,
+        "request_kind": "cloud",
+        "first_usable_content": 1792516855.7043934
+      },
+      "distinct_browser_text_updates": 30,
+      "incremental_text_observed": true
+    }
+  ],
+  "explicit_rate_limit_recoveries": [],
+  "errors": [],
+  "provider": "openrouter",
+  "configuration": {
+    "live_model": "liquid/lfm-2.5-2.6b:free",
+    "assessment_model": "liquid/lfm-2.5-2.6b:free",
+    "live_route": "Liquid",
+    "assessment_route": "Liquid",
+    "paid_opt_in": true
+  },
+  "microphone_calls": [],
+  "scope": "Actual openrouter browser dialogue using synthetic context. Outputs require qualitative review; no assessment calibration or dedicated-runner claim."
+}

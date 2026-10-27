@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "scenario_id": "cache_price_coached_v1",
+  "title": "Coached practice: compare evidence scopes",
+  "synthetic": true,
+  "family": "cache_price",
+  "attempt": "coached",
+  "version": "1.0.0",
+  "initial_facts": [
+    {"fact_id":"initial_write","text":"A settings update succeeds, but one reader sees the previous value."},
+    {"fact_id":"initial_observation","text":"A dashboard reports a normal overall cache hit rate."}
+  ],
+  "public_evidence": [
+    {"card_id":"source_value","text":"The primary record has the updated setting.","source":"Synthetic primary read for request S-8","requires":[]},
+    {"card_id":"read_path","text":"Request S-8 returned a cached value.","source":"Synthetic request trace S-8","requires":[]},
+    {"card_id":"key_comparison","text":"The reader requests settings:user:8:rev3; invalidation removes settings:user:8.","source":"Synthetic key trace","requires":[]},
+    {"card_id":"dashboard_scope","text":"The aggregate hit rate combines unrelated keys and says nothing about S-8's cached value.","source":"Synthetic dashboard definition","requires":[]}
+  ],
+  "reveal_rules": {"mode":"explicit_request_or_candidate_confirmed_diagnostic","one_card_per_request":true,"never_infer_or_fabricate_cards":true,"diagnostic_request_penalty":false},
+  "coaching": {"visible_before_attempt":true,"lesson":"Match each claim to evidence at the same scope. An aggregate rate cannot establish the value or key used by one request.","guided_steps":["State the observation that needs explaining.","Ask which request-specific trace separates the live hypotheses.","Compare the source value, cache path, and exact reader/invalidation keys.","Name one regression case that would fail if the mismatch returned."],"assistance_level":"guided"},
+  "accepted_alternatives": ["Ask for request-level provenance before concluding.", "Keep uncertainty if the exact key mapping is not yet available.", "Use an exact-key assertion and a read-after-update regression check."],
+  "private_reference_id": "cache_price_coached_v1_private",
+  "criteria": ["problem_framing_v1","diagnostic_selection_v1","evidence_interpretation_v1","revision_uncertainty_v1","decision_verification_v1"]
+}

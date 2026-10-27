@@ -1,0 +1,83 @@
+{
+  "real_provider": true,
+  "synthetic_resume_and_answers": true,
+  "physical_microphone": false,
+  "runner_execution": false,
+  "cases": [
+    {
+      "role": "backend",
+      "answer_variant": "ttl",
+      "confirmed_resume": "Built a search product with an API and browser interface. I implemented result caching and client-side state updates.",
+      "answer": "I used a TTL only. Cached results could remain stale until expiry.",
+      "opening_question": "Can you walk me through the flow of a single search query from the client’s request all the way to when the result is stored or cached on the server?",
+      "followup": "How do you determine the TTL value for cached search results, and what factors influence that decision?",
+      "followup_timing": {
+        "clock": "server_unix_seconds",
+        "request_started": 1792515856.3402953,
+        "request_kind": "cloud",
+        "first_usable_content": 1792515856.996031
+      },
+      "distinct_browser_text_updates": 12,
+      "incremental_text_observed": true
+    },
+    {
+      "role": "backend",
+      "answer_variant": "invalidation",
+      "confirmed_resume": "Built a search product with an API and browser interface. I implemented result caching and client-side state updates.",
+      "answer": "I explicitly invalidated the cached results after a successful write.",
+      "opening_question": "Can you walk me through the path a single search query takes from when it’s entered in the browser, through your API, to the point it’s stored or cached in your persistence layer?",
+      "followup": "What steps are involved in invalidating that cache after a write—how does the write trigger the invalidation, and what persistence layer is affected?",
+      "followup_timing": {
+        "clock": "server_unix_seconds",
+        "request_started": 1792515862.2174006,
+        "request_kind": "cloud",
+        "first_usable_content": 1792515862.9745212
+      },
+      "distinct_browser_text_updates": 45,
+      "incremental_text_observed": true
+    },
+    {
+      "role": "frontend",
+      "answer_variant": "ttl",
+      "confirmed_resume": "Built a search product with an API and browser interface. I implemented result caching and client-side state updates.",
+      "answer": "I used a TTL only. Cached results could remain stale until expiry.",
+      "opening_question": "Can you walk me through how a user’s search query moves through your client‑side state and ends up displayed on the page, highlighting any key state changes or caching steps?",
+      "followup": "How do you update the UI when new results arrive, and how do you handle cases where cached data is stale but still displayed?",
+      "followup_timing": {
+        "clock": "server_unix_seconds",
+        "request_started": 1792515868.1082544,
+        "request_kind": "cloud",
+        "first_usable_content": 1792515869.2688673
+      },
+      "distinct_browser_text_updates": 30,
+      "incremental_text_observed": true
+    },
+    {
+      "role": "frontend",
+      "answer_variant": "invalidation",
+      "confirmed_resume": "Built a search product with an API and browser interface. I implemented result caching and client-side state updates.",
+      "answer": "I explicitly invalidated the cached results after a successful write.",
+      "opening_question": "How did you manage the client‑side state updates when a user performed a search, and what tools or patterns did you use to trace the flow from the action to the rendered results?",
+      "followup": "Can you walk me through the specific steps you took to invalidate the cache and then refetch or recompute the search results after a write?",
+      "followup_timing": {
+        "clock": "server_unix_seconds",
+        "request_started": 1792515874.489399,
+        "request_kind": "cloud",
+        "first_usable_content": 1792515874.8902104
+      },
+      "distinct_browser_text_updates": 46,
+      "incremental_text_observed": true
+    }
+  ],
+  "errors": [],
+  "provider": "groq",
+  "configuration": {
+    "live_model": "openai/gpt-oss-20b",
+    "assessment_model": "openai/gpt-oss-120b",
+    "live_route": "",
+    "assessment_route": "",
+    "paid_opt_in": true
+  },
+  "microphone_calls": [],
+  "scope": "Actual Groq browser dialogue using synthetic context. Outputs require qualitative review; no assessment calibration or dedicated-runner claim."
+}

@@ -1,0 +1,1 @@
+(function(){var theme;try{theme=localStorage.getItem('fieldnote-theme')}catch(_){}document.documentElement.dataset.theme=theme==='dark'||theme==='light'?theme:matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'})();

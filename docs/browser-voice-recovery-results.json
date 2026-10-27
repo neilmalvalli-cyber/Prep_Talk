@@ -1,0 +1,43 @@
+{
+  "real_browser_webrtc": true,
+  "real_local_models": true,
+  "synthetic_cloud": true,
+  "synthetic_browser_microphone": true,
+  "repeated_stop_to_muted_or_paused_ms": [
+    37,
+    30,
+    32
+  ],
+  "real_browser_upstream_transcript": "I invalidated the cache after the write.",
+  "explicit_speech_correction": true,
+  "vad_barge_in": true,
+  "slow_client_audio_pending_ms": 1000,
+  "slow_client_offered_ahead_ms": 20,
+  "slow_client_resumes_without_repeat": true,
+  "reload_pauses_session": true,
+  "reconnect_no_replay_or_duplicate": true,
+  "injected_tts_failure_retains_typed_path": true,
+  "media_only_disconnect_pauses": true,
+  "injected_visibility_pauses_css_and_visual_raf": true,
+  "visible_resumes_visual_loop": true,
+  "native_peer_close_with_injected_state_event_releases_audio_context_and_visual_loop": true,
+  "peer_loss_http_disconnect_releases_server_pipeline_before_resume": true,
+  "malformed_native_offers": [
+    {
+      "status": 422,
+      "initialization_released": true
+    },
+    {
+      "status": 422,
+      "initialization_released": true
+    },
+    {
+      "status": 422,
+      "initialization_released": true
+    }
+  ],
+  "abandoned_warmup_no_microphone": true,
+  "errors": [],
+  "injected_held_draft_limit_preserves_text_without_partial_answer": true,
+  "disabled_microphone_never_appears_listening": true
+}

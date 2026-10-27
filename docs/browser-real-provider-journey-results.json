@@ -1,0 +1,50 @@
+{
+  "real_provider": true,
+  "synthetic_resume_and_answers": true,
+  "physical_microphone": false,
+  "runner_execution": false,
+  "cases": [
+    {
+      "role": "backend",
+      "answer_variant": "ttl",
+      "confirmed_resume": "Built a search product with an API and browser interface. I implemented result caching and client-side state updates.",
+      "answer": "I used a TTL only. Cached results could remain stale until expiry.",
+      "opening_question": "Can you walk me through the flow of a single search request—from the moment it hits your API to when the results are stored or cached—highlighting the key components and data transformations involved?",
+      "followup": "Thanks. Which part of the request handling pipeline sets the TTL, and how do you decide the TTL value for different query types?",
+      "followup_timing": {
+        "clock": "server_unix_seconds",
+        "request_started": 1792516168.4429407,
+        "request_kind": "cloud",
+        "first_usable_content": 1792516169.0857196
+      },
+      "distinct_browser_text_updates": 22,
+      "incremental_text_observed": true
+    }
+  ],
+  "errors": [],
+  "provider": "groq",
+  "configuration": {
+    "live_model": "openai/gpt-oss-20b",
+    "assessment_model": "openai/gpt-oss-120b",
+    "live_route": "",
+    "assessment_route": "",
+    "paid_opt_in": true
+  },
+  "full_journey": {
+    "pause_resume": true,
+    "baseline_evidence_and_conclusion": true,
+    "python_cpp_editor": true,
+    "coding_explicitly_skipped": true,
+    "authored_review": true,
+    "candidate_selected_objective": true,
+    "coached_hint": true,
+    "fresh_conclusion": true,
+    "completed_report": true,
+    "criterion_count": 10,
+    "numeric_ratings_disabled": true,
+    "versioned_correction_and_dispute": true,
+    "mobile_width": 360
+  },
+  "microphone_calls": [],
+  "scope": "Actual Groq browser dialogue using synthetic context. Outputs require qualitative review; no assessment calibration or dedicated-runner claim."
+}

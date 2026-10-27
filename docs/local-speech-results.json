@@ -1,0 +1,41 @@
+{
+  "real_local_models": true,
+  "readiness": {
+    "ready": true,
+    "status": "ready",
+    "detail": "Local Whisper and Kokoro models loaded and passed warmup.",
+    "missing": []
+  },
+  "cold_warmup_seconds": 57.26614103400004,
+  "internet_blocked_at_os_level": false,
+  "hf_offline_environment": true,
+  "checks": [
+    {
+      "sample": 1,
+      "synthetic_source_text": "The reader and the invalidation use different cache keys.",
+      "transcript": "The reader and the invalidation use different cache keys.",
+      "word_count": 9,
+      "tts_seconds": 1.0355096519999734,
+      "stt_seconds": 0.32090720700000475,
+      "audio_seconds": 3.1786875
+    },
+    {
+      "sample": 2,
+      "synthetic_source_text": "The reader and the invalidation use different cache keys.",
+      "transcript": "The reader and the invalidation use different cache keys.",
+      "word_count": 9,
+      "tts_seconds": 1.0604769059999626,
+      "stt_seconds": 0.3180971929999714,
+      "audio_seconds": 3.1786875
+    },
+    {
+      "sample": 3,
+      "synthetic_source_text": "The reader and the invalidation use different cache keys.",
+      "transcript": "The reader and the invalidation use different cache keys.",
+      "word_count": 9,
+      "tts_seconds": 1.0644184160000805,
+      "stt_seconds": 0.303244161000066,
+      "audio_seconds": 3.1786875
+    }
+  ]
+}

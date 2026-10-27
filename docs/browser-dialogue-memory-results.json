@@ -1,0 +1,56 @@
+{
+  "scope": "Synthetic provider, six injected recognition-like mistakes entered through the shared typed-answer path; no actual STT accuracy or human calibration claim.",
+  "memory_available_before_corrections": true,
+  "source_linked_grouping": true,
+  "repairs": [
+    {
+      "original": "I invalidated the cash after the write.",
+      "corrected": "I invalidated the cache after the write.",
+      "version": 2,
+      "original_preserved": true,
+      "dependent_memory_invalidated": true
+    },
+    {
+      "original": "I measured p50 latency.",
+      "corrected": "I measured p95 latency.",
+      "version": 2,
+      "original_preserved": true,
+      "dependent_memory_invalidated": true
+    },
+    {
+      "original": "The expiry was sixty milliseconds.",
+      "corrected": "The expiry was sixty seconds.",
+      "version": 2,
+      "original_preserved": true,
+      "dependent_memory_invalidated": true
+    },
+    {
+      "original": "I used key validation.",
+      "corrected": "I used key invalidation.",
+      "version": 2,
+      "original_preserved": true,
+      "dependent_memory_invalidated": true
+    },
+    {
+      "original": "The read came from the primary.",
+      "corrected": "The read came from the replica.",
+      "version": 2,
+      "original_preserved": true,
+      "dependent_memory_invalidated": true
+    },
+    {
+      "original": "I did retry failed invalidations.",
+      "corrected": "I did not retry failed invalidations.",
+      "version": 2,
+      "original_preserved": true,
+      "dependent_memory_invalidated": true
+    }
+  ],
+  "all_ratings_null": true,
+  "deletion": true,
+  "mobile": {
+    "viewport": 360,
+    "document": 360
+  },
+  "errors": []
+}

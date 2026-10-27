@@ -1,0 +1,4 @@
+FROM python:3.11.11-slim-bookworm
+WORKDIR /tmp
+USER nobody:nogroup
+CMD ["sleep", "infinity"]

@@ -1,0 +1,33 @@
+__pycache__/
+*.py[cod]
+*.sqlite3
+*.sqlite3-journal
+data/
+evals/answer_traces/
+evals/speech_samples/
+backend/.venv/
+frontend/node_modules/
+frontend/dist/
+*.tsbuildinfo
+**/.pytest-tmp/
+**/.pytest_tmp/
+**/.pytest*/
+
+# Runtime and local secrets
+**/.venv/
+**/node_modules/
+**/dist/
+.env
+.env.*
+!.env.example
+!**/.env.example
+*.sqlite3-wal
+*.sqlite3-shm
+# Generated design previews and local tool state
+.taste-skill/
+.cache/
+.vscode/
+.idea/
+*.log
+*.pem
+*.key

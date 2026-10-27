@@ -1,0 +1,11 @@
+{
+  "http_status": 200,
+  "result": {
+    "status": "validated",
+    "provider": "openrouter",
+    "validated_at": 1792518539.5606275,
+    "live": true,
+    "structured_assessment": true
+  },
+  "configuration_changed": false
+}

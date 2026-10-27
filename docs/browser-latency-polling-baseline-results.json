@@ -1,0 +1,462 @@
+{
+  "status": "measured_synthetic_target_missed",
+  "real_browser_webrtc": true,
+  "real_local_models": true,
+  "synthetic_microphone": true,
+  "synthetic_cloud": true,
+  "physical_microphone": false,
+  "speech_end_basis": "scheduled end of a local synthetic Web Audio source, not physical speech end",
+  "latency_clock": "browser performance.timeOrigin + performance.now; no server/client clock subtraction",
+  "server_marker_clock": "server Unix seconds; speech end is VAD endpoint minus configured silence",
+  "environment": "Windows Chrome; WSL Ubuntu; CUDA Whisper large-v3-turbo int8_float16 on RTX 4050 6 GiB; CPU Kokoro af_heart",
+  "targets": {
+    "p50_seconds": 2,
+    "p95_seconds": 4
+  },
+  "samples": [
+    {
+      "sample": 1,
+      "model_state": "first_turn_after_model_warmup",
+      "input": {
+        "started_client_ms": 1792484426689.4,
+        "ended_client_ms": 1792484428822.7332,
+        "duration_seconds": 2.1333333333333333
+      },
+      "transcript": "I invalidated the cache after the write.",
+      "generation_id": "a0504697a93e4031bc38071649513c7f",
+      "speech_to_playback_seconds": 7.879966796875,
+      "speech_to_text_received_seconds": 2.15136669921875,
+      "server_stt_seconds": 0.7317366600036621,
+      "server_provider_first_content_seconds": 0.2428731918334961,
+      "server_tts_first_chunk_seconds": 4.2877678871154785,
+      "server_speech_markers": {
+        "clock": "server_unix_seconds",
+        "endpoint_decision": 1792484429.5276444,
+        "speech_end_estimate": 1792484428.9276445,
+        "speech_end_basis": "vad_endpoint_minus_silence",
+        "configured_silence_seconds": 0.6,
+        "stt_started": 1792484429.528274,
+        "stt_completed": 1792484430.2600107
+      },
+      "server_request_markers": {
+        "clock": "server_unix_seconds",
+        "request_started": 1792484430.479144,
+        "request_kind": "cloud",
+        "first_usable_content": 1792484430.7220173
+      },
+      "delivery_markers": {
+        "first_text_displayed_client_ms": 1792484430818.8,
+        "first_text_displayed_receipt_server": 1792484431.2087307,
+        "first_text_received_client_ms": 1792484430974.0999,
+        "first_text_received_receipt_server": 1792484431.3207793,
+        "first_tts_clause_server": 1792484432.2751327,
+        "first_tts_chunk_server": 1792484436.5629005,
+        "first_audio_admitted_server": 1792484436.5693028,
+        "first_playback_client_ms": 1792484436702.7,
+        "first_playback_receipt_server": 1792484436.9349582
+      }
+    },
+    {
+      "sample": 2,
+      "model_state": "subsequent_warm_turn",
+      "input": {
+        "started_client_ms": 1792484441042.8,
+        "ended_client_ms": 1792484443176.1333,
+        "duration_seconds": 2.1333333333333333
+      },
+      "transcript": "I invalidated the cache after the write.",
+      "generation_id": "951a795f30a34c439aeff381e5d5dab9",
+      "speech_to_playback_seconds": 11.787466552734376,
+      "speech_to_text_received_seconds": 3.16136669921875,
+      "server_stt_seconds": 1.0669682025909424,
+      "server_provider_first_content_seconds": 0.7967727184295654,
+      "server_tts_first_chunk_seconds": 5.125272274017334,
+      "server_speech_markers": {
+        "clock": "server_unix_seconds",
+        "endpoint_decision": 1792484444.0379796,
+        "speech_end_estimate": 1792484443.4379797,
+        "speech_end_basis": "vad_endpoint_minus_silence",
+        "configured_silence_seconds": 0.6,
+        "stt_started": 1792484444.039055,
+        "stt_completed": 1792484445.1060233
+      },
+      "server_request_markers": {
+        "clock": "server_unix_seconds",
+        "request_started": 1792484445.386592,
+        "request_kind": "cloud",
+        "first_usable_content": 1792484446.1833646
+      },
+      "delivery_markers": {
+        "first_text_received_client_ms": 1792484446337.5,
+        "first_text_received_receipt_server": 1792484447.0540376,
+        "first_text_displayed_client_ms": 1792484446572.5,
+        "first_text_displayed_receipt_server": 1792484447.3894134,
+        "first_tts_clause_server": 1792484448.267005,
+        "first_tts_chunk_server": 1792484453.3922772,
+        "first_audio_admitted_server": 1792484453.3930259,
+        "first_playback_client_ms": 1792484454963.5999,
+        "first_playback_receipt_server": 1792484456.2191799
+      }
+    },
+    {
+      "sample": 3,
+      "model_state": "subsequent_warm_turn",
+      "input": {
+        "started_client_ms": 1792484462407.0999,
+        "ended_client_ms": 1792484464540.433,
+        "duration_seconds": 2.1333333333333333
+      },
+      "transcript": "I invalidated the cache after the write.",
+      "generation_id": "4033b5e86a474e12bf95a293cfbdaefe",
+      "speech_to_playback_seconds": 9.072166748046875,
+      "speech_to_text_received_seconds": 3.131266845703125,
+      "server_stt_seconds": 0.9086370468139648,
+      "server_provider_first_content_seconds": 0.37366604804992676,
+      "server_tts_first_chunk_seconds": 3.934573173522949,
+      "server_speech_markers": {
+        "clock": "server_unix_seconds",
+        "endpoint_decision": 1792484465.9178832,
+        "speech_end_estimate": 1792484465.3178833,
+        "speech_end_basis": "vad_endpoint_minus_silence",
+        "configured_silence_seconds": 0.6,
+        "stt_started": 1792484465.9189858,
+        "stt_completed": 1792484466.827623
+      },
+      "server_request_markers": {
+        "clock": "server_unix_seconds",
+        "request_started": 1792484467.0334394,
+        "request_kind": "cloud",
+        "first_usable_content": 1792484467.4071054
+      },
+      "delivery_markers": {
+        "first_text_displayed_client_ms": 1792484467671.7,
+        "first_text_displayed_receipt_server": 1792484468.149177,
+        "first_text_received_client_ms": 1792484467671.7,
+        "first_text_received_receipt_server": 1792484468.2661743,
+        "first_tts_clause_server": 1792484469.5347798,
+        "first_tts_chunk_server": 1792484473.469353,
+        "first_audio_admitted_server": 1792484473.4709003,
+        "first_playback_client_ms": 1792484473612.5999,
+        "first_playback_receipt_server": 1792484473.7274187
+      }
+    },
+    {
+      "sample": 4,
+      "model_state": "subsequent_warm_turn",
+      "input": {
+        "started_client_ms": 1792484477921.2,
+        "ended_client_ms": 1792484480054.5332,
+        "duration_seconds": 2.1333333333333333
+      },
+      "transcript": "I invalidated the cash after the write.",
+      "generation_id": "9422afd5a4d8499b8f32d84da29cecbe",
+      "speech_to_playback_seconds": 7.507766845703125,
+      "speech_to_text_received_seconds": 2.253966796875,
+      "server_stt_seconds": 0.8085300922393799,
+      "server_provider_first_content_seconds": 0.21933197975158691,
+      "server_tts_first_chunk_seconds": 2.8267643451690674,
+      "server_speech_markers": {
+        "clock": "server_unix_seconds",
+        "endpoint_decision": 1792484480.8255632,
+        "speech_end_estimate": 1792484480.2255633,
+        "speech_end_basis": "vad_endpoint_minus_silence",
+        "configured_silence_seconds": 0.6,
+        "stt_started": 1792484480.8262517,
+        "stt_completed": 1792484481.6347818
+      },
+      "server_request_markers": {
+        "clock": "server_unix_seconds",
+        "request_started": 1792484481.7682076,
+        "request_kind": "cloud",
+        "first_usable_content": 1792484481.9875395
+      },
+      "delivery_markers": {
+        "first_text_received_client_ms": 1792484482308.5,
+        "first_text_received_receipt_server": 1792484482.5202558,
+        "first_text_displayed_client_ms": 1792484482309.0999,
+        "first_text_displayed_receipt_server": 1792484482.564096,
+        "first_tts_clause_server": 1792484484.0066974,
+        "first_tts_chunk_server": 1792484486.8334618,
+        "first_audio_admitted_server": 1792484486.8337803,
+        "first_playback_client_ms": 1792484487562.3,
+        "first_playback_receipt_server": 1792484487.5644557
+      }
+    },
+    {
+      "sample": 5,
+      "model_state": "subsequent_warm_turn",
+      "input": {
+        "started_client_ms": 1792484491830.5,
+        "ended_client_ms": 1792484493963.8333,
+        "duration_seconds": 2.1333333333333333
+      },
+      "transcript": "I invalidated the cache after the write.",
+      "generation_id": "270a82b2a30d45e786af3493a71a6ff2",
+      "speech_to_playback_seconds": 6.463566650390625,
+      "speech_to_text_received_seconds": 1.44986669921875,
+      "server_stt_seconds": 0.3237433433532715,
+      "server_provider_first_content_seconds": 0.18242502212524414,
+      "server_tts_first_chunk_seconds": 1.7800734043121338,
+      "server_speech_markers": {
+        "clock": "server_unix_seconds",
+        "endpoint_decision": 1792484494.664996,
+        "speech_end_estimate": 1792484494.064996,
+        "speech_end_basis": "vad_endpoint_minus_silence",
+        "configured_silence_seconds": 0.6,
+        "stt_started": 1792484494.6652184,
+        "stt_completed": 1792484494.9889617
+      },
+      "server_request_markers": {
+        "clock": "server_unix_seconds",
+        "request_started": 1792484495.0725164,
+        "request_kind": "cloud",
+        "first_usable_content": 1792484495.2549415
+      },
+      "delivery_markers": {
+        "first_text_received_client_ms": 1792484495413.7,
+        "first_text_received_receipt_server": 1792484495.63382,
+        "first_text_displayed_client_ms": 1792484495414.2,
+        "first_text_displayed_receipt_server": 1792484495.658193,
+        "first_tts_clause_server": 1792484496.4027014,
+        "first_tts_chunk_server": 1792484498.1827748,
+        "first_audio_admitted_server": 1792484498.1830528,
+        "first_playback_client_ms": 1792484500427.4,
+        "first_playback_receipt_server": 1792484500.4287982
+      }
+    },
+    {
+      "sample": 6,
+      "model_state": "subsequent_warm_turn",
+      "input": {
+        "started_client_ms": 1792484504654.7,
+        "ended_client_ms": 1792484506788.0332,
+        "duration_seconds": 2.1333333333333333
+      },
+      "transcript": "They invalidated the cash after the write.",
+      "generation_id": "111a02e2e8c04944b06f1714aab0e26d",
+      "speech_to_playback_seconds": 6.371966796875,
+      "speech_to_text_received_seconds": 1.796466796875,
+      "server_stt_seconds": 0.6481146812438965,
+      "server_provider_first_content_seconds": 0.18229293823242188,
+      "server_tts_first_chunk_seconds": 1.7212152481079102,
+      "server_speech_markers": {
+        "clock": "server_unix_seconds",
+        "endpoint_decision": 1792484507.5038774,
+        "speech_end_estimate": 1792484506.9038775,
+        "speech_end_basis": "vad_endpoint_minus_silence",
+        "configured_silence_seconds": 0.6,
+        "stt_started": 1792484507.5040805,
+        "stt_completed": 1792484508.1521952
+      },
+      "server_request_markers": {
+        "clock": "server_unix_seconds",
+        "request_started": 1792484508.244867,
+        "request_kind": "cloud",
+        "first_usable_content": 1792484508.42716
+      },
+      "delivery_markers": {
+        "first_text_received_client_ms": 1792484508584.5,
+        "first_text_received_receipt_server": 1792484508.8010225,
+        "first_text_displayed_client_ms": 1792484508585.2,
+        "first_text_displayed_receipt_server": 1792484508.8228471,
+        "first_tts_clause_server": 1792484509.5899682,
+        "first_tts_chunk_server": 1792484511.3111835,
+        "first_audio_admitted_server": 1792484511.3114913,
+        "first_playback_client_ms": 1792484513160,
+        "first_playback_receipt_server": 1792484513.2034612
+      }
+    },
+    {
+      "sample": 7,
+      "model_state": "subsequent_warm_turn",
+      "input": {
+        "started_client_ms": 1792484517361.0999,
+        "ended_client_ms": 1792484519494.433,
+        "duration_seconds": 2.1333333333333333
+      },
+      "transcript": "I invalidated the cache after the write.",
+      "generation_id": "296b0ef63d1d4253bd099ed8f02e68bf",
+      "speech_to_playback_seconds": 6.248266845703125,
+      "speech_to_text_received_seconds": 1.71006689453125,
+      "server_stt_seconds": 0.5107440948486328,
+      "server_provider_first_content_seconds": 0.18770503997802734,
+      "server_tts_first_chunk_seconds": 1.906339168548584,
+      "server_speech_markers": {
+        "clock": "server_unix_seconds",
+        "endpoint_decision": 1792484520.2244558,
+        "speech_end_estimate": 1792484519.624456,
+        "speech_end_basis": "vad_endpoint_minus_silence",
+        "configured_silence_seconds": 0.6,
+        "stt_started": 1792484520.2246988,
+        "stt_completed": 1792484520.7354429
+      },
+      "server_request_markers": {
+        "clock": "server_unix_seconds",
+        "request_started": 1792484520.8342743,
+        "request_kind": "cloud",
+        "first_usable_content": 1792484521.0219793
+      },
+      "delivery_markers": {
+        "first_text_received_client_ms": 1792484521204.5,
+        "first_text_received_receipt_server": 1792484521.525044,
+        "first_text_displayed_client_ms": 1792484521205.2,
+        "first_text_displayed_receipt_server": 1792484521.54852,
+        "first_tts_clause_server": 1792484522.5088499,
+        "first_tts_chunk_server": 1792484524.415189,
+        "first_audio_admitted_server": 1792484524.4155657,
+        "first_playback_client_ms": 1792484525742.7,
+        "first_playback_receipt_server": 1792484525.7436998
+      }
+    },
+    {
+      "sample": 8,
+      "model_state": "subsequent_warm_turn",
+      "input": {
+        "started_client_ms": 1792484529947.4,
+        "ended_client_ms": 1792484532080.7332,
+        "duration_seconds": 2.1333333333333333
+      },
+      "transcript": "I invalidated the cache after the write.",
+      "generation_id": "2ec71477c659422e856287fb526e7ea4",
+      "speech_to_playback_seconds": 6.02786669921875,
+      "speech_to_text_received_seconds": 1.975166748046875,
+      "server_stt_seconds": 0.7340619564056396,
+      "server_provider_first_content_seconds": 0.1854109764099121,
+      "server_tts_first_chunk_seconds": 1.8688035011291504,
+      "server_speech_markers": {
+        "clock": "server_unix_seconds",
+        "endpoint_decision": 1792484532.8336976,
+        "speech_end_estimate": 1792484532.2336977,
+        "speech_end_basis": "vad_endpoint_minus_silence",
+        "configured_silence_seconds": 0.6,
+        "stt_started": 1792484532.8339539,
+        "stt_completed": 1792484533.5680158
+      },
+      "server_request_markers": {
+        "clock": "server_unix_seconds",
+        "request_started": 1792484533.6658292,
+        "request_kind": "cloud",
+        "first_usable_content": 1792484533.8512402
+      },
+      "delivery_markers": {
+        "first_text_received_client_ms": 1792484534055.9,
+        "first_text_received_receipt_server": 1792484534.2363083,
+        "first_text_displayed_client_ms": 1792484534056.4,
+        "first_text_displayed_receipt_server": 1792484534.2624998,
+        "first_tts_clause_server": 1792484535.2478158,
+        "first_tts_chunk_server": 1792484537.1166193,
+        "first_audio_admitted_server": 1792484537.1169722,
+        "first_playback_client_ms": 1792484538108.5999,
+        "first_playback_receipt_server": 1792484538.1097465
+      }
+    },
+    {
+      "sample": 9,
+      "model_state": "subsequent_warm_turn",
+      "input": {
+        "started_client_ms": 1792484542291.0999,
+        "ended_client_ms": 1792484544424.433,
+        "duration_seconds": 2.1333333333333333
+      },
+      "transcript": "I invalidated the cache after the write.",
+      "generation_id": "aa73a28cadbe450c94b12137aa9979f1",
+      "speech_to_playback_seconds": 7.95006689453125,
+      "speech_to_text_received_seconds": 2.02906689453125,
+      "server_stt_seconds": 0.5937831401824951,
+      "server_provider_first_content_seconds": 0.23545050621032715,
+      "server_tts_first_chunk_seconds": 1.940152645111084,
+      "server_speech_markers": {
+        "clock": "server_unix_seconds",
+        "endpoint_decision": 1792484545.1241188,
+        "speech_end_estimate": 1792484544.524119,
+        "speech_end_basis": "vad_endpoint_minus_silence",
+        "configured_silence_seconds": 0.6,
+        "stt_started": 1792484545.124507,
+        "stt_completed": 1792484545.71829
+      },
+      "server_request_markers": {
+        "clock": "server_unix_seconds",
+        "request_started": 1792484545.8953257,
+        "request_kind": "cloud",
+        "first_usable_content": 1792484546.1307762
+      },
+      "delivery_markers": {
+        "first_text_received_client_ms": 1792484546453.5,
+        "first_text_received_receipt_server": 1792484546.689521,
+        "first_text_displayed_client_ms": 1792484546454.2,
+        "first_text_displayed_receipt_server": 1792484546.9477384,
+        "first_tts_clause_server": 1792484548.3535333,
+        "first_tts_chunk_server": 1792484550.293686,
+        "first_audio_admitted_server": 1792484550.2940097,
+        "first_playback_client_ms": 1792484552374.5,
+        "first_playback_receipt_server": 1792484552.392447
+      }
+    },
+    {
+      "sample": 10,
+      "model_state": "subsequent_warm_turn",
+      "input": {
+        "started_client_ms": 1792484556659.5999,
+        "ended_client_ms": 1792484558792.933,
+        "duration_seconds": 2.1333333333333333
+      },
+      "transcript": "I invalidated the cache after the write.",
+      "generation_id": "340d5ab97c4f411cab5255a37d575269",
+      "speech_to_playback_seconds": 6.631266845703125,
+      "speech_to_text_received_seconds": 1.856766845703125,
+      "server_stt_seconds": 0.6501593589782715,
+      "server_provider_first_content_seconds": 0.18422675132751465,
+      "server_tts_first_chunk_seconds": 1.8009302616119385,
+      "server_speech_markers": {
+        "clock": "server_unix_seconds",
+        "endpoint_decision": 1792484559.503129,
+        "speech_end_estimate": 1792484558.903129,
+        "speech_end_basis": "vad_endpoint_minus_silence",
+        "configured_silence_seconds": 0.6,
+        "stt_started": 1792484559.5032918,
+        "stt_completed": 1792484560.1534512
+      },
+      "server_request_markers": {
+        "clock": "server_unix_seconds",
+        "request_started": 1792484560.2520332,
+        "request_kind": "cloud",
+        "first_usable_content": 1792484560.43626
+      },
+      "delivery_markers": {
+        "first_text_received_client_ms": 1792484560649.7,
+        "first_text_received_receipt_server": 1792484560.842756,
+        "first_text_displayed_client_ms": 1792484560650.3,
+        "first_text_displayed_receipt_server": 1792484560.8695693,
+        "first_tts_clause_server": 1792484561.8773808,
+        "first_tts_chunk_server": 1792484563.678311,
+        "first_audio_admitted_server": 1792484563.6785452,
+        "first_playback_client_ms": 1792484565424.2,
+        "first_playback_receipt_server": 1792484565.4259562
+      }
+    }
+  ],
+  "errors": [],
+  "voice_enable_seconds": 49.742,
+  "cold_process_model_warmup_seconds": 43.882833357,
+  "all_turns": {
+    "count": 10,
+    "p50_seconds": 7.069516845703125,
+    "p95_seconds": 10.565581640624998,
+    "minimum_seconds": 6.02786669921875,
+    "maximum_seconds": 11.787466552734376,
+    "method": "linear interpolation, (n-1)*p"
+  },
+  "subsequent_warm_turns": {
+    "count": 9,
+    "p50_seconds": 6.631266845703125,
+    "p95_seconds": 10.701346630859375,
+    "minimum_seconds": 6.02786669921875,
+    "maximum_seconds": 11.787466552734376,
+    "method": "linear interpolation, (n-1)*p"
+  },
+  "first_turn_after_warmup_seconds": 7.879966796875,
+  "meets_synthetic_target": false,
+  "real_provider_latency_status": "unavailable; synthetic cloud response is not provider connectivity or production latency",
+  "probe_note": "This initial run polled the full SQLite-backed session every 100 ms during inference; retained as a measured diagnostic baseline, not a representative production benchmark.",
+  "state_poll_interval_ms": 100
+}

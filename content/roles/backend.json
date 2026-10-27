@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "role_id": "backend_engineer",
+  "title": "Backend Engineer",
+  "levels": {
+    "junior": {
+      "expectations": "Explain a small service or data flow, state assumptions, and propose a direct test. Framework-specific depth is optional.",
+      "competencies": ["api_and_data_flow", "data_consistency", "failure_handling", "verification"],
+      "question_objectives": ["trace one request from input to persistence", "explain a confirmed storage or caching decision", "identify one relevant failure and a focused check"],
+      "coding_problem": "backend_frequency_counts"
+    },
+    "intermediate": {
+      "expectations": "Compare viable designs, explain consistency and operational failure modes, and connect measurements to a defined workload.",
+      "competencies": ["api_and_data_flow", "data_consistency", "failure_handling", "performance_measurement", "verification"],
+      "question_objectives": ["trace a request across service boundaries", "justify a confirmed storage or caching trade-off", "distinguish request-specific evidence from aggregate metrics", "define rollback or regression verification"],
+      "coding_problem": "backend_frequency_counts"
+    }
+  },
+  "reasoning_families": ["cache_price_v1"],
+  "rubric_refs": ["resume_clarity_v1", "technical_understanding_v1", "decision_reasoning_v1", "measurement_reasoning_v1", "failure_handling_v1", "diagnostic_selection_v1"]
+}

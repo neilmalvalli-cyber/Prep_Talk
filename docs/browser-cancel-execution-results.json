@@ -1,0 +1,16 @@
+{
+  "synthetic_provider": true,
+  "held_app_task_only": true,
+  "remote_dispatch": false,
+  "candidate_execution": false,
+  "browser_cancel": true,
+  "immutable_source_preserved": true,
+  "cancelled_report": true,
+  "single_cancellation_event": true,
+  "sticky_question_status_stop": true,
+  "mobile": {
+    "viewport": 360,
+    "document": 360
+  },
+  "errors": []
+}

@@ -1,0 +1,144 @@
+{
+  "synthetic_only": true,
+  "real_network": true,
+  "checks": [
+    {
+      "provider": "groq",
+      "configuration": {
+        "live_model": "openai/gpt-oss-20b",
+        "assessment_model": "openai/gpt-oss-120b",
+        "live_route": "",
+        "assessment_route": "",
+        "paid_opt_in": true
+      },
+      "http_status": 200,
+      "seconds": 2.4529999999999745,
+      "result": {
+        "status": "validated",
+        "provider": "groq",
+        "validated_at": 1792515652.149664,
+        "live": true,
+        "structured_assessment": true
+      }
+    },
+    {
+      "provider": "openrouter",
+      "configuration": {
+        "live_model": "openai/gpt-oss-20b",
+        "assessment_model": "openai/gpt-oss-120b",
+        "live_route": "Groq",
+        "assessment_route": "Groq",
+        "paid_opt_in": true
+      },
+      "http_status": 503,
+      "seconds": 2.2970000000000255,
+      "result": {
+        "detail": "AI provider returned 429. Check configuration or retry explicitly.",
+        "error": {
+          "code": "rate_limit",
+          "message": "AI provider returned 429. Check configuration or retry explicitly.",
+          "retry_after": null
+        }
+      }
+    },
+    {
+      "provider": "openrouter",
+      "configuration": {
+        "live_model": "liquid/lfm-2.5-2.6b:free",
+        "assessment_model": "nvidia/nemotron-3-super-120b-a12b:free",
+        "live_route": "Liquid",
+        "assessment_route": "Nvidia",
+        "paid_opt_in": true
+      },
+      "http_status": 503,
+      "seconds": 12.094000000000051,
+      "result": {
+        "detail": "AI provider returned 404. Check configuration or retry explicitly.",
+        "error": {
+          "code": "unavailable_model",
+          "message": "AI provider returned 404. Check configuration or retry explicitly.",
+          "retry_after": null
+        }
+      }
+    },
+    {
+      "provider": "openrouter",
+      "configuration": {
+        "live_model": "liquid/lfm-2.5-2.6b:free",
+        "assessment_model": "liquid/lfm-2.5-2.6b:free",
+        "live_route": "Liquid",
+        "assessment_route": "Liquid",
+        "paid_opt_in": true
+      },
+      "http_status": 200,
+      "seconds": 25.047000000000025,
+      "result": {
+        "status": "validated",
+        "provider": "openrouter",
+        "validated_at": 1792515965.9532702,
+        "live": true,
+        "structured_assessment": true
+      }
+    },
+    {
+      "provider": "groq",
+      "configuration": {
+        "live_model": "openai/gpt-oss-20b",
+        "assessment_model": "openai/gpt-oss-120b",
+        "live_route": "",
+        "assessment_route": "",
+        "paid_opt_in": true
+      },
+      "persisted_settings_revision": 2,
+      "http_status": 200,
+      "seconds": 0.9690000000000509,
+      "result": {
+        "status": "validated",
+        "provider": "groq",
+        "validated_at": 1792516016.836068,
+        "live": true,
+        "structured_assessment": true
+      }
+    },
+    {
+      "provider": "openrouter",
+      "configuration": {
+        "live_model": "liquid/lfm-2.5-2.6b:free",
+        "assessment_model": "liquid/lfm-2.5-2.6b:free",
+        "live_route": "Liquid",
+        "assessment_route": "Liquid",
+        "paid_opt_in": true
+      },
+      "persisted_settings_revision": 2,
+      "http_status": 200,
+      "seconds": 14.704000000000178,
+      "result": {
+        "status": "validated",
+        "provider": "openrouter",
+        "validated_at": 1792516031.5587127,
+        "live": true,
+        "structured_assessment": true
+      }
+    },
+    {
+      "provider": "openrouter",
+      "configuration": {
+        "live_model": "liquid/lfm-2.5-2.6b:free",
+        "assessment_model": "liquid/lfm-2.5-2.6b:free",
+        "live_route": "Liquid",
+        "assessment_route": "Liquid",
+        "paid_opt_in": true
+      },
+      "live_token_budget": 1200,
+      "http_status": 200,
+      "seconds": 17.483999999999924,
+      "result": {
+        "status": "validated",
+        "provider": "openrouter",
+        "validated_at": 1792516602.6892855,
+        "live": true,
+        "structured_assessment": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "role_id": "fullstack_engineer",
+  "title": "Full-stack Engineer",
+  "levels": {
+    "junior": {
+      "expectations": "Connect a browser action to its service and data effect, explain boundaries, and test one end-to-end failure.",
+      "competencies": ["ui_to_api_flow", "state_and_persistence", "failure_handling", "verification"],
+      "question_objectives": ["trace one user action end to end", "explain one confirmed cross-layer decision", "identify a failure boundary and an observable check"],
+      "coding_problem": "fullstack_event_window"
+    },
+    "intermediate": {
+      "expectations": "Compare cross-layer ownership and consistency choices, reason about retries and partial failure, and propose targeted tests.",
+      "competencies": ["ui_to_api_flow", "state_and_persistence", "consistency", "retries_and_partial_failure", "verification"],
+      "question_objectives": ["identify source-of-truth and cache boundaries", "reason about retries, duplicates, and stale UI", "define a regression and recovery check"],
+      "coding_problem": "fullstack_event_window"
+    }
+  },
+  "reasoning_families": ["cache_price_v1", "frontend_ordering_v1"],
+  "rubric_refs": ["resume_clarity_v1", "technical_understanding_v1", "decision_reasoning_v1", "failure_handling_v1", "diagnostic_selection_v1"]
+}

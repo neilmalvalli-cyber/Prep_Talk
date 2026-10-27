@@ -1,0 +1,24 @@
+[Unit]
+Description=Fieldnote authenticated isolated code runner
+After=network.target docker.service
+Requires=docker.service
+
+[Service]
+Type=simple
+User=fieldnote-runner
+Group=fieldnote-runner
+SupplementaryGroups=docker
+WorkingDirectory=/opt/fieldnote-runner/app
+EnvironmentFile=/etc/fieldnote-runner.env
+ExecStart=/opt/fieldnote-runner/venv/bin/uvicorn runner_service.main:app --host ${RUNNER_BIND} --port ${RUNNER_PORT} --workers 1
+Restart=on-failure
+RestartSec=3
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/fieldnote-runner
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+
+[Install]
+WantedBy=multi-user.target

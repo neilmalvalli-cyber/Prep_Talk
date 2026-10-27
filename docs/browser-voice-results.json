@@ -1,0 +1,9 @@
+{
+  "real_browser_webrtc": true,
+  "real_local_models": true,
+  "synthetic_cloud": true,
+  "fake_microphone_device": true,
+  "speaking_state_observed": true,
+  "stop_control_to_non_speaking_ms": 68,
+  "errors": []
+}

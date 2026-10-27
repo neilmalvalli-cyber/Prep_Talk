@@ -1,0 +1,24 @@
+[project]
+name = "fieldnote-api"
+version = "0.1.0"
+requires-python = ">=3.11,<3.13"
+dependencies = ["fastapi>=0.115,<1", "uvicorn>=0.30,<1", "httpx>=0.28,<1", "pydantic>=2.10,<3", "python-multipart>=0.0.20", "pypdf>=5,<7", "python-dotenv>=1,<2", "jsonschema>=4.25,<5", "referencing>=0.37,<1", "PyJWT[crypto]>=2.10,<3"]
+
+[project.optional-dependencies]
+voice = [
+  "pipecat-ai[webrtc]>=1.4,<2",
+  "faster-whisper>=1.1,<2",
+  "onnxruntime>=1.20",
+  "kokoro-onnx>=0.4.9,<1",
+  "numpy>=1.26",
+  "scipy>=1.13",
+  "nvidia-cublas-cu12; sys_platform == 'linux'",
+  "nvidia-cudnn-cu12>=9,<10; sys_platform == 'linux'",
+]
+
+[dependency-groups]
+dev = ["pytest>=8,<10", "pytest-asyncio>=0.25,<2"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+asyncio_mode = "auto"

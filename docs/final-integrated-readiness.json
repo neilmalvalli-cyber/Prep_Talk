@@ -1,0 +1,43 @@
+{
+  "groq": {
+    "http_status": 200,
+    "validated": true
+  },
+  "openrouter": {
+    "http_status": 503,
+    "validated": false
+  },
+  "voice": {
+    "ready": true,
+    "detail": "Local Whisper and Kokoro models loaded and passed warmup.",
+    "status": "ready",
+    "missing": [],
+    "warmup_seconds": 42.0093342629998
+  },
+  "readiness": {
+    "voice": {
+      "ready": true,
+      "detail": "Local Whisper and Kokoro models loaded and passed warmup.",
+      "status": "ready",
+      "missing": [],
+      "warmup_seconds": 42.0093342629998
+    },
+    "providers": {
+      "groq": {
+        "status": "configured",
+        "validated": true
+      },
+      "openrouter": {
+        "status": "configured",
+        "validated": false
+      }
+    },
+    "runner": {
+      "configured": false
+    },
+    "assessment": {
+      "automatic_ratings": false,
+      "reason": "Independent human calibration unavailable; factual reference review only."
+    }
+  }
+}

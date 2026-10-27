@@ -1,0 +1,11 @@
+{
+  "real_webrtc": true,
+  "models_loaded": false,
+  "cloud_used": false,
+  "data_channel_label": "pipecat",
+  "client_connection_state": "connected",
+  "server_message": {
+    "type": "acceptance-ping",
+    "generation_id": "synthetic-generation"
+  }
+}

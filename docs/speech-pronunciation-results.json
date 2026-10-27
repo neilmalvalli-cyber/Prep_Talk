@@ -1,0 +1,57 @@
+{
+  "scope": "Real local CPU Kokoro/CUDA Whisper on three synthetic prompts; no human listening or acoustic microphone claim.",
+  "application_pronunciation_changed": false,
+  "samples": [
+    {
+      "original_display_text": "How did your API use a TTL?",
+      "comparisons": [
+        {
+          "mode": "original",
+          "synthesis_text": "How did your API use a TTL?",
+          "synthetic_round_trip_transcript": "How did your API use a TTL?",
+          "audio_seconds": 2.24
+        },
+        {
+          "mode": "experimental_letter_spacing",
+          "synthesis_text": "How did your A P I use a T T L?",
+          "synthetic_round_trip_transcript": "How did you repeat I use a TTL?",
+          "audio_seconds": 2.1546666666666665
+        }
+      ]
+    },
+    {
+      "original_display_text": "Would HTTP or HTTPS change your SQL query?",
+      "comparisons": [
+        {
+          "mode": "original",
+          "synthesis_text": "Would HTTP or HTTPS change your SQL query?",
+          "synthetic_round_trip_transcript": "Would HTTP or HTTPS change your SQL query?",
+          "audio_seconds": 4.096
+        },
+        {
+          "mode": "experimental_letter_spacing",
+          "synthesis_text": "Would H T T P or H T T P S change your S Q L query?",
+          "synthetic_round_trip_transcript": "Would HTTP or HTTPs change your SQL query?",
+          "audio_seconds": 3.968
+        }
+      ]
+    },
+    {
+      "original_display_text": "How did the C++ program parse JSON for the UI?",
+      "comparisons": [
+        {
+          "mode": "original",
+          "synthesis_text": "How did the C++ program parse JSON for the UI?",
+          "synthetic_round_trip_transcript": "How did the C++ program parse JSON for the UI?",
+          "audio_seconds": 3.477333333333333
+        },
+        {
+          "mode": "experimental_letter_spacing",
+          "synthesis_text": "How did the C plus plus program parse J S O N for the U I?",
+          "synthetic_round_trip_transcript": "How did the C++ program parse JSON for the UI?",
+          "audio_seconds": 4.032
+        }
+      ]
+    }
+  ]
+}

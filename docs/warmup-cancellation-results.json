@@ -1,0 +1,20 @@
+{
+  "real_local_models": true,
+  "cloud_or_runner_calls": false,
+  "cancelled_waiter_does_not_cancel_native_loading": true,
+  "replacement_waiter_shares_owned_task": true,
+  "native_model_constructor_calls": [
+    "whisper",
+    "kokoro"
+  ],
+  "subsequent_warmup_reuses_models": true,
+  "elapsed_seconds": 23.3326415,
+  "readiness": {
+    "ready": true,
+    "status": "ready",
+    "detail": "Local Whisper and Kokoro models loaded and passed warmup.",
+    "missing": [],
+    "warmup_seconds": 23.30683639
+  },
+  "scope": "Real CUDA Whisper and CPU Kokoro loading/warmup; no physical microphone or provider connectivity claim."
+}

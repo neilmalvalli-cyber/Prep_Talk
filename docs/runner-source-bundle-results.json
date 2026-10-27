@@ -1,0 +1,33 @@
+{
+  "status": "pass_source_bundle_only",
+  "archive": "data/fieldnote-runner-source.tar.gz",
+  "sha256": "eeb532b5eb8957e53520e3aa59787a85c5b8a2b79fd7ea64be5badeb441f908d",
+  "regular_files": 18,
+  "members": [
+    "apps/runner/README.md",
+    "apps/runner/pyproject.toml",
+    "apps/runner/uv.lock",
+    "apps/runner/requirements.lock",
+    "apps/runner/install-dedicated-ubuntu.sh",
+    "apps/runner/fieldnote-runner.service",
+    "apps/runner/Dockerfile.python",
+    "apps/runner/Dockerfile.cpp",
+    "apps/runner/Dockerfile.cpp-runtime",
+    "apps/runner/acceptance_dedicated.py",
+    "apps/runner/runner_service/__init__.py",
+    "apps/runner/runner_service/main.py",
+    "content/coding/backend_frequency_counts.json",
+    "content/coding/frontend_latest_search.json",
+    "content/coding/fullstack_event_window.json",
+    "content/coding-private/backend_frequency_counts_hidden_v1.json",
+    "content/coding-private/frontend_latest_search_hidden_v1.json",
+    "content/coding-private/fullstack_event_window_hidden_v1.json"
+  ],
+  "matches_current_source": true,
+  "installer_bash_syntax": "passed",
+  "mocked_account_creation_and_idempotency": "passed",
+  "static_and_distribution_tests": 11,
+  "runner_installed_here": false,
+  "candidate_code_executed_here": false,
+  "dedicated_host_acceptance": "not_run"
+}

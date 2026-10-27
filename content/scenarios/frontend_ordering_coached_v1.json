@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "scenario_id": "frontend_ordering_coached_v1",
+  "title": "Coached practice: current intent and late responses",
+  "synthetic": true,
+  "family": "frontend_ordering",
+  "attempt": "coached",
+  "version": "1.0.0",
+  "initial_facts": [
+    {"fact_id":"filters","text":"A user selects 'open' and quickly changes the filter to 'all'."},
+    {"fact_id":"symptom","text":"The list sometimes returns to the narrower result set."}
+  ],
+  "public_evidence": [
+    {"card_id":"filter_requests","text":"F1 requests 'open'; F2 requests 'all'.","source":"Synthetic network events","requires":[]},
+    {"card_id":"filter_order","text":"F2 finishes first and renders all rows. F1 finishes later and overwrites the view.","source":"Synthetic completion timestamps","requires":[]},
+    {"card_id":"filter_cache","text":"Both responses are fresh network responses; no local cache is involved.","source":"Synthetic response headers","requires":[]},
+    {"card_id":"commit_rule","text":"The view commits whichever response finishes last, without checking current filter intent.","source":"Synthetic state transition trace","requires":[]}
+  ],
+  "reveal_rules": {"mode":"explicit_request_or_candidate_confirmed_diagnostic","one_card_per_request":true,"never_infer_or_fabricate_cards":true,"diagnostic_request_penalty":false},
+  "coaching": {"visible_before_attempt":true,"lesson":"A response may be valid for its original request and still be stale for the user's current intent.","guided_steps":["Record the current query or filter.","Compare request start and completion order.","Check the rule that decides whether a response may update the view.","Test an older response arriving after a newer one."],"assistance_level":"guided"},
+  "accepted_alternatives": ["Use a monotonically increasing request generation guard.", "Cancel obsolete requests and retain a current-intent guard for races.", "Keep the current view while loading and announce the updated result accessibly."],
+  "private_reference_id": "frontend_ordering_coached_v1_private",
+  "criteria": ["problem_framing_v1","diagnostic_selection_v1","evidence_interpretation_v1","revision_uncertainty_v1","decision_verification_v1"]
+}

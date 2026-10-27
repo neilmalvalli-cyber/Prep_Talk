@@ -1,0 +1,1 @@
+{"schema_version":1,"problem_id":"backend_frequency_counts","tests":[{"stdin":"8\nA a B b B _x- _X- z\n","stdout":"_x- 2\na 2\nb 3\nz 1\n"},{"stdin":"5\n9 09 9- 9 09\n","stdout":"09 2\n9 2\n9- 1\n"}]}

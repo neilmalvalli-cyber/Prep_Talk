@@ -1,0 +1,379 @@
+/* Static optical materials avoid backdrop-filter repaint bands in embedded Chromium. */
+/* Optical material is explicitly requested: gradients model silver reflections,
+   translucent fills separate glass planes, and shadows describe their physical edge. */
+:root {
+  --canvas:#e6e9e4; --surface:#f5f7f2; --raised:#edf1eb; --field:#e9eee7;
+  --text:#26312d; --muted:#546259; --dim:#546259;
+  --accent:#3e5f52; --on-accent:#f7faf5; --cyan:var(--accent); --pearl:var(--accent);
+  --line:#bec9bf; --line-soft:#d4ddd3; --danger:#943d48; --danger-bg:#f3e4e5;
+  --positive:#3e6650; --positive-bg:#dfece0; --amber:#795c27;
+  --glass-fill:linear-gradient(140deg,#ffffffe0,#f3f7f052 66%,#ffffff8c); /* taste-skill-ignore: explicit user request for optical glass reflections. */
+  --glass-edge:#ffffffe0; --glass-inner:#ffffffb3; --glass-low:#ffffff42;
+  --glass-shadow:inset 0 1px 0 #fff, inset 0 -1px 0 #ffffff70,0 18px 44px -28px #384f3d63;
+  --shadow:var(--glass-shadow); --shadow-small:inset 0 1px 0 #ffffffd9,0 5px 16px -12px #30433566;
+  --inset:inset 0 1px 3px #3249360d; --radius:28px;
+  --reflection:linear-gradient(122deg,transparent 22%,#ffffff47 31%,transparent 43%,transparent 58%,#889d8b1a 68%,transparent 79%); /* taste-skill-ignore: explicit user request for optical glass reflections. */
+  font-family:Manrope,system-ui,sans-serif;
+}
+:root[data-theme=dark] {
+  --canvas:#202523; --surface:#303833; --raised:#38413b; --field:#272f2a;
+  --text:#f0f3ed; --muted:#b6c2b8; --dim:#b6c2b8;
+  --accent:#c5d8cb; --on-accent:#263b2f; --line:#536156; --line-soft:#455147;
+  --danger:#f1afb4; --danger-bg:#452f34; --positive:#bbd5bf; --positive-bg:#33463a; --amber:#dcc99f;
+  --glass-fill:linear-gradient(140deg,#7c8a7b38,#34403970 62%,#8c9b8c17); /* taste-skill-ignore: explicit user request for optical glass reflections. */
+  --glass-edge:#d1e1d12e; --glass-inner:#e9ffe017; --glass-low:#b1c5ae0d;
+  --glass-shadow:inset 0 1px 0 #e9ffe026,inset 0 -1px 0 #ffffff08,0 22px 46px -28px #080f09b3;
+  --shadow-small:inset 0 1px 0 #d7efd51c,0 6px 16px -12px #0009;
+  --inset:inset 0 1px 3px #0000001a;
+  --reflection:linear-gradient(122deg,transparent 22%,#d9f2d208 31%,transparent 43%,transparent 58%,#b1c9b10b 68%,transparent 79%); /* taste-skill-ignore: explicit user request for optical glass reflections. */
+}
+html {background:var(--canvas);scroll-padding-top:120px}
+body {position:relative;isolation:isolate;background:var(--canvas);font-size:15px;line-height:1.65;letter-spacing:-.012em}
+body::before {content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:var(--reflection);background-size:100% 100dvh}
+::selection {background:color-mix(in srgb,var(--accent) 22%,var(--surface));color:var(--text)}
+.app-shell {background:transparent;position:relative;overflow:clip}
+:is(button,a,summary,input,select,textarea) {touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+:is(button,a,summary,input,select,textarea):focus-visible {outline:2px solid var(--accent);outline-offset:4px}
+:is(h1,h2,h3) {text-wrap:balance;font-weight:600;letter-spacing:-.035em;color:var(--text)}
+p {text-wrap:pretty}
+button {transition:background-color .18s,color .18s,border-color .18s,box-shadow .18s,transform .18s}
+button:active:not(:disabled) {transform:translateY(1px)}
+button:disabled {opacity:.62}
+.topbar {
+  width:min(calc(100% - 64px),1240px);max-width:none;min-height:72px;height:auto;
+  margin:24px auto 0;padding:12px 16px;display:flex;gap:16px;position:relative;z-index:30;
+  background:var(--glass-fill);border:1px solid var(--glass-edge);border-radius:28px;
+  box-shadow:var(--glass-shadow);isolation:isolate;
+}
+.brand {gap:10px;font-weight:650;font-size:21px;letter-spacing:-1px;flex:none;min-height:44px}
+.brand-mark {width:34px;height:34px;border-radius:12px;background:var(--glass-low);color:var(--text);box-shadow:var(--shadow-small);border:1px solid var(--glass-edge)}
+.topbar nav {gap:4px;margin-left:auto}
+.topbar nav button {font-size:13px;font-weight:500;padding:10px 12px;border-radius:999px;white-space:nowrap;min-height:44px}
+.topbar nav button:hover,.theme-toggle:hover {background:var(--glass-low);color:var(--text)}
+.theme-toggle {width:44px;height:44px;padding:10px;border:0;border-radius:50%;flex:none;color:var(--text)}
+.glass-nav-action {border-radius:999px;background:var(--glass-low);border:1px solid var(--glass-edge);box-shadow:var(--shadow-small);flex:none}
+.glass-nav-action .liquid-glass-renderer {opacity:.16}
+.top-cta {font-size:13px;min-height:44px;padding:10px 16px;color:var(--text);border:0}
+.topbar .profile-menu>summary {background:var(--glass-low);padding:6px 10px 6px 6px;gap:8px;max-width:180px;border:1px solid var(--glass-edge)}
+.profile-menu>summary>span:nth-child(2) {overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100px}
+.profile-avatar {background:var(--field);color:var(--accent);box-shadow:inset 0 1px 1px var(--glass-inner)}
+.profile-menu-content {padding:24px;background:var(--glass-fill),var(--surface);border:1px solid var(--glass-edge);border-radius:24px;box-shadow:var(--glass-shadow);backdrop-filter:none;-webkit-backdrop-filter:none}
+.profile-menu[open]>summary {background:var(--field);border-color:var(--line)}
+.profile-menu-content .field-label {margin:16px 0}
+.profile-menu-content>.button-quiet {display:flex;align-items:center;justify-content:center;gap:8px;margin-top:12px;border-radius:14px}
+.button-primary,.review-primary {
+  min-height:48px;padding:12px 22px;border-radius:999px;border:1px solid var(--accent);
+  background:var(--accent);color:var(--on-accent);font-size:14px;font-weight:600;
+  box-shadow:inset 0 1px 0 #ffffff29,0 7px 16px -12px #24432f7a;
+}
+.button-primary:hover,.review-primary:hover {background:color-mix(in srgb,var(--accent) 88%,var(--text));opacity:1;transform:translateY(-1px)}
+.button-outline {min-height:48px;padding:12px 20px;font-size:14px;border-radius:999px;border:1px solid var(--line);background:var(--glass-low);color:var(--text);box-shadow:var(--shadow-small)}
+.button-outline:hover {background:var(--surface);border-color:var(--accent)}
+.button-quiet {min-height:44px;padding:10px 14px;font-size:14px;font-weight:500;border:0;border-radius:999px;background:transparent;color:var(--text);box-shadow:none}
+.button-quiet:hover {background:var(--glass-low)}
+input:not([type=checkbox]):not([type=file]),textarea,select {
+  min-height:48px;padding:12px 14px;font-size:14px;line-height:1.6;border:1px solid var(--line);
+  background:color-mix(in srgb,var(--surface) 80%,transparent);color:var(--text);border-radius:14px;box-shadow:var(--inset);
+}
+textarea {resize:vertical}
+select {accent-color:var(--accent)}
+select option {background:var(--surface);color:var(--text)}
+/* Native customizable selects keep form behavior and keyboard navigation while
+   letting the open menu use the same material as the profile menu. */
+@supports (appearance:base-select) {
+  select,select::picker(select) {appearance:base-select}
+  select {align-items:center;gap:16px;cursor:pointer}
+  select::picker(select) {
+    top:anchor(bottom);bottom:auto;position-try-fallbacks:none;
+    padding:6px;margin-block:6px;max-height:min(360px,50dvh);overflow:auto;
+    background:var(--glass-fill),var(--surface);color:var(--text);
+    border:1px solid var(--glass-edge);border-radius:18px;box-shadow:var(--glass-shadow);
+    font-family:inherit;font-size:14px;line-height:1.6;
+  }
+  select::picker-icon {color:var(--muted);transition:rotate .18s}
+  select:open::picker-icon {rotate:180deg}
+  select option {
+    min-height:44px;padding:10px 14px;gap:12px;border:0;border-radius:12px;
+    background:transparent;color:var(--text);cursor:pointer;white-space:normal;overflow-wrap:anywhere;
+  }
+  select option:checked {background:color-mix(in srgb,var(--accent) 14%,var(--surface));font-weight:600}
+  select option:hover,select option:focus {background:var(--field);outline:2px solid var(--line);outline-offset:-2px}
+  select option::checkmark {color:var(--accent)}
+  select option:disabled {color:var(--muted);cursor:default}
+}
+input::placeholder,textarea::placeholder {color:var(--muted);opacity:1}
+.field-label {gap:9px;font-size:14px;font-weight:500;margin:20px 0;color:var(--text)}
+.field-label small {font-size:13px;line-height:1.65;color:var(--muted);font-weight:400}
+input[type=checkbox] {accent-color:var(--accent);width:18px;height:18px;flex:none}
+.check-row {align-items:flex-start;padding-block:10px;font-size:14px;line-height:1.65;gap:12px}
+.notice {border-radius:18px;border:1px solid var(--glass-edge);background:var(--surface);box-shadow:var(--shadow-small);font-size:14px}
+.error-notice {background:var(--danger-bg);color:var(--danger);border-color:color-mix(in srgb,var(--danger) 24%,transparent)}
+.page-content {max-width:1304px;padding:40px 32px 80px;margin-inline:auto}
+.page-content :is(.setup-title,.settings-title) {margin:0 0 32px;padding:0}
+.page-content :is(.setup-title,.settings-title) h1 {font-size:32px;font-weight:600;line-height:1.2;margin-bottom:12px}
+.page-content :is(.setup-title,.settings-title) p {font-size:15px;line-height:1.7;max-width:68ch;color:var(--muted)}
+.panel,.aside-card,.history-row,.empty-state,.sample-modal,.auth-card,.review-sheet,.workspace-panel {
+  background:var(--glass-fill);border:1px solid var(--glass-edge);box-shadow:var(--glass-shadow);
+  backdrop-filter:none;-webkit-backdrop-filter:none;border-radius:28px;
+}
+.panel {padding:30px}
+.panel h2 {font-size:22px;margin-bottom:16px;font-weight:600}
+.panel h3 {font-size:17px;font-weight:600}
+.panel p,.panel li {font-size:14px;line-height:1.75;color:var(--muted)}
+.panel-copy {max-width:70ch;margin-bottom:24px}
+.setup-grid {grid-template-columns:minmax(0,1fr) 320px;gap:24px}
+.setup-main {gap:24px}
+.glass-session-summary {border-radius:28px;top:24px}
+.glass-session-summary .liquid-glass-renderer {opacity:.12}
+.glass-session-summary>.aside-card {padding:28px;background:var(--glass-fill);border-color:var(--glass-edge)}
+.aside-card h2 {font-size:22px}
+.aside-card p {font-size:13px;line-height:1.75}
+.upload-zone {padding:26px;border:1px dashed var(--line);background:var(--glass-low);border-radius:20px;gap:8px 16px}
+.upload-zone span {font-size:16px;font-weight:600}
+.upload-zone small {font-size:13px;color:var(--muted)}
+.role-cards {gap:12px}
+.role-card {border:1px solid var(--line-soft);border-radius:18px;background:var(--glass-low);box-shadow:none;min-height:130px;padding:18px 14px}
+.role-card.selected {border:1px solid var(--accent);padding:18px 14px;background:color-mix(in srgb,var(--accent) 9%,var(--surface));box-shadow:inset 0 0 0 1px var(--accent)}
+.role-card b {font-size:14px;font-weight:600}
+.role-card small {font-size:13px;color:var(--muted)}
+.provider-settings {max-width:1120px}
+.provider-status {background:var(--glass-low);border:1px solid var(--glass-edge);border-radius:20px;padding:20px;box-shadow:inset 0 1px 0 var(--glass-inner)}
+.provider-status b {font-size:14px;font-weight:600}
+.provider-status small {font-size:13px;line-height:1.65}
+.disclosure,.privacy-note {background:var(--glass-low);border:1px solid var(--line-soft);box-shadow:none;border-radius:18px;padding:20px}
+.settings-actions {gap:12px;padding-top:24px}
+.history-list {display:grid;gap:16px}
+.history-row {padding:26px;gap:16px}
+.history-main {flex:1;min-width:0}
+.history-main h2 {font-size:20px;font-weight:600;margin-bottom:8px}
+.history-main p {font-size:13px;line-height:1.7}
+.history-main small {font-size:13px;color:var(--muted)}
+.empty-state {padding:64px 32px;max-width:100%;text-align:center}
+.empty-state h2 {font-size:28px}
+.empty-state p {font-size:15px;max-width:44ch;margin:12px auto 24px}
+.auth-screen {background:transparent;padding:72px 24px;min-height:100dvh}
+.auth-theme {top:24px;right:24px}
+.auth-theme .theme-toggle {background:var(--glass-fill);border:1px solid var(--glass-edge);box-shadow:var(--glass-shadow)}
+.auth-card {width:100%;max-width:500px;padding:40px}
+.auth-card h1 {font-size:34px;line-height:1.18;font-weight:600;letter-spacing:-.045em;margin:0 0 16px}
+.auth-card>p {font-size:15px;line-height:1.7;color:var(--muted)}
+.auth-card>.button-primary {margin-top:12px}
+.auth-card>.button-quiet {margin-top:4px;font-size:13px}
+.auth-card .field-label {margin:18px 0}
+/* The first screen is the listening instrument; the question is a floating glass slip. */
+.hero,.workflow,.branch-example,.privacy-section,.last-call,.app-shell footer {width:min(calc(100% - 64px),1240px);max-width:none;margin-inline:auto}
+.hero {display:grid;grid-template-columns:minmax(0,1fr) minmax(380px,.94fr);gap:56px;align-items:center;padding:76px 0 68px;min-height:660px}
+.hero h1 {font-size:clamp(52px,5.3vw,76px);line-height:1.04;letter-spacing:-.065em;font-weight:500;max-width:13ch;margin:0}
+.hero h1[tabindex="-1"]:focus {outline:none}
+.hero-lede {font-size:18px;line-height:1.7;max-width:46ch;margin:28px 0;color:var(--text)}
+.hero-actions {gap:12px;margin-top:28px;flex-wrap:wrap}
+.hero-actions .button-primary {font-size:14px;padding:14px 22px;min-height:50px}
+.privacy-line {font-size:13px;line-height:1.75;gap:8px;margin:28px 0 0;max-width:60ch;color:var(--muted)}
+.privacy-line>svg {width:16px;height:16px;flex:none;margin-top:3px;color:var(--accent)}
+.privacy-line>button {font-size:13px;text-underline-offset:4px;min-height:36px}
+.hero-art {position:relative;min-width:0}
+.hero-art .orb-stage {position:relative;display:grid;place-items:center;width:100%;max-width:none;min-height:520px;height:520px;padding:0;background:var(--glass-fill);border:1px solid var(--glass-edge);border-radius:44px;box-shadow:var(--glass-shadow);backdrop-filter:none;-webkit-backdrop-filter:none}
+.hero-art .sphere-wrap {width:360px;height:360px;max-width:90%;transform:translateY(-22px)}
+.orb-caption {font-size:13px;color:var(--muted);letter-spacing:0}
+.hero-art .caption-top {top:28px;left:28px;right:28px;justify-content:flex-start}
+.hero-art .caption-bottom {bottom:18px;left:28px;right:28px;justify-content:center;font-size:13px}
+.mini-wave i,.tiny-line {background:var(--accent)}
+.hero-art .sample-question {left:24px;right:24px;bottom:58px;width:auto;max-width:none;padding:20px 22px;border-radius:24px;background:var(--glass-fill);border:1px solid var(--glass-edge);box-shadow:var(--glass-shadow);backdrop-filter:none;-webkit-backdrop-filter:none}
+.sample-question p {font-size:17px;line-height:1.55;letter-spacing:-.025em;max-width:none;color:var(--text)}
+.question-mark {color:var(--accent);opacity:.6;font-size:32px}
+.sample-label {color:var(--muted);font-size:13px;letter-spacing:0;text-transform:none;margin-top:14px}
+.workflow {display:grid;grid-template-columns:.85fr 1.4fr;gap:64px;padding:64px 0;margin-bottom:24px;border:0}
+.section-heading h2,.branch-intro h2 {font-size:40px;line-height:1.13;letter-spacing:-.045em;max-width:15ch}
+.steps {display:grid;grid-template-columns:1fr;gap:0}
+.steps article {display:grid;grid-template-columns:190px minmax(0,1fr);gap:24px;padding:18px 0;border:0;background:transparent;box-shadow:none;border-radius:0}
+.step-icon {display:none}
+.steps h3 {font-size:17px;font-weight:600;margin:0}
+.steps p {font-size:16px;line-height:1.75;margin:0;color:var(--text)}
+.branch-example {grid-template-columns:.85fr 1.4fr;gap:64px;padding:64px 0 88px}
+.branch-intro p {font-size:16px;line-height:1.7;max-width:34ch;margin-top:20px;color:var(--muted)}
+.branch-flow {padding:28px;border:1px solid var(--glass-edge);border-radius:32px;background:var(--glass-fill);box-shadow:var(--glass-shadow);backdrop-filter:none;-webkit-backdrop-filter:none}
+.chat-bubble {padding:22px;background:var(--glass-low);border:0;border-radius:20px;box-shadow:none}
+.chat-bubble>span {font-size:13px;font-weight:600;color:var(--accent)}
+.chat-bubble p {font-size:16px;line-height:1.7;color:var(--text)}
+.sample-choices {gap:12px;margin:20px 0}
+.sample-choices button {padding:16px 18px;border:1px solid var(--line);border-radius:18px;background:var(--glass-low);font-size:14px;line-height:1.65;box-shadow:var(--shadow-small)}
+.sample-choices button[aria-pressed=true] {background:color-mix(in srgb,var(--accent) 9%,var(--surface));border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.branch-item {padding:16px 6px;gap:14px}
+.branch-item p {font-size:16px;line-height:1.7}
+.branch-item b {font-size:13px;letter-spacing:0;text-transform:none}
+.branch-node {background:var(--accent);box-shadow:none}
+.synthetic-tag {font-size:13px;line-height:1.65;letter-spacing:0;color:var(--muted);text-transform:none}
+.privacy-section {display:grid;grid-template-columns:32px 1.25fr 1fr;gap:28px;padding:36px;border-radius:32px;background:var(--glass-low);border:1px solid var(--glass-edge);box-shadow:inset 0 1px 0 var(--glass-inner)}
+.privacy-icon {background:none;box-shadow:none;border:0;padding:0;color:var(--accent);width:32px;height:32px}
+.privacy-section h2 {font-size:28px;line-height:1.2;margin:0 0 16px}
+.privacy-section p {font-size:16px;line-height:1.8;color:var(--text)}
+.privacy-points {display:grid;align-content:start;gap:16px;padding-top:4px}
+.privacy-points span {font-size:13px;line-height:1.6;color:var(--text)}
+.privacy-points svg {color:var(--accent)}
+.last-call {display:flex;align-items:center;justify-content:space-between;gap:28px;padding:48px 0;margin-block:40px 16px;border:0}
+.last-call h2 {font-size:32px;line-height:1.2}
+.last-call p {font-size:15px;margin-top:12px;color:var(--muted)}
+.app-shell footer {padding:32px 0 36px;border-top:0;font-size:13px;gap:20px;flex-wrap:wrap}
+.app-shell footer>span:first-child {font-size:22px;font-weight:650;letter-spacing:-1px}
+.app-shell footer>span {font-size:13px}
+.modal-backdrop {background:#1b2b245e;backdrop-filter:none;-webkit-backdrop-filter:none;padding:24px;overscroll-behavior:contain}
+.sample-modal {padding:36px;max-width:680px;background:var(--glass-fill),var(--surface);max-height:calc(100dvh - 48px);overscroll-behavior:contain}
+.sample-modal h2 {font-size:30px;line-height:1.2;margin-right:24px}
+.sample-modal .modal-intro {font-size:14px;line-height:1.7;color:var(--muted)}
+.sample-exchange {gap:16px;margin-block:24px}
+.sample-exchange .candidate-bubble {background:var(--field)}
+.modal-close {border-radius:50%;background:var(--glass-low);width:44px;height:44px;border:1px solid var(--glass-edge);color:var(--text)}
+/* Work surfaces use the same material; controls sit in quieter inset wells. */
+.interview-screen {max-width:1304px;padding:28px 32px 64px;margin-inline:auto}
+.interview-screen .interview-top {padding:0 0 20px;gap:16px}
+.interview-screen .session-meta {font-size:13px;gap:20px}
+.interview-screen .interview-layout {grid-template-columns:360px minmax(0,1fr);gap:24px}
+.interview-screen .conversation-stage {padding:28px 24px;border:1px solid var(--glass-edge);border-radius:32px;background:var(--glass-fill);box-shadow:var(--glass-shadow);backdrop-filter:none;-webkit-backdrop-filter:none;min-height:660px}
+.interview-screen .current-question h1 {font-size:26px;font-weight:600;letter-spacing:-.04em}
+.interview-screen .interview-stage-name {font-size:13px;line-height:1.65}
+.interview-screen .live-sphere .sphere-wrap {width:276px;height:276px}
+.interview-screen .live-status {font-size:13px;min-height:36px;max-width:100%;text-align:center}
+.interview-screen .voice-controls {padding:12px;border-radius:24px;background:var(--glass-low);border:1px solid var(--glass-edge);box-shadow:inset 0 1px 0 var(--glass-inner);gap:8px;margin-top:16px}
+.interview-screen .glass-voice-controls .liquid-glass-renderer {opacity:.12}
+.interview-screen .control-button {min-height:44px;border-radius:14px;font-size:13px;border:1px solid var(--glass-edge);background:var(--glass-low);color:var(--text);box-shadow:none}
+.interview-screen .control-button:first-child {background:var(--accent);color:var(--on-accent);border-color:var(--accent);border-radius:999px;box-shadow:inset 0 1px 0 #ffffff2b}
+.interview-screen .control-button:last-of-type {background:transparent;color:var(--text)}
+.interview-screen .transcript-panel {border-radius:32px;border:1px solid var(--glass-edge);background:var(--glass-fill);box-shadow:var(--glass-shadow);backdrop-filter:none;-webkit-backdrop-filter:none;height:min(770px,calc(100dvh - 210px));min-height:660px}
+.interview-screen .transcript-heading {padding:26px 28px 20px;border-color:var(--line-soft)}
+.interview-screen .transcript-heading h2 {font-size:20px;font-weight:600}
+.interview-screen .transcript-heading p {font-size:13px;line-height:1.7}
+.interview-screen .transcript-list {padding:8px 28px 20px}
+.interview-screen .turn {padding:20px 0;border:0}
+.interview-screen .turn p {font-size:15px;line-height:1.8}
+.interview-screen .turn>span {font-size:13px;font-weight:600;color:var(--accent)}
+.interview-screen .turn-user {background:var(--glass-low);padding:20px;border-radius:20px;margin:8px 0 8px 28px}
+.interview-screen .turn-user>span {color:var(--muted)}
+.interview-screen .typed-answer {padding:20px 28px 12px;border-color:var(--line-soft);background:transparent}
+.interview-screen .typed-answer textarea {background:var(--field);border:1px solid var(--line);border-radius:16px;font-size:14px;box-shadow:var(--inset)}
+.interview-screen .typed-answer>div button {background:var(--accent);color:var(--on-accent);border-radius:999px;border:1px solid var(--accent);min-height:44px;font-weight:600;box-shadow:none}
+.interview-screen .conversation-note {padding:0 28px 20px;font-size:13px;color:var(--muted)}
+.interview-screen .interview-tabs {background:var(--glass-low);padding:6px;border-radius:999px;width:fit-content;gap:6px;border:1px solid var(--glass-edge);margin-block:24px}
+.interview-screen .interview-tabs button {min-height:44px;padding:10px 18px;border-radius:999px;background:transparent;border:0;color:var(--muted);box-shadow:none}
+.interview-screen .interview-tabs button[aria-pressed=true] {background:var(--surface);color:var(--text);box-shadow:var(--shadow-small)}
+.interview-screen .workspace-panel {padding:28px;border:1px solid var(--glass-edge);background:var(--glass-fill);box-shadow:var(--glass-shadow);border-radius:28px}
+.interview-screen .stage-footer {gap:12px;padding:20px 0 0}
+.interview-screen .task-focused {grid-template-columns:300px minmax(0,1fr)}
+.page-content.report-page {max-width:1240px;padding:32px 32px 80px;font-size:14px;line-height:1.7}
+.report-page .review-toolbar {gap:16px;margin-bottom:24px}
+.review-title {padding:0 0 28px}
+.report-page h1 {font-size:32px;font-weight:600;letter-spacing:-.045em}
+.review-title p {font-size:13px;line-height:1.7;margin-top:12px}
+.review-sheet {padding:0 30px;border-radius:32px;background:var(--glass-fill);border-color:var(--glass-edge)}
+.review-overview {grid-template-columns:220px minmax(0,1fr);gap:32px;padding:32px 0;align-items:start}
+.review-score {padding:22px;border-radius:24px;background:var(--glass-low);border:1px solid var(--glass-edge);box-shadow:inset 0 1px 0 var(--glass-inner)}
+.report-page .review-score-value {font-size:44px;font-weight:500;letter-spacing:-.055em;line-height:1.1;margin:16px 0 24px}
+.review-score h2 {font-size:13px;font-weight:500;letter-spacing:0}
+.review-overview-copy {gap:16px}
+.review-summary-text {font-size:17px;line-height:1.75}
+.review-meta,.report-page small {font-size:13px;line-height:1.7}
+.report-page .review-text-button {min-height:44px;font-size:13px;border-radius:999px;padding:8px 12px;gap:8px}
+.report-page .review-text-button:hover {background:var(--glass-low);text-decoration:none}
+.review-jumps {border:1px solid var(--glass-edge);border-radius:20px;background:var(--glass-low);padding:6px;gap:4px 12px}
+.review-jumps a {min-height:44px;padding:8px 12px;font-size:13px;border-radius:999px}
+.review-jumps a:hover {background:var(--surface);text-decoration:none}
+.review-section {padding:32px 0;border-color:var(--line-soft)}
+.report-page h2 {font-size:20px;font-weight:600;letter-spacing:-.025em}
+.report-page h3 {font-size:15px;font-weight:600;letter-spacing:-.01em}
+.review-answer {background:var(--glass-low);border:1px solid var(--glass-edge);border-radius:22px;padding:24px;margin-top:16px}
+.review-answer:last-child {padding-bottom:24px}
+.report-page .review-question {font-size:16px;line-height:1.75}
+.review-answer-score {font-size:18px;font-weight:500}
+.report-page blockquote {background:var(--field);border:0;border-radius:16px;padding:18px;font-size:14px;line-height:1.75}
+.review-next-focus {background:var(--glass-low);border-radius:20px;padding:24px;margin-top:24px;border:1px solid var(--glass-edge)}
+.report-page pre {background:var(--field);border-color:var(--line);border-radius:16px}
+.review-record-group {border-color:var(--line-soft)}
+.report-page .review-save-notice:not(:empty) {padding:16px 0}
+/* Mineral glass in the existing renderer, including the non-WebGL fallback. */
+.liquid-glass.sphere {background:radial-gradient(ellipse at 28% 16%,#fffffff0,transparent 30%),linear-gradient(145deg,#d6e2d8,#81998d 48%,#c4d8c9 74%,#f4f8ee);border-color:#f2fff3b3;box-shadow:inset 2px 3px 8px #ffffffb3,inset -5px -7px 12px #526e5b40,0 20px 35px -20px #304b3b80} /* taste-skill-ignore: explicit user request for optical glass reflections. */
+:root[data-theme=dark] .liquid-glass.sphere {background:radial-gradient(ellipse at 28% 16%,#f5ffe873,transparent 30%),linear-gradient(145deg,#3b4b42,#1c2a23 48%,#314a3a 74%,#64796c);border-color:#d8efcfa1} /* taste-skill-ignore: explicit user request for optical glass reflections. */
+:root[data-theme] .liquid-glass.sphere.liquid-glass-ready {background:transparent;border-color:#e4f4d999;box-shadow:inset 1px 2px 2px #f4ffe9ad,inset -2px -3px 5px #b7cfaf66,0 18px 30px -20px #172c1e99}
+.liquid-glass.sphere b,:root[data-theme=dark] .liquid-glass.sphere.liquid-glass-ready b {background:radial-gradient(circle at 68% 25%,#fff 0 2px,#f2ffe8c9 3px,transparent 7px),radial-gradient(circle at 56% 31%,#f5ffe8 0 1px,transparent 4px)} /* taste-skill-ignore: explicit user request for optical glass reflections. */
+@media (max-width:1100px) {
+  .topbar {gap:8px}.topbar nav {gap:0}.topbar nav button {padding-inline:9px}
+  .hero {gap:32px;grid-template-columns:minmax(0,1fr) minmax(340px,.9fr)}
+  .hero h1 {font-size:56px}.hero-art .orb-stage {height:500px;min-height:500px}
+  .workflow,.branch-example {gap:32px}.steps article {grid-template-columns:1fr;gap:8px}
+  .setup-grid {grid-template-columns:minmax(0,1fr) 280px}.panel {padding:24px}.role-cards {grid-template-columns:1fr}.role-card {min-height:0;gap:4px}
+  .history-row {flex-wrap:wrap}.history-main {flex-basis:100%}
+  .interview-screen .interview-layout {grid-template-columns:300px minmax(0,1fr)}
+  .interview-screen .conversation-stage {padding:24px 16px}.interview-screen .live-sphere .sphere-wrap {width:240px;height:240px}
+}
+@media (max-width:800px) {
+  .topbar {width:calc(100% - 40px);margin-top:20px;flex-wrap:wrap;gap:8px;padding:10px 14px;border-radius:24px}
+  .topbar .brand {margin-right:auto}.topbar nav {order:5;flex-basis:100%;justify-content:center;margin:0;gap:12px}
+  .topbar .profile-menu>summary {max-width:140px}.topbar .glass-nav-action {margin-left:0}
+  .hero,.workflow,.branch-example,.privacy-section,.last-call,.app-shell footer {width:calc(100% - 40px)}
+  .hero {grid-template-columns:1fr;gap:40px;padding:48px 0 56px;min-height:0}
+  .hero h1 {font-size:60px;max-width:14ch}.hero-lede {max-width:50ch}
+  .privacy-line {max-width:68ch}.hero-art .orb-stage {height:480px;min-height:480px;max-width:600px;margin-inline:auto}
+  .hero-art .sphere-wrap {width:340px;height:340px}
+  .workflow,.branch-example {grid-template-columns:1fr;gap:28px;padding:44px 0}
+  .section-heading h2,.branch-intro h2 {font-size:36px;max-width:none}.branch-intro p {max-width:52ch;margin-top:16px}
+  .steps article {grid-template-columns:210px minmax(0,1fr);gap:24px}
+  .privacy-section {grid-template-columns:28px 1fr;padding:28px;gap:20px}.privacy-points {grid-column:2;padding:0}
+  .page-content {padding:32px 20px 64px}.setup-grid {grid-template-columns:1fr}.setup-aside {position:static}.glass-session-summary {position:static}
+  .setup-aside .aside-card {display:grid;grid-template-columns:1fr 1fr;gap:4px 24px}.setup-aside .sphere-wrap {grid-row:1/5;grid-column:2}.setup-aside .aside-card h2 {grid-column:1}.setup-aside .aside-card p {grid-column:1/-1;margin:4px 0}.setup-aside .aside-card .button-primary,.setup-aside .aside-card .button-outline {grid-column:1/-1}
+  .interview-screen {padding:24px 20px 56px}.interview-screen .interview-layout,.interview-screen .task-focused {grid-template-columns:1fr}
+  .interview-screen .task-voice-bar {position:static}
+  .interview-screen .conversation-stage {display:grid;grid-template-columns:minmax(0,1fr) 150px;gap:16px;padding:24px;min-height:0;align-items:center}
+  .interview-screen .current-question {grid-column:1;grid-row:1;text-align:left;align-self:center}.interview-screen .current-question h1 {font-size:26px}
+  .interview-screen .live-sphere {grid-column:2;grid-row:1;display:grid;justify-content:normal;justify-items:center;gap:0}.interview-screen .live-sphere .sphere-wrap {position:static;inset:auto;margin:0;width:150px;height:150px}.interview-screen .live-status {font-size:13px;line-height:1.55;min-height:0;margin:0;text-align:center;justify-content:center}
+  .interview-screen .voice-controls {grid-column:1/-1;grid-row:2;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin:0;gap:8px}
+  .interview-screen .control-button:first-child {grid-column:1/-1}.interview-screen .control-button:last-of-type {grid-column:auto}
+  .interview-screen .transcript-panel {min-height:620px;height:700px}.interview-screen .transcript-list {max-height:480px}
+  .page-content.report-page {padding:28px 20px 64px}.review-sheet {padding:0 24px}.review-overview {grid-template-columns:180px minmax(0,1fr);gap:24px}.review-score {padding:18px}
+}
+@media (max-width:520px) {
+  .topbar {width:calc(100% - 32px);margin-top:16px;padding:10px 12px;gap:8px;border-radius:24px;display:grid;grid-template-columns:minmax(0,1fr) 44px auto}
+  .topbar .brand {grid-column:1;grid-row:1;font-size:20px;gap:8px}.brand-mark {width:32px;height:32px}
+  .topbar>.theme-toggle {grid-column:2;grid-row:1}.topbar>.profile-menu,.topbar>button.button-quiet {grid-column:3;grid-row:1;display:flex;padding:0 4px;min-width:44px}
+  .topbar .profile-menu>summary {padding:4px;min-width:44px;border-color:transparent;background:transparent}.profile-menu>summary>span:nth-child(2) {display:none}
+  .topbar nav {grid-column:1;grid-row:2;display:flex;flex-wrap:wrap;gap:2px;justify-content:flex-start;padding-right:0;order:initial}
+  .topbar nav button {font-size:13px;padding:8px;min-height:44px}.topbar .glass-nav-action {display:flex;grid-column:2/4;grid-row:2;max-width:96px;justify-self:end}
+  .topbar .top-cta {font-size:13px;white-space:normal;line-height:1.4;padding:8px 12px;min-height:44px}.topbar .top-cta svg {display:none}
+  .app-shell:not(.screen-home) .topbar nav button:first-child {display:none}
+  .topbar>.profile-menu .profile-menu-content {position:fixed;right:16px;top:84px;max-height:calc(100dvh - 112px)}
+  .hero,.workflow,.branch-example,.privacy-section,.last-call,.app-shell footer {width:calc(100% - 40px)}
+  .hero {padding:40px 0 44px;gap:32px}.hero h1 {font-size:clamp(36px,10.8vw,54px);line-height:1.08;max-width:15ch;letter-spacing:-.055em}
+  .hero-lede {font-size:16px;line-height:1.75;margin:24px 0;max-width:none}.hero-actions {gap:8px;margin-top:24px}.hero-actions .button-primary {font-size:13px;padding:12px 18px}.hero-actions .button-quiet {font-size:13px;padding-inline:10px}
+  .privacy-line {font-size:13px;line-height:1.75;margin-top:24px}.privacy-line>button {font-size:13px}
+  .hero-art .orb-stage {height:430px;min-height:430px;border-radius:32px}.hero-art .sphere-wrap {width:300px;height:300px;transform:translateY(-30px)}
+  .hero-art .caption-top {left:20px;right:20px;top:20px;font-size:13px}.hero-art .caption-bottom {left:16px;right:16px;bottom:16px;font-size:13px}
+  .hero-art .sample-question {left:16px;right:16px;bottom:48px;padding:18px;border-radius:22px}.sample-question p {font-size:16px;line-height:1.6}.sample-label {font-size:13px}
+  .workflow,.branch-example {padding:36px 0;gap:24px}.section-heading h2,.branch-intro h2 {font-size:30px;line-height:1.2}
+  .steps article {grid-template-columns:1fr;gap:8px;padding:16px 0}.steps h3 {font-size:17px}.steps p {font-size:16px}
+  .branch-flow {padding:18px;border-radius:28px}.chat-bubble {padding:18px}.chat-bubble p {font-size:15px;line-height:1.75}.sample-choices button {padding:14px;font-size:13px}
+  .privacy-section {grid-template-columns:1fr;padding:24px;gap:16px;border-radius:28px}.privacy-icon {display:none}.privacy-points {grid-column:1;gap:14px}.privacy-section h2 {font-size:26px}.privacy-section p {font-size:16px}
+  .last-call {flex-direction:column;align-items:flex-start;padding:32px 0;margin-block:24px 0;gap:24px}.last-call h2 {font-size:28px}.last-call p {font-size:14px}
+  .app-shell footer {padding:28px 0;gap:12px;font-size:13px}.app-shell footer>span:first-child {font-size:20px}
+  .page-content {padding:28px 20px 56px}.page-content :is(.setup-title,.settings-title) {margin-bottom:24px}.page-content :is(.setup-title,.settings-title) h1 {font-size:28px}.page-content :is(.setup-title,.settings-title) p {font-size:14px}
+  .panel,.glass-session-summary>.aside-card {padding:22px;border-radius:24px}.panel h2 {font-size:21px}.field-label {font-size:14px}
+  input:not([type=checkbox]):not([type=file]),textarea,select {font-size:16px;min-width:0;width:100%}
+  .form-row {grid-template-columns:1fr;gap:0}.model-fields {grid-template-columns:1fr}.provider-status {padding:18px}.provider-status>button {width:100%}
+  .setup-aside .aside-card {display:block}.setup-aside .sphere-wrap {margin:0 auto}.setup-aside .aside-card p {margin:10px 0}
+  .history-row {padding:22px;border-radius:24px;display:flex;flex-wrap:wrap;gap:10px}.history-main {flex-basis:100%;margin-bottom:8px}.history-main h2 {font-size:20px}.history-row>button {flex:1 1 auto;min-height:44px;font-size:13px;padding:10px 14px}.history-row>.button-quiet {flex-basis:100%}
+  .auth-screen {padding:100px 20px 40px;place-items:start center;align-content:start}.auth-card {padding:28px 24px;border-radius:28px}.auth-card h1 {font-size:28px}.auth-card>p {font-size:14px}
+  .modal-backdrop {padding:16px}.sample-modal {padding:28px 20px;border-radius:28px;max-height:calc(100dvh - 32px)}.sample-modal h2 {font-size:25px}
+  .interview-screen {padding:24px 20px 48px}.interview-screen .interview-top {display:flex;flex-wrap:wrap;padding-bottom:20px;gap:8px}
+  .interview-screen .session-meta {width:100%;order:0;justify-content:space-between;gap:8px;font-size:13px;margin-bottom:8px}.interview-screen .interview-top>button {order:1;padding-inline:0}.interview-screen .end-link {margin-left:auto}
+  .interview-screen .conversation-stage {grid-template-columns:minmax(0,1fr) 120px;padding:22px;gap:14px;border-radius:28px}.interview-screen .current-question h1 {font-size:23px}.interview-screen .interview-stage-name {font-size:13px}
+  .interview-screen .live-sphere .sphere-wrap {width:120px;height:120px}.interview-screen .voice-controls {grid-template-columns:1fr 1fr;padding:10px;gap:8px}.interview-screen .control-button {font-size:13px;padding:10px 6px}.interview-screen .control-button:last-of-type {grid-column:1/-1}
+  .interview-screen .transcript-panel {height:auto;min-height:600px;border-radius:28px}.interview-screen .transcript-heading {padding:22px 20px 18px}.interview-screen .transcript-heading h2 {font-size:20px}.interview-screen .transcript-list {padding:4px 20px 16px;max-height:520px}.interview-screen .turn {padding-block:18px}.interview-screen .turn-user {margin-left:0;padding:18px}.interview-screen .turn p {font-size:14px;line-height:1.8}
+  .interview-screen .typed-answer {padding:18px 20px 12px}.interview-screen .typed-answer>div {display:flex;flex-direction:column;gap:10px}.interview-screen .typed-answer textarea {font-size:16px}.interview-screen .typed-answer>div button {width:100%;margin:0;justify-content:center}.interview-screen .conversation-note {padding:0 20px 20px}
+  .interview-screen .interview-tabs {width:100%;display:flex;margin:20px 0}.interview-screen .interview-tabs button {flex:1;font-size:13px;padding:10px 8px}.interview-screen .workspace-panel {padding:20px;border-radius:24px}.interview-screen .stage-footer>* {width:100%}
+  .page-content.report-page {padding:24px 20px 56px}.report-page h1 {font-size:28px}.review-title {padding-bottom:24px}.review-sheet {padding:0 20px;border-radius:28px}.review-overview {grid-template-columns:1fr;gap:24px;padding:24px 0}
+  .review-score {display:grid;grid-template-columns:1fr auto;gap:8px 12px;padding:20px}.review-score h2 {grid-column:1;font-size:13px}.report-page .review-score-value {grid-column:2;grid-row:1/3;font-size:40px;margin:0}.report-page .review-score-note {grid-column:1;grid-row:2;margin:0;font-size:13px}.review-score meter,.review-scale,.review-empty-track {grid-column:1/-1}.review-summary-text {font-size:15px;line-height:1.8}
+  .review-jumps {display:grid;grid-template-columns:1fr 1fr;gap:2px;padding:6px;border-radius:20px}.review-jumps a {font-size:13px;padding:8px}.review-section {padding:24px 0}.report-page h2 {font-size:20px}.review-answer {padding:18px;border-radius:20px}.review-answer:last-child {padding-bottom:18px}.review-answer>header {gap:12px}.review-answer-score {font-size:16px}.report-page .review-question {font-size:15px}.review-next-focus {padding:20px}.report-page blockquote {padding:16px}
+}
+@media (prefers-reduced-transparency:reduce) {
+  .topbar,.panel,.aside-card,.history-row,.empty-state,.auth-card,.sample-modal,.review-sheet,.workspace-panel,.branch-flow,.hero-art .orb-stage,.hero-art .sample-question,.interview-screen .conversation-stage,.interview-screen .transcript-panel {background:var(--surface);backdrop-filter:none;-webkit-backdrop-filter:none}
+}
+@media (prefers-reduced-motion:reduce) {button {transition:none}.hero-art .sphere-wrap {transform:none}body::before {background:transparent}}
+@media (forced-colors:active) {
+  body::before {display:none}.topbar,.panel,.aside-card,.history-row,.auth-card,.sample-modal,.review-sheet,.branch-flow,.hero-art .orb-stage,.interview-screen .conversation-stage,.interview-screen .transcript-panel {background:Canvas;border:1px solid CanvasText;box-shadow:none;backdrop-filter:none}
+}

@@ -1,0 +1,1 @@
+{"schema_version":1,"problem_id":"frontend_latest_search","tests":[{"stdin":"5\n-1 -1\n0 -1\n9223372036854775807 9223372036854775807\n4 5\n5 4\n","stdout":"ACCEPT\nDROP\nACCEPT\nDROP\nDROP\n"}]}

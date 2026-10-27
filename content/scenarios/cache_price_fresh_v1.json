@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "scenario_id": "cache_price_fresh_v1",
+  "title": "A product page shows an outdated price after an update",
+  "synthetic": true,
+  "family": "cache_price",
+  "attempt": "fresh_uncoached",
+  "version": "1.0.0",
+  "initial_facts": [
+    {"fact_id":"fresh_write","text":"A new price is committed on the primary, but a later API response has the old price."},
+    {"fact_id":"fresh_cache_setting","text":"The request path is reported to bypass the application cache for this operation."}
+  ],
+  "public_evidence": [
+    {"card_id":"cache_bypass","text":"The trace confirms the cache bypass flag was active for request P-22.","source":"Synthetic trace for request P-22","requires":[]},
+    {"card_id":"replica_read","text":"Request P-22 read from replica R2, whose replication position is behind the primary commit.","source":"Synthetic database routing trace","requires":[]},
+    {"card_id":"primary_replica_compare","text":"The primary has version 91 with the new price; replica R2 has version 90 with the previous price.","source":"Synthetic versioned row comparison","requires":[]},
+    {"card_id":"replay","text":"A later read from the same replica after it catches up returns version 91.","source":"Synthetic delayed replay for P-22","requires":[]}
+  ],
+  "reveal_rules": {"mode":"explicit_request_or_candidate_confirmed_diagnostic","one_card_per_request":true,"never_infer_or_fabricate_cards":true,"diagnostic_request_penalty":false},
+  "accepted_alternatives": ["Identify replica lag as supported by the version and routing facts.", "Ask for replica position or a primary-versus-replica comparison before settling.", "Recommend a bounded read-your-write path or consistency policy with an explicit trade-off; do not repeat cache invalidation as the cause when bypass is verified."],
+  "private_reference_id": "cache_price_fresh_v1_private",
+  "criteria": ["problem_framing_v1","diagnostic_selection_v1","evidence_interpretation_v1","revision_uncertainty_v1","decision_verification_v1"]
+}

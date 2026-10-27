@@ -1,0 +1,25 @@
+{
+  "scope": "Synthetic SQLite sessions only; no provider, speech, runner or candidate execution. Separate temporary databases; no user-data migration.",
+  "profiles": [
+    {
+      "filesystem_basis": "repository_filesystem",
+      "parent_directory": "/mnt/c/Users/ApexDelta/Documents/ChatGPT/Hackloop3/data",
+      "sample_count": 60,
+      "session_json_bytes": 21825,
+      "median_seconds_per_delta": 0.049318933500000384,
+      "p95_seconds_per_delta": 0.055781598000001154,
+      "p95_method": "nearest rank: ceil(0.95 * 60), one-based",
+      "total_seconds": 2.962662224000006
+    },
+    {
+      "filesystem_basis": "native_temporary_filesystem",
+      "parent_directory": "/tmp",
+      "sample_count": 60,
+      "session_json_bytes": 21825,
+      "median_seconds_per_delta": 0.0008415580000002976,
+      "p95_seconds_per_delta": 0.0014829939999998487,
+      "p95_method": "nearest rank: ceil(0.95 * 60), one-based",
+      "total_seconds": 0.07935621899999035
+    }
+  ]
+}

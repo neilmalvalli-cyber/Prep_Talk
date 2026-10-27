@@ -1,0 +1,35 @@
+{
+  "selected_provider": "groq",
+  "configuration": {
+    "groq": {
+      "live_model": "openai/gpt-oss-20b",
+      "assessment_model": "openai/gpt-oss-120b",
+      "live_route": "",
+      "assessment_route": "",
+      "paid_opt_in": true
+    },
+    "openrouter": {
+      "live_model": "liquid/lfm-2.5-2.6b:free",
+      "assessment_model": "liquid/lfm-2.5-2.6b:free",
+      "live_route": "Liquid",
+      "assessment_route": "Liquid",
+      "paid_opt_in": true
+    }
+  },
+  "provider_readiness": {
+    "groq": {
+      "status": "configured",
+      "validated": true
+    },
+    "openrouter": {
+      "status": "configured",
+      "validated": true
+    }
+  },
+  "voice_ready": true,
+  "runner_configured": false,
+  "assessment": {
+    "automatic_ratings": false,
+    "reason": "Independent human calibration unavailable; factual reference review only."
+  }
+}

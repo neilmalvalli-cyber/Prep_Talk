@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "scenario_id": "frontend_ordering_fresh_v1",
+  "title": "A settings panel shows the previous account",
+  "synthetic": true,
+  "family": "frontend_ordering",
+  "attempt": "fresh_uncoached",
+  "version": "1.0.0",
+  "initial_facts": [
+    {"fact_id":"account_switch","text":"A user switches the settings panel from account A to account B."},
+    {"fact_id":"old_view","text":"The panel keeps account A’s details visible while account B loads."}
+  ],
+  "public_evidence": [
+    {"card_id":"single_request","text":"Only one request for account B was issued and its response completed successfully.","source":"Synthetic browser network trace","requires":[]},
+    {"card_id":"response_value","text":"The response contains account B's current details.","source":"Synthetic API response fixture","requires":[]},
+    {"card_id":"client_key","text":"The client cache key is settings:current-user and is reused when the selected account changes.","source":"Synthetic client cache trace","requires":[]},
+    {"card_id":"invalidation","text":"Switching accounts does not invalidate or replace the cached settings entry; the panel reads that entry before the response is applied.","source":"Synthetic state trace","requires":[]}
+  ],
+  "reveal_rules": {"mode":"explicit_request_or_candidate_confirmed_diagnostic","one_card_per_request":true,"never_infer_or_fabricate_cards":true,"diagnostic_request_penalty":false},
+  "accepted_alternatives": ["Diagnose client cache identity/invalidation as supported; distinguish it from response-order races.", "Ask for the request count, response value, and cache key before deciding.", "Use account identity in the key and clear or revalidate on account switch, with a regression test."],
+  "private_reference_id": "frontend_ordering_fresh_v1_private",
+  "criteria": ["problem_framing_v1","diagnostic_selection_v1","evidence_interpretation_v1","revision_uncertainty_v1","decision_verification_v1"]
+}

@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "scenario_id": "frontend_ordering_v1",
+  "title": "Search results revert to an older query",
+  "synthetic": true,
+  "family": "frontend_ordering",
+  "attempt": "baseline",
+  "version": "1.0.0",
+  "initial_facts": [
+    {"fact_id":"search_action","text":"A user searches for ‘ca’, then quickly changes the query to ‘cat’."},
+    {"fact_id":"visible_symptom","text":"The ‘cat’ results appear first, but the late ‘ca’ response replaces them."}
+  ],
+  "public_evidence": [
+    {"card_id":"request_ids","text":"Two requests are in flight: Q1 for 'ca' and Q2 for 'cat'.","source":"Synthetic browser network log","requires":[]},
+    {"card_id":"completion_order","text":"Q2 completes first and renders 'cat' results; Q1 completes later and replaces them with 'ca' results.","source":"Synthetic timestamped response log","requires":[]},
+    {"card_id":"cache_status","text":"Both responses came from the network; no client cache served either response.","source":"Synthetic response metadata","requires":[]},
+    {"card_id":"state_guard","text":"The render path does not compare a response's query or request generation with the current query.","source":"Synthetic component behavior trace","requires":[]}
+  ],
+  "reveal_rules": {"mode":"explicit_request_or_candidate_confirmed_diagnostic","one_card_per_request":true,"never_infer_or_fabricate_cards":true,"diagnostic_request_penalty":false},
+  "accepted_alternatives": ["Use cancellation where supported and still guard against late responses.", "Only commit a response when its request generation or normalized query is still current.", "Debouncing alone is not sufficient to guarantee completion order."],
+  "private_reference_id": "frontend_ordering_v1_private",
+  "criteria": ["problem_framing_v1","diagnostic_selection_v1","evidence_interpretation_v1","revision_uncertainty_v1","decision_verification_v1"]
+}

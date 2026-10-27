@@ -1,0 +1,107 @@
+{
+  "real_voice_pipeline": true,
+  "cloud_used": false,
+  "physical_microphone": false,
+  "audio_frames_received": 286,
+  "first_audible_after_text_seconds": 1.284895685000265,
+  "server_audio_pending_ms": 0.0,
+  "server_playback_acked_ms": 3328,
+  "text_received": true,
+  "first_audio_before_stream_completion": true,
+  "later_clause_sent_seconds": 1.2848960350002017,
+  "real_uplink_transcripts": [
+    {
+      "text": "I invalidated the cache after the write.",
+      "metadata": {
+        "source": "local-faster-whisper",
+        "language": "en",
+        "received_at": 1792483336.508208,
+        "final": true,
+        "audio_duration_seconds": 2.66,
+        "words": [
+          {
+            "text": " I",
+            "start": 0.0,
+            "end": 0.08
+          },
+          {
+            "text": " invalidated",
+            "start": 0.08,
+            "end": 0.72
+          },
+          {
+            "text": " the",
+            "start": 0.72,
+            "end": 0.82
+          },
+          {
+            "text": " cache",
+            "start": 0.82,
+            "end": 1.18
+          },
+          {
+            "text": " after",
+            "start": 1.18,
+            "end": 1.46
+          },
+          {
+            "text": " the",
+            "start": 1.46,
+            "end": 1.58
+          },
+          {
+            "text": " write.",
+            "start": 1.58,
+            "end": 1.82
+          }
+        ],
+        "word_timestamp_basis": "relative_to_transcribed_segment",
+        "audio_interval": {
+          "start": 35.27985220336914,
+          "end": 37.93985220336914
+        },
+        "session_words": [
+          {
+            "text": " I",
+            "start": 35.27985220336914,
+            "end": 35.35985220336914
+          },
+          {
+            "text": " invalidated",
+            "start": 35.35985220336914,
+            "end": 35.99985220336914
+          },
+          {
+            "text": " the",
+            "start": 35.99985220336914,
+            "end": 36.09985220336914
+          },
+          {
+            "text": " cache",
+            "start": 36.09985220336914,
+            "end": 36.45985220336914
+          },
+          {
+            "text": " after",
+            "start": 36.45985220336914,
+            "end": 36.73985220336914
+          },
+          {
+            "text": " the",
+            "start": 36.73985220336914,
+            "end": 36.85985220336914
+          },
+          {
+            "text": " write.",
+            "start": 36.85985220336914,
+            "end": 37.09985220336914
+          }
+        ],
+        "session_timestamp_basis": "seconds_since_session_creation",
+        "clock_note": "Server connection offset plus decoded sample clock; transport delay is not measured.",
+        "recording_artifact": null
+      }
+    }
+  ],
+  "interrupt_message_received": true
+}

@@ -1,0 +1,13 @@
+{
+  "synthetic_provider_only": true,
+  "correction": true,
+  "dispute": true,
+  "criterion_count": 10,
+  "provider_selection_persisted": true,
+  "deletion": true,
+  "mobile_overflow": {
+    "viewport": 360,
+    "document": 360
+  },
+  "errors": []
+}

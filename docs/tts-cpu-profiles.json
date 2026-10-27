@@ -1,0 +1,113 @@
+{
+  "model": "provisioned kokoro-v1.0.onnx",
+  "voice": "af_heart",
+  "provider": "CPUExecutionProvider",
+  "logical_cpus": 12,
+  "synthetic_text": "How did you handle a successful write followed by failed invalidation?",
+  "profiles": [
+    {
+      "intra_op_threads": 0,
+      "inter_op_threads": 1,
+      "preparation_and_warmup_seconds": 5.0111653190000425,
+      "samples": [
+        {
+          "sample": 1,
+          "synthesis_seconds": 1.3328786289999925,
+          "audio_seconds": 4.074666666666666,
+          "sample_rate": 24000
+        },
+        {
+          "sample": 2,
+          "synthesis_seconds": 1.284916681000027,
+          "audio_seconds": 4.074666666666666,
+          "sample_rate": 24000
+        },
+        {
+          "sample": 3,
+          "synthesis_seconds": 1.2641485470000475,
+          "audio_seconds": 4.074666666666666,
+          "sample_rate": 24000
+        }
+      ],
+      "median_synthesis_seconds": 1.284916681000027
+    },
+    {
+      "intra_op_threads": 1,
+      "inter_op_threads": 1,
+      "preparation_and_warmup_seconds": 2.7735099399999967,
+      "samples": [
+        {
+          "sample": 1,
+          "synthesis_seconds": 2.674755530000027,
+          "audio_seconds": 4.074666666666666,
+          "sample_rate": 24000
+        },
+        {
+          "sample": 2,
+          "synthesis_seconds": 2.6725634790000186,
+          "audio_seconds": 4.074666666666666,
+          "sample_rate": 24000
+        },
+        {
+          "sample": 3,
+          "synthesis_seconds": 2.5830662820000043,
+          "audio_seconds": 4.074666666666666,
+          "sample_rate": 24000
+        }
+      ],
+      "median_synthesis_seconds": 2.6725634790000186
+    },
+    {
+      "intra_op_threads": 2,
+      "inter_op_threads": 1,
+      "preparation_and_warmup_seconds": 2.2458663090000073,
+      "samples": [
+        {
+          "sample": 1,
+          "synthesis_seconds": 1.8264052239999842,
+          "audio_seconds": 4.074666666666666,
+          "sample_rate": 24000
+        },
+        {
+          "sample": 2,
+          "synthesis_seconds": 1.8132260630000019,
+          "audio_seconds": 4.074666666666666,
+          "sample_rate": 24000
+        },
+        {
+          "sample": 3,
+          "synthesis_seconds": 1.6849896880000301,
+          "audio_seconds": 4.074666666666666,
+          "sample_rate": 24000
+        }
+      ],
+      "median_synthesis_seconds": 1.8132260630000019
+    },
+    {
+      "intra_op_threads": 4,
+      "inter_op_threads": 1,
+      "preparation_and_warmup_seconds": 2.2971816269999863,
+      "samples": [
+        {
+          "sample": 1,
+          "synthesis_seconds": 1.4857279220000237,
+          "audio_seconds": 4.074666666666666,
+          "sample_rate": 24000
+        },
+        {
+          "sample": 2,
+          "synthesis_seconds": 1.5080080680000378,
+          "audio_seconds": 4.074666666666666,
+          "sample_rate": 24000
+        },
+        {
+          "sample": 3,
+          "synthesis_seconds": 1.4635482400000228,
+          "audio_seconds": 4.074666666666666,
+          "sample_rate": 24000
+        }
+      ],
+      "median_synthesis_seconds": 1.4857279220000237
+    }
+  ]
+}

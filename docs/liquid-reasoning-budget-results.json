@@ -1,0 +1,67 @@
+[
+  {
+    "mode": "default",
+    "http_status": 200,
+    "finish_reason": "length",
+    "text": "Can you walk me through how your search product traced a request from the initial input through to persistence? Specifically, what was the flow of data from the user's query to being stored in the database",
+    "usage": {
+      "prompt_tokens": 870,
+      "completion_tokens": 300,
+      "total_tokens": 1170,
+      "cost": 0,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 5,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0,
+        "upstream_inference_prompt_cost": 0,
+        "upstream_inference_completions_cost": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 315,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  },
+  {
+    "mode": "disabled",
+    "http_status": 400,
+    "finish_reason": null,
+    "text": null,
+    "usage": null
+  },
+  {
+    "mode": "bounded_1200_tokens",
+    "http_status": 200,
+    "finish_reason": "stop",
+    "text": "Can you walk me through how you traced a specific request from the initial input through your application layer to the database persistence? What were the key steps or challenges you encountered along that path?",
+    "usage": {
+      "prompt_tokens": 870,
+      "completion_tokens": 230,
+      "total_tokens": 1100,
+      "cost": 0,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 5,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0,
+        "upstream_inference_prompt_cost": 0,
+        "upstream_inference_completions_cost": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 237,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+]

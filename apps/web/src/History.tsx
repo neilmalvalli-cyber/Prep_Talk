@@ -1,0 +1,11 @@
+import {useEffect,useState} from 'react'
+import {api,errorMessage,type HistoryEntry,type Session} from './api'
+export default function History({onOpen,onReport,onStart}:{onOpen:(s:Session)=>void;onReport:(s:Session)=>void;onStart:()=>void}){
+ const [rows,setRows]=useState<HistoryEntry[]>([]),[error,setError]=useState(''),[loading,setLoading]=useState(true)
+ async function load(){try{setRows(await api.sessions())}catch(e){setError(errorMessage(e))}finally{setLoading(false)}}
+ useEffect(()=>{load()},[])
+ async function open(id:string,report=false){try{const s=await api.session(id);if(report)onReport(s);else onOpen(s)}catch(e){setError(errorMessage(e))}}
+ async function remove(id:string){if(!confirm('Delete this interview, transcript, recordings, code, reports and derived local data? Provider retention remains separate.'))return;try{const result=await api.deleteSession(id);if(result.cleanup_pending)setError('Application records removed. Runner or filesystem cleanup is pending and will retry.');await load();const heading=document.querySelector<HTMLElement>('main h1');if(heading){heading.tabIndex=-1;heading.focus()}}catch(e){setError(errorMessage(e))}}
+ return <main className="page-content"><div className="settings-title"><h1>Your interviews</h1><p>Resume a session or review your practice. Saved interviews remain on this server until they expire or you delete them.</p></div>{error&&<p role="alert">{error}</p>}{loading?<p role="status">Loading history…</p>:rows.length?<div className="history-list">{rows.map(row=><article className="history-row" key={row.id}><div className="history-main"><h2>{row.role.replaceAll('_',' ')} interview</h2><p>{row.stage.replaceAll('_',' ')} · {row.provider} · {new Date(row.created*1000).toLocaleString()}</p><small>Expires {new Date(row.expires*1000).toLocaleDateString()}</small></div>{row.stage!=='COMPLETED'&&<button className="button-primary" onClick={()=>open(row.id)}>Resume interview</button>}<button className="button-outline" onClick={()=>open(row.id,true)}>Open report</button><button className="button-quiet" onClick={()=>remove(row.id)}>Delete interview</button></article>)}</div>:<div className="empty-state"><h2>No interviews yet</h2><p>Start a session to practice from your resume.</p><button className="button-primary" onClick={onStart}>Set up an interview</button></div>}</main>
+}
+

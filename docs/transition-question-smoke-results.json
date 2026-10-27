@@ -1,0 +1,9 @@
+{
+  "provider": "groq",
+  "synthetic_input": true,
+  "allowed_action": "transition",
+  "objective": "explain a confirmed storage or caching decision",
+  "response": "You mentioned using a cache invalidated after writes. What strategy did you use to determine when and how to invalidate the cache?",
+  "contains_question": true,
+  "scope": "One real provider prompt sample; no universal compliance or acoustic claim."
+}

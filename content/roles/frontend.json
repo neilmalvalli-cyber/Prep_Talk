@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "role_id": "frontend_engineer",
+  "title": "Frontend Engineer",
+  "levels": {
+    "junior": {
+      "expectations": "Explain component state and request flow, identify a user-visible failure, and propose a focused reproduction or test.",
+      "competencies": ["ui_state", "async_requests", "accessibility_basics", "verification"],
+      "question_objectives": ["trace state from user action to rendered result", "explain a confirmed UI decision", "identify an async or stale-state failure and a reproducible check"],
+      "coding_problem": "frontend_latest_search"
+    },
+    "intermediate": {
+      "expectations": "Reason about concurrency, cache ownership, rendering and recovery trade-offs; verify behavior under adversarial ordering.",
+      "competencies": ["ui_state", "async_requests", "cache_invalidation", "resilience", "verification"],
+      "question_objectives": ["compare component and shared state boundaries", "explain request cancellation or stale-response prevention", "propose race-condition and accessibility checks"],
+      "coding_problem": "frontend_latest_search"
+    }
+  },
+  "reasoning_families": ["frontend_ordering_v1"],
+  "rubric_refs": ["resume_clarity_v1", "technical_understanding_v1", "decision_reasoning_v1", "failure_handling_v1", "diagnostic_selection_v1"]
+}

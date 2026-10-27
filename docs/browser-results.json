@@ -1,0 +1,10 @@
+{
+  "stage": "landing-and-auth",
+  "primary_visible": true,
+  "overflow": {
+    "viewport": 360,
+    "document": 360
+  },
+  "errors": [],
+  "external_requests": []
+}
