@@ -26,7 +26,7 @@ class SurfaceRenderer extends Container {
     float opacity = mask * clamp(0.22 + fresnel * 0.56 + specular * 0.48, 0.0, 0.92);
     vec3 glassColor = mix(color.rgb, vec3(0.94, 0.985, 1.0), clamp(rim * 0.92 + specular * 1.2, 0.0, 1.0));
     float prism = smoothstep(0.87, 0.97, radius) * (1.0 - smoothstep(0.97, 1.0, radius));
-    vec3 edgeSpectrum = vec3(0.79, 0.87, 0.77) + 0.08 * cos(vec3(0.0, 0.8, 1.6) + atan(spherePoint.y, spherePoint.x) * 2.0);
+    vec3 edgeSpectrum = vec3(0.70, 0.83, 0.88) + 0.08 * cos(vec3(0.0, 0.8, 1.6) + atan(spherePoint.y, spherePoint.x) * 2.0);
     glassColor = mix(glassColor, edgeSpectrum, prism * 0.5);
     gl_FragColor = vec4(glassColor * opacity, opacity);
   `):fragment
@@ -96,28 +96,28 @@ class SurfaceRenderer extends Container {
   if(orb){
    // Let cool ambient color and broad reflections define the glass body.
    const body=ctx.createLinearGradient(0,0,0,h)
-   if(dark){body.addColorStop(0,'#344239');body.addColorStop(.38,'#1d2c23');body.addColorStop(.72,'#33483b');body.addColorStop(1,'#5d7163')}
-   else{body.addColorStop(0,'#e7eee4');body.addColorStop(.38,'#a7b9ab');body.addColorStop(.72,'#b5ceba');body.addColorStop(1,'#f4f7eb')}
+   if(dark){body.addColorStop(0,'#2a3f4b');body.addColorStop(.38,'#132530');body.addColorStop(.72,'#22414f');body.addColorStop(1,'#4d6f80')}
+   else{body.addColorStop(0,'#eef2f5');body.addColorStop(.38,'#b9ccd6');body.addColorStop(.72,'#c4d8e0');body.addColorStop(1,'#f5f7f9')}
    ctx.fillStyle=body;ctx.fillRect(0,0,w,h)
    const caustic=ctx.createRadialGradient(w*.5,h*.82,0,w*.5,h*.82,w*.32)
-   caustic.addColorStop(0,dark?'rgba(205,233,204,.24)':'rgba(255,255,255,.65)');caustic.addColorStop(.3,dark?'rgba(190,209,175,.15)':'rgba(226,240,217,.3)');caustic.addColorStop(1,'rgba(210,230,255,0)')
+   caustic.addColorStop(0,dark?'rgba(207,224,230,.24)':'rgba(255,255,255,.65)');caustic.addColorStop(.3,dark?'rgba(163,201,213,.15)':'rgba(220,234,240,.3)');caustic.addColorStop(1,'rgba(210,230,255,0)')
    ctx.fillStyle=caustic;ctx.fillRect(0,0,w,h)
    const reflectionRadius=w*(dark?.16:.2)
    const reflection=ctx.createRadialGradient(w*.29,h*.19,0,w*.29,h*.19,reflectionRadius)
-   reflection.addColorStop(0,dark?'rgba(255,255,255,.14)':'rgba(255,255,255,.48)');reflection.addColorStop(.22,dark?'rgba(231,239,220,.06)':'rgba(247,250,237,.22)');reflection.addColorStop(1,'rgba(220,230,255,0)')
+   reflection.addColorStop(0,dark?'rgba(255,255,255,.14)':'rgba(255,255,255,.48)');reflection.addColorStop(.22,dark?'rgba(225,236,240,.06)':'rgba(243,248,250,.22)');reflection.addColorStop(1,'rgba(220,230,255,0)')
    ctx.fillStyle=reflection;ctx.fillRect(0,0,w,h);return
   }
-  ctx.fillStyle=dark?'#343f37':'#e6eee2';ctx.fillRect(0,0,w,h)
+  ctx.fillStyle=dark?'#1c2c35':'#e8edf0';ctx.fillRect(0,0,w,h)
   const bloom=ctx.createRadialGradient(w*.36,h*.28,0,w*.5,h*.5,Math.max(w,h)*.68)
-  bloom.addColorStop(0,dark?'#748d7b':'#ffffff')
-  bloom.addColorStop(.35,dark?'#4b6251':'#dce8d5')
-  bloom.addColorStop(.7,dark?'#233a2a':'#afc4ab');bloom.addColorStop(1,dark?'#25362a':'#f0f5e8')
+  bloom.addColorStop(0,dark?'#557585':'#ffffff')
+  bloom.addColorStop(.35,dark?'#2f4b59':'#dde8ed')
+  bloom.addColorStop(.7,dark?'#152a35':'#b3c8d2');bloom.addColorStop(1,dark?'#18282f':'#f1f4f6')
   ctx.fillStyle=bloom;ctx.fillRect(0,0,w,h)
   // Soft curved reflections keep non-circular glass controls dimensional without sampling text.
   ctx.save();ctx.translate(w*.5,h*.5);ctx.rotate(-.4)
-  ctx.strokeStyle=dark?'rgba(207,228,192,.28)':'rgba(255,255,255,.75)';ctx.lineWidth=8
+  ctx.strokeStyle=dark?'rgba(207,224,230,.28)':'rgba(255,255,255,.75)';ctx.lineWidth=8
   ctx.beginPath();ctx.ellipse(0,0,w*.3,h*.34,0,0,Math.PI*2);ctx.stroke()
-  ctx.strokeStyle=dark?'rgba(142,177,137,.18)':'rgba(149,179,139,.23)';ctx.lineWidth=14
+  ctx.strokeStyle=dark?'rgba(163,201,213,.18)':'rgba(62,111,142,.18)';ctx.lineWidth=14
   ctx.beginPath();ctx.ellipse(w*.05,h*.1,w*.38,h*.4,0,0,Math.PI*2);ctx.stroke();ctx.restore()
  }
  destroy(){
