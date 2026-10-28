@@ -14,9 +14,9 @@
 :root[data-theme=dark],[data-theme=dark]{
  --bg:#111111;--bg-2:#1A1A1A;--bg-3:#242424;
  --surface:#171717;--surface-2:#1D1D1D;--surface-glass:rgba(23,23,23,.72);
- --text:#EDEDED;--muted:rgba(237,237,237,.62);--faint:rgba(237,237,237,.4);
+ --text:#F5F5F5;--muted:#9E9E9E;--faint:#6A6A6A;
  --line:rgba(255,255,255,.1);--line-2:rgba(255,255,255,.07);
- --accent:#D6D6D6;--accent-2:#F5F5F5;--accent-soft:rgba(255,255,255,.07);--accent-text:#D4D4D4;
+ --accent:#D6D6D6;--accent-2:#F5F5F5;--accent-soft:rgba(255,255,255,.07);--accent-text:#8C8C8C;
  --primary-bg:#F2F2F2;--primary-fg:#111111;--primary-hover:#FFFFFF;
  --good:#A3C4AC;--good-soft:rgba(163,196,172,.14);--warn:#D9B675;--warn-soft:rgba(217,182,117,.14);--bad:#E0907E;--bad-soft:rgba(224,144,126,.14);
  --shadow:0 30px 60px -30px rgba(0,0,0,.75);
@@ -674,6 +674,28 @@ pre,.code-out{font-family:var(--mono);font-size:12.5px;line-height:1.6;backgroun
 .room .stage-rail li.current::after{box-shadow:0 0 12px rgba(255,255,255,.35)}
 .room .cbtn:hover:not(:disabled){box-shadow:0 0 0 6px rgba(255,255,255,.05)}
 .room .cbtn-accent{background:#F2F2F2;color:#111;border-color:#F2F2F2}
+
+/* Dark type runs in tiers: white for titles and values, greys for reading text,
+   labels and the italic half of each headline. */
+:root[data-theme=dark] body{color:#C9C9C9}
+[data-theme=dark] h1,[data-theme=dark] h2,[data-theme=dark] h3,[data-theme=dark] b,[data-theme=dark] strong,[data-theme=dark] .wordmark,[data-theme=dark] .field,[data-theme=dark] .nav-links button[aria-current=page],[data-theme=dark] .profile-name{color:#F5F5F5}
+/* Gradients sit on the innermost boxes: a clipped parent cannot paint animated
+   inline-block children (headline italics, streamed question words). */
+[data-theme=dark] .section-head h2,[data-theme=dark] .section-label h2,.room .question .word{background:linear-gradient(180deg,#FFFFFF 35%,#A6A6A6 115%);-webkit-background-clip:text;background-clip:text;color:transparent}
+[data-theme=dark] h1 em,[data-theme=dark] h2 em{background:linear-gradient(180deg,#B4B4B4 20%,#6E6E6E 110%);-webkit-background-clip:text;background-clip:text;color:transparent;padding-right:.06em}
+[data-theme=dark] .wordmark em{color:#8C8C8C}
+[data-theme=dark] .lede,[data-theme=dark] .start-copy p,[data-theme=dark] .summary-text,[data-theme=dark] .feedback-body p,[data-theme=dark] .facts,[data-theme=dark] .problem{color:#B5B5B5}
+[data-theme=dark] .idx,[data-theme=dark] .mono.muted,[data-theme=dark] .readiness li .mono,[data-theme=dark] .fine-print{color:#6E6E6E}
+[data-theme=dark] .readiness li small,[data-theme=dark] .hint,[data-theme=dark] .field small{color:#8A8A8A}
+[data-theme=dark] .nav-links button{color:#8F8F8F}
+[data-theme=dark] .nav-links button:hover{color:#E5E5E5}
+[data-theme=dark] .ring-num,[data-theme=dark] .stat-tiles b,[data-theme=dark] .feedback-score{color:#FFFFFF}
+[data-theme=dark] .next-focus p{color:#E8E8E8}
+.room .turn-ai p{color:#B8B8B8}
+.room .turn-you p{color:#F2F2F2}
+.room .interviewer-strip p{color:#E0E0E0}
+.room .pill{color:#E5E5E5}
+.room .pill-quiet{color:#8A8A8A}
 
 /* ---------- responsive ---------- */
 @media (max-width:1180px){
