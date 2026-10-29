@@ -86,7 +86,7 @@ export default function App(){
   </section>
   <section className="auth-art" aria-hidden="true">
    <div className="auth-art-inner">
-    <div className="float"><Sphere size="large" idleWaveform/></div>
+    <div className="float"><Sphere size="large"/></div>
     <h2>Rehearse out loud.<br/><em>Walk in ready.</em></h2>
     <ul>
      <li><FileText size={15}/><span>Questions built from your resume and target role</span></li>

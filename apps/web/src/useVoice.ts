@@ -13,9 +13,11 @@ export function useVoice(session:Session,refresh:()=>Promise<void>,onError:(mess
  const releaseVisuals=useRef<(()=>void)|null>(null)
  const pendingPause=useRef<Promise<void>|null>(null)
  const suppressedGeneration=useRef<string|null>(null)
+ // Shared with the orb so it can read live frequency bands.
+ const analysers=useRef<{mic:AnalyserNode|null;playback:AnalyserNode|null}>({mic:null,playback:null})
  sessionRef.current=session;onErrorRef.current=onError;refreshRef.current=refresh
  function stopPlayback(){setPlaybackLevel(0);setPlaybackBlocked(false);suppressedGeneration.current=generation.current;if(output.current){output.current.pause();output.current.muted=true}setState(sessionRef.current.paused?'paused':'ready')}
- function disconnect(){attempt.current++;connecting.current=false;setStarting(false);setPlaybackBlocked(false);if(ackTimer.current!==null)clearInterval(ackTimer.current);ackTimer.current=null;releaseVisuals.current?.();releaseVisuals.current=null;cancelAnimationFrame(frame.current);frame.current=0;const prior=peer.current;peer.current=null;prior?.close();channel.current=null;stream.current?.getTracks().forEach(t=>t.stop());stream.current=null;if(output.current){output.current.pause();output.current.srcObject=null};context.current?.close().catch(()=>{});context.current=null;setConnected(false);setLevel(0);setPlaybackLevel(0);setState('ready')}
+ function disconnect(){attempt.current++;connecting.current=false;setStarting(false);setPlaybackBlocked(false);if(ackTimer.current!==null)clearInterval(ackTimer.current);ackTimer.current=null;releaseVisuals.current?.();releaseVisuals.current=null;cancelAnimationFrame(frame.current);frame.current=0;const prior=peer.current;peer.current=null;prior?.close();channel.current=null;stream.current?.getTracks().forEach(t=>t.stop());stream.current=null;if(output.current){output.current.pause();output.current.srcObject=null};context.current?.close().catch(()=>{});context.current=null;analysers.current={mic:null,playback:null};setConnected(false);setLevel(0);setPlaybackLevel(0);setState('ready')}
  async function resumePlayback(){
   if(sessionRef.current.paused||suppressedGeneration.current===generation.current)return
   try{await context.current?.resume();if(output.current){output.current.muted=false;await output.current.play();setPlaybackBlocked(false)}}
@@ -62,7 +64,7 @@ export function useVoice(session:Session,refresh:()=>Promise<void>,onError:(mess
    const ac=new AudioContext();context.current=ac;await ac.resume()
    if(ticket!==attempt.current)return
    const mic=media?ac.createAnalyser():null
-   if(mic&&media){mic.fftSize=256;ac.createMediaStreamSource(media).connect(mic)}
+   if(mic&&media){mic.fftSize=256;ac.createMediaStreamSource(media).connect(mic);analysers.current.mic=mic}
    let playback:AnalyserNode|null=null
    let ackGeneration='',generatedMs=0,playedMs=0,lastMediaTime=0,playbackStarted=false
    let textReceiptGeneration='',playbackMetricGeneration=''
@@ -118,7 +120,7 @@ export function useVoice(session:Session,refresh:()=>Promise<void>,onError:(mess
    pc.ondatachannel=e=>bindChannel(e.channel)
    if(media)media.getTracks().forEach(track=>pc.addTrack(track,media))
    else pc.addTransceiver('audio',{direction:'recvonly'})
-   pc.ontrack=event=>{if(peer.current!==pc)return;const incoming=event.streams[0]||new MediaStream([event.track]);audio.srcObject=incoming;playback=ac.createAnalyser();playback.fftSize=256;ac.createMediaStreamSource(incoming).connect(playback);void resumePlayback()}
+   pc.ontrack=event=>{if(peer.current!==pc)return;const incoming=event.streams[0]||new MediaStream([event.track]);audio.srcObject=incoming;playback=ac.createAnalyser();playback.fftSize=256;ac.createMediaStreamSource(incoming).connect(playback);analysers.current.playback=playback;void resumePlayback()}
    pc.onconnectionstatechange=()=>{if(peer.current!==pc)return;if(['disconnected','failed','closed'].includes(pc.connectionState)){const reconnect=pc.connectionState!=='closed';disconnect();if(!outputOnly)pauseDisconnectedSession();if(reconnect){setState('reconnecting');onErrorRef.current(outputOnly?'Feedback audio disconnected. Select Read feedback aloud to retry.':'Voice disconnected and the interview was paused. Select Resume interview to reconnect; old audio will not replay.')}}}
    await pc.setLocalDescription(await pc.createOffer())
    await Promise.race([new Promise<void>(resolve=>{if(pc.iceGatheringState==='complete')resolve();pc.addEventListener('icegatheringstatechange',()=>{if(pc.iceGatheringState==='complete')resolve()})}),new Promise<never>((_,reject)=>setTimeout(()=>reject(new Error('Microphone connection timed out. Continue by typing.')),10000))])
@@ -180,6 +182,6 @@ export function useVoice(session:Session,refresh:()=>Promise<void>,onError:(mess
  useEffect(()=>{if(session.generation_id!==generation.current){stopPlayback();generation.current=session.generation_id}},[session.generation_id])
  useEffect(()=>{stream.current?.getAudioTracks().forEach(t=>t.enabled=!session.paused);if(session.paused){stopPlayback();setState('paused')}},[session.paused])
  useEffect(()=>()=>disconnect(),[])
- return {connected,starting,disconnecting,playbackBlocked,resumePlayback,state,setState,level,playbackLevel,connect,disconnect,disconnectAndPause,stopPlayback,send}
+ return {analysers,connected,starting,disconnecting,playbackBlocked,resumePlayback,state,setState,level,playbackLevel,connect,disconnect,disconnectAndPause,stopPlayback,send}
 }
 

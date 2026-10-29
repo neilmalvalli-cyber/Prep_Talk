@@ -35,7 +35,7 @@ export default function Home({user,settings,onStart,onSettings,onHistory,onOpen,
      <p>{active?`Paused at ${stageLabel(active.stage).toLowerCase()}. Your answers so far are saved.`:'Choose a role, review the experience you want to discuss, and talk it through. Most rounds take 15–25 minutes.'}</p>
      <div className="start-actions">{active?<><LiquidGlass shape="rounded" className="glass-button"><button className="btn btn-light" onClick={()=>openRow(active.id,false)}>Resume interview <ArrowRight size={16}/></button></LiquidGlass><button className="btn btn-line-light" onClick={()=>openRow(active.id,true)}>View progress</button></>:<LiquidGlass shape="rounded" className="glass-button"><button className="btn btn-light" onClick={onStart}>Set up an interview <ArrowRight size={16}/></button></LiquidGlass>}</div>
     </div>
-    <div className="start-art"><Sphere size="medium" idleWaveform/></div>
+    <div className="start-art"><Sphere size="medium"/></div>
    </section>
    <section className="card readiness spot rv rv-d1" aria-labelledby="readiness-title">
     <div className="card-head"><h2 id="readiness-title">System check</h2><button className="link-button" onClick={onSettings}>Settings</button></div>

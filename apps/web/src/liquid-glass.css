@@ -4,15 +4,5 @@
 .liquid-glass-renderer>canvas{display:block;pointer-events:none}
 .liquid-glass-ready{background-color:transparent}
 
-/* The interviewer sphere: clear glass body, petrol liquid, softbox reflection. */
-.liquid-glass.sphere{background:radial-gradient(ellipse at 30% 16%,#fff 0 1%,#ffffffd9 3%,transparent 24%),radial-gradient(ellipse at 72% 82%,#cfe0e69c 0,transparent 39%),linear-gradient(145deg,#eef2f5 0%,#b9ccd6 30%,#7fa3b5 55%,#c4d8e0 78%,#f5f7f9 100%);border:1px solid #ffffffb3;box-shadow:inset 2px 3px 8px #ffffffb3,inset -5px -7px 12px #22475c33,0 22px 40px -22px #0b141880}
-.liquid-glass.sphere.liquid-glass-ready{background:transparent;border:1px solid #e3eef2a6;box-shadow:inset 1px 2px 2px #ffffffc7,inset -2px -3px 5px #a3c9d580,0 22px 40px -22px #0b141880}
-.liquid-glass.sphere .orb-liquid{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;border-radius:50%}
-.liquid-glass.sphere::before{content:'';position:absolute;inset:8% 34% 70% 15%;border-radius:50%;background:radial-gradient(ellipse at 43% 48%,#fff 0%,#ffffffdf 20%,#ffffff91 43%,#ffffff32 62%,transparent 82%);filter:blur(1.2px);opacity:.85;transform:rotate(-30deg) skewX(-16deg);z-index:2;pointer-events:none}
-.liquid-glass.sphere b{position:absolute;inset:3%;border-radius:50%;z-index:3;opacity:.9;background:radial-gradient(circle at 68% 25%,#fff 0 2px,#ffffffc9 3px,transparent 7px),radial-gradient(circle at 56% 31%,#fff 0 1px,transparent 4px);transform:rotate(-29deg);pointer-events:none}
-[data-theme=dark] .liquid-glass.sphere{background:radial-gradient(ellipse at 30% 16%,#ffffffad 0 1%,#ffffff48 3%,transparent 24%),radial-gradient(ellipse at 70% 80%,#a3c9d536 0,transparent 40%),linear-gradient(145deg,#2a3f4b 0%,#132530 30%,#0f1d24 55%,#22414f 80%,#3e6f8e 100%);border-color:#cfe0e680}
-[data-theme=dark] .liquid-glass.sphere.liquid-glass-ready{background:transparent;border-color:#cfe0e6a6;box-shadow:inset 1px 2px 2px #ffffffb3,inset -2px -3px 5px #a3c9d566,0 24px 40px -18px #000c}
-[data-theme=dark] .liquid-glass.sphere::before{inset:10% 42% 75% 17%;background:radial-gradient(ellipse at 43% 48%,#fff 0%,#ffffffef 15%,#ffffffa3 32%,#ffffff30 52%,transparent 70%);opacity:.55;filter:blur(.65px)}
-.sphere-small .liquid-glass.sphere b,.sphere-tiny .liquid-glass.sphere b{display:none}
 @media(prefers-reduced-transparency:reduce){.liquid-glass-renderer{display:none}}
-@media(forced-colors:active){.liquid-glass-renderer{display:none}.liquid-glass{box-shadow:none!important}.liquid-glass.sphere{background:Canvas!important;border:2px solid CanvasText!important}.liquid-glass.sphere::before{display:none}}
+@media(forced-colors:active){.liquid-glass-renderer{display:none}.liquid-glass{box-shadow:none!important}}

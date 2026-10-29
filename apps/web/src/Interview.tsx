@@ -131,14 +131,14 @@ export default function Interview({initial,onExit,onReport}:{initial:Session;onE
    <section className="stage" aria-label="Interview">
     {workspace&&<div className="segmented stage-tabs" role="group" aria-label="Workspace"><button aria-pressed={!showWorkspace} onClick={()=>setTab('conversation')}>Conversation</button><button aria-pressed={showWorkspace} onClick={()=>setTab(workspace)}>{workspaceLabel[workspace]}</button></div>}
     {!showWorkspace?<div className="stage-center view-swap">
-     <Sphere size="large" state={state} level={voice.level} playbackLevel={voice.playbackLevel} idleWaveform={!['paused','error','completed'].includes(state)}/>
+     <Sphere size="large" state={state} level={voice.level} playbackLevel={voice.playbackLevel} analysers={voice.analysers}/>
      <span key={state} className={`live-status status-${state}`} role="status" aria-live="polite">{labels[state]}</span>
      <h1 className="sr-only">Your interview · {stageLabel(session.stage)}</h1>
      <p className={`question ${generating?'is-generating':''}`} aria-live="polite"><Words text={questionText} id={current?.id}/>{generating&&<span className="caret" aria-hidden="true"/>}</p>
      {current?.delivery==='incomplete'&&<p className="hint">Response incomplete. {session.paused?'Resume the interview before retrying. ':''}<button className="link-button" disabled={session.paused} onClick={()=>action('retry')}>Retry</button></p>}
      {controls}
     </div>:<div className="workspace view-swap">
-     <div className="interviewer-strip"><Sphere size="tiny" state={state} level={voice.level} playbackLevel={voice.playbackLevel} idleWaveform={!['paused','error','completed'].includes(state)}/><div><span key={state} className={`live-status status-${state}`}>{labels[state]}</span><p><Words text={current?.text||'Preparing your first question…'} id={current?.id}/></p></div>{controls}</div>
+     <div className="interviewer-strip"><Sphere size="tiny" state={state} level={voice.level} playbackLevel={voice.playbackLevel} analysers={voice.analysers}/><div><span key={state} className={`live-status status-${state}`}>{labels[state]}</span><p><Words text={current?.text||'Preparing your first question…'} id={current?.id}/></p></div>{controls}</div>
      {synthetic&&tab==='exercise'&&<section className="panel panel-in">
       <span className="idx">(Exercise)</span><h2 data-stage-heading tabIndex={-1}>{session.scenario?.title}</h2>
       <p className="hint">A synthetic role exercise. These facts do not describe your own past project.</p>

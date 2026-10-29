@@ -82,7 +82,7 @@ export default function Setup({settings,onSettings,onStart}:{settings:AppSetting
    </section>
   </div>
   <aside className="setup-aside rv rv-d1"><LiquidGlass className="summary-glass"><div className="summary">
-   <div className="summary-head"><Sphere size="small" idleWaveform/><div><span className="idx">(Session)</span><h2>{profile?.title||'Interview'}</h2><p className="muted">{levels.find(([v])=>v===experience)?.[1]} · {duration} min · {language==='python'?'Python':'C++'}</p></div></div>
+   <div className="summary-head"><Sphere size="small"/><div><span className="idx">(Session)</span><h2>{profile?.title||'Interview'}</h2><p className="muted">{levels.find(([v])=>v===experience)?.[1]} · {duration} min · {language==='python'?'Python':'C++'}</p></div></div>
    <dl className="summary-list">
     <div><dt>Provider</dt><dd>{providerShort}</dd></div>
     <div><dt>Interview model</dt><dd translate="no">{config.live_model||'Not selected'}</dd></div>
