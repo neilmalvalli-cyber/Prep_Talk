@@ -326,7 +326,7 @@ pre,.code-out{font-family:var(--mono);font-size:12.5px;line-height:1.6;backgroun
 .sphere-small{width:76px;height:76px}
 .sphere-tiny{width:56px;height:56px}
 /* Glass edge sits at 80% of the radius (FIT=2.5 in orb/engine.ts); the studio light fades out just past it. */
-.orb-canvas{position:absolute;inset:0;width:100%;height:100%;display:block;-webkit-mask-image:radial-gradient(circle closest-side,#000 80.5%,rgba(0,0,0,.35) 84%,transparent 92%);mask-image:radial-gradient(circle closest-side,#000 80.5%,rgba(0,0,0,.35) 84%,transparent 92%);opacity:0;transform:scale(.94);transition:opacity 1.2s var(--ease),transform 1.4s var(--ease)}
+.orb-canvas{position:absolute;inset:0;width:100%;height:100%;display:block;-webkit-mask-image:radial-gradient(circle closest-side,#000 82%,rgba(0,0,0,.35) 85.5%,transparent 93%);mask-image:radial-gradient(circle closest-side,#000 82%,rgba(0,0,0,.35) 85.5%,transparent 93%);opacity:0;transform:scale(.94);transition:opacity 1.2s var(--ease),transform 1.4s var(--ease)}
 .orb-ready .orb-canvas{opacity:1;transform:none}
 /* Shown only while WebGL is unavailable. */
 .orb-failed::before{content:'';width:78%;height:78%;border-radius:50%;background:radial-gradient(circle at 50% 50%,rgba(143,230,255,.35),rgba(143,230,255,.06) 45%,transparent 62%),radial-gradient(circle at 30% 22%,rgba(255,255,255,.5),transparent 30%),#0b0e11;box-shadow:inset 0 0 0 1px rgba(255,255,255,.18)}

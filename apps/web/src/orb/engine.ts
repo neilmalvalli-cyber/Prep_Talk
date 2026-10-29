@@ -159,7 +159,10 @@ function glowTexture(){
  g.fillStyle=gr;g.fillRect(0,0,128,128);return new THREE.CanvasTexture(canvas)
 }
 
-export function createOrb(canvas:HTMLCanvasElement,{density=1}:{density?:number}={}):Orb{
+// View angle in degrees (azimuth around the vertical axis, elevation above the horizon).
+// The default looks up from the lower right so the warm strip and a bright rim
+// outline the glass even on dark surfaces.
+export function createOrb(canvas:HTMLCanvasElement,{density=1,azimuth=145,elevation=-40}:{density?:number;azimuth?:number;elevation?:number}={}):Orb{
  const reduceMotion=matchMedia('(prefers-reduced-motion: reduce)')
  const renderer=new THREE.WebGLRenderer({canvas,antialias:true,powerPreference:'high-performance'})
  renderer.setPixelRatio(Math.min(devicePixelRatio,2))
@@ -168,7 +171,9 @@ export function createOrb(canvas:HTMLCanvasElement,{density=1}:{density?:number}
 
  const scene=new THREE.Scene()
  const camera=new THREE.PerspectiveCamera(35,1,0.1,200)
- camera.position.set(0.06,0.6,14)
+ const az=THREE.MathUtils.degToRad(azimuth),el=THREE.MathUtils.degToRad(elevation)
+ camera.position.set(Math.sin(az)*Math.cos(el),Math.sin(el),Math.cos(az)*Math.cos(el)).multiplyScalar(14)
+ camera.lookAt(0,0,0)
  const pmrem=new THREE.PMREMGenerator(renderer)
  const environment=studioEnvironment(pmrem)
  scene.environment=environment
